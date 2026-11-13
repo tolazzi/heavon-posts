@@ -19,6 +19,6 @@ Também ficaram de fora notícias de operação policial e de política (assunto
 - Legenda: ver caption.txt
 
 ## Publicação
-- Status: aguardando aprovação do usuário (post gerado manualmente, fora do horário da rotina)
-- Link: —
+- Status: publicado em 13/11/2026 por volta das 17:45 (aprovado pelo usuário; fora do horário da rotina)
+- Link: https://www.instagram.com/p/DfsidwZl-Cn/
 - Erros: nenhum
