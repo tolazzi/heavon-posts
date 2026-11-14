@@ -8,7 +8,7 @@
 //     {"type":"cta","title":"...","body":"...","dur":3}
 //   ],
 //   "audio": "tools/audio/arquivo.mp3"   (opcional; sem isso gera uma trilha própria e livre de direitos)
-//   "music": "drive"                      (estilo da trilha própria: drive, phonk ou suave)
+//   "music": "drive"                      (estilo da trilha própria: pulso, grave, drive, phonk ou suave)
 //   "voice": "cadu"                       (opcional; narração com voz neural Piper: cadu, faber ou jeff)
 //   "voiceStyle": {"length":0.82}         (opcional; menor = fala mais rápida)
 // }
@@ -153,7 +153,7 @@ function beat(total, out, style, starts) {
   const wav = path.join(dir, 'audio.wav');
   let audio = reel.audio;
   const starts = []; { let acc = 0; S.forEach(s => { starts.push(acc); acc += s.dur; }); }
-  if (!audio) { beat(total, wav, reel.music || 'drive', starts); audio = wav; }
+  if (!audio) { beat(total, wav, reel.music || 'pulso', starts); audio = wav; }
   if (voices.length) {
     // mistura: cada fala no início da sua cena; a música "abaixa" sozinha quando a voz entra (ducking)
     const mix = path.join(dir, 'mix.wav');

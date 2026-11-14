@@ -2,6 +2,9 @@
 
 Uso: python3 trilha.py <saida.wav> <duracao_s> <estilo> [inicios_das_cenas_separados_por_virgula]
 Estilos:
+  pulso  - (padrão) trilha de tensão/cinema 110 BPM: pulso grave em semicolcheias, cordas escuras, tambores
+           graves e tique de relógio. Séria, urgente, estilo abertura de jornal/documentário de negócios.
+  grave  - hip-hop escuro 88 BPM: bumbo e caixa pesados, sub grave e acordes de piano grave. Sério e firme.
   drive  - eletrônico 126 BPM: bumbo reto, palmas, chimbal, baixo pulsante com "pump", arpejo. Ousado e para frente.
   phonk  - 130 BPM meio-tempo: 808 pesado com glide, caixa seca, chimbal com rolls e melodia de cowbell. Agressivo.
   suave  - batida leve 112 BPM com acordes (estilo antigo).
@@ -188,15 +191,116 @@ def suave(T, starts):
     return y, b
 
 
+def additive(f, n, harm=12, roll=1.0, detune=0.0):
+    """onda "serrilhada" limitada em harmônicos (timbre de corda/sintetizador analógico, sem som de videogame)"""
+    t = t_(n)
+    y = np.zeros(n)
+    for k in range(1, harm + 1):
+        y += np.sin(2 * np.pi * k * f * (1 + detune) * t) / (k ** roll)
+    return y / 2
+
+
+def reverb(x, secs=1.8, wet=0.25):
+    m = int(secs * SR)
+    ir = rng.standard_normal(m) * np.exp(-t_(m) * (6.9 / secs))
+    ir = np.convolve(ir, np.ones(30) / 30, mode="same")  # escurece a cauda
+    L = len(x) + m
+    N = 1 << (L - 1).bit_length()
+    y = np.fft.irfft(np.fft.rfft(x, N) * np.fft.rfft(ir, N), N)[: len(x)]
+    y = y / (np.max(np.abs(y)) + 1e-9) * (np.max(np.abs(x)) + 1e-9)
+    return x * (1 - wet) + y * wet
+
+
+def tom(f=70, dur=0.7):
+    t = t_(int(dur * SR))
+    body = np.sin(2 * np.pi * (f + 40 * np.exp(-t * 25)) * t) * np.exp(-t * 5)
+    return body + 0.25 * lp(rng.standard_normal(len(t)), 1200) * np.exp(-t * 30)
+
+
+def tick():
+    t = t_(int(0.03 * SR))
+    return np.sin(2 * np.pi * 2400 * t) * np.exp(-t * 300) + 0.3 * hp(rng.standard_normal(len(t)), 5000) * np.exp(-t * 250)
+
+
+def pulso(T, starts):
+    bpm = 110
+    b = 60 / bpm
+    n = int(T * SR)
+    perc, pulse, pad = np.zeros(n), np.zeros(n), np.zeros(n)
+    bar = 4 * b
+    prog = [(38, [50, 53, 57]), (34, [50, 53, 58]), (41, [48, 53, 57]), (36, [48, 52, 55])]  # Dm Bb F C (graves)
+    K = kick(0.5, 120, 40, 22, 0.15)
+    for i in range(int(T / bar) + 1):
+        base = i * bar
+        root, chord = prog[i % 4]
+        # pulso grave em semicolcheias, com acento no tempo
+        m = int(b / 4 * 0.9 * SR)
+        tt = t_(m)
+        env = np.exp(-tt * 9)
+        cell = additive(note(root + 12), m, harm=8, roll=1.3) * env
+        for s in range(16):
+            add(pulse, cell * (0.5 if s % 4 == 0 else 0.3), base + s * b / 4)
+        # cordas escuras: acorde inteiro do compasso, ataque lento
+        m = int(bar * SR)
+        tt = t_(m)
+        env = np.minimum(1, tt / 0.6) * np.minimum(1, (bar - tt) / 0.3)
+        for f in chord:
+            for dt in (-0.003, 0.003):
+                add(pad, additive(note(f), m, harm=6, roll=1.6, detune=dt) * env * 0.07, base)
+        add(pad, np.sin(2 * np.pi * note(root) * tt) * env * 0.22, base)  # sub
+        # percussão: bumbo no 1 e 3, tambores graves no 4, tique de relógio em colcheias
+        add(perc, K * 0.85, base)
+        add(perc, K * 0.7, base + 2 * b)
+        add(perc, tom(65) * 0.6, base + 3 * b)
+        add(perc, tom(55) * 0.5, base + 3.5 * b)
+        if i % 2 == 1:
+            add(perc, clap() * 0.35, base + 1 * b)
+            add(perc, clap() * 0.35, base + 3 * b)
+        for e in range(8):
+            add(perc, tick() * (0.10 if e % 2 else 0.06), base + e * b / 2)
+    mix = reverb(perc, 1.2, 0.18) + pulse + reverb(pad, 2.5, 0.35)
+    return mix, b
+
+
+def grave(T, starts):
+    bpm = 88
+    b = 60 / bpm
+    n = int(T * SR)
+    drums, keys = np.zeros(n), np.zeros(n)
+    bar = 4 * b
+    K = kick(0.5, 110, 42, 18, 0.3)
+    prog = [(33, [57, 60, 64]), (29, [57, 60, 65]), (31, [55, 59, 62]), (28, [56, 59, 64])]  # Am F G E
+    for i in range(int(T / bar) + 1):
+        base = i * bar
+        root, chord = prog[i % 4]
+        for pos in (0, 1.75, 2.5):
+            add(drums, K * 0.9, base + pos * b)
+        for pos in (1, 3):
+            add(drums, snare() * 0.6, base + pos * b)
+            add(drums, clap() * 0.35, base + pos * b)
+        for e in range(8):
+            add(drums, hat() * (0.10 if e % 2 else 0.14), base + e * b / 2)
+        m = int(bar * SR)
+        tt = t_(m)
+        add(keys, np.tanh(1.5 * np.sin(2 * np.pi * note(root + 12) * tt)) * np.exp(-tt * 0.9) * 0.35, base)  # sub
+        for hit in (0, 2.5):  # acordes de piano grave
+            mm = int(1.6 * SR)
+            t2 = t_(mm)
+            for f in chord:
+                fr = note(f - 12)
+                add(keys, (np.sin(2 * np.pi * fr * t2) + 0.4 * np.sin(4 * np.pi * fr * t2) + 0.15 * np.sin(6 * np.pi * fr * t2)) * np.exp(-t2 * 2.2) * 0.09, base + hit * b)
+    return drums + reverb(keys, 2.0, 0.3), b
+
+
 def main():
     out, T, style = sys.argv[1], float(sys.argv[2]), sys.argv[3]
     starts = [float(x) for x in sys.argv[4].split(",")] if len(sys.argv) > 4 and sys.argv[4] else []
-    mix, b = {"drive": drive, "phonk": phonk, "suave": suave}[style](T, starts)
+    mix, b = {"pulso": pulso, "grave": grave, "drive": drive, "phonk": phonk, "suave": suave}[style](T, starts)
     n = len(mix)
     if style != "suave":
         for s in starts[1:]:  # transições de cena
             add(mix, whoosh() * 0.6, s - 0.45)
-            add(mix, boom() * 0.55, s)
+            add(mix, reverb(boom(), 2.0, 0.4) * 0.6, s)
     t = np.arange(n) / SR
     fade = np.minimum(1, np.minimum(t / 0.05, (T - t) / 0.8))
     mix = np.tanh(mix * 1.1) * fade
