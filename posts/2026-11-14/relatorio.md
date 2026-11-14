@@ -40,4 +40,8 @@ Descartados: futebol, final do Mundial de LoL, "triplex do Guarujá" (política)
 (custo por aquisição, conversão, ticket médio, recompra, retorno sobre anúncio vs. margem) e CTA.
 **Legenda:** ver carrossel/caption.txt (4 emojis, 9 hashtags)
 
-**Publicação:** pendente (18:00)
+**Publicação:** NÃO publicado.
+**Erro (18:06):** a Meta bloqueou todo acesso à API do app — `API access blocked.` (OAuthException, code 200,
+subcode 5258005). O bloqueio vale para qualquer chamada (até ler o perfil), então não é problema do post.
+Nenhum container foi criado; nada foi publicado pela metade. O carrossel segue pronto em carrossel/ para
+publicar assim que o acesso voltar.
