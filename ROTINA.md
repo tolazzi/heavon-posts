@@ -48,10 +48,12 @@ Pastas do dia: `posts/AAAA-MM-DD/reel/`, `posts/AAAA-MM-DD/carrossel/` e `posts/
    - Gere: `node tools/reel.js posts/AAAA-MM-DD/reel/reel.json` (leva alguns minutos).
    - Confira o vídeo extraindo quadros (`ffmpeg -ss <t> -i reel.mp4 -frames:v 1 x.jpg`) e olhando cada cena:
      texto cortado, sobreposição, erro de digitação.
-   - Narração: use `"voice": "faber"` no reel.json e um campo `"voz"` em cada cena, com o texto falado
-     (frases curtas e naturais, que complementam o texto da tela). Antes de gerar, rode
-     `bash tools/voz/baixar.sh faber` (instala o Piper e baixa a voz se faltar). A duração das cenas se
-     ajusta sozinha à fala. Escreva números e siglas por extenso no campo "voz" (ex.: "vinte por cento").
+   - Narração (padrão): `"voice": "cadu"` no reel.json e um campo `"voz"` em cada cena. Antes de gerar, rode
+     `bash tools/voz/baixar.sh cadu` (instala o Piper e baixa a voz se faltar).
+     Tom: dinâmico e sério, de locutor de negócios. Frases curtas, afirmativas, sem enrolação nem "e aí, pessoal".
+     A fala precisa CABER na cena: no máximo ~3 palavras por segundo de "dur" (cena de 3 s = até 9 palavras).
+     O script acelera a fala até 1,2x para caber; acima disso a cena estica — se esticar, encurte o texto.
+     O vídeo deve ficar entre 15 e 25 s. Escreva números e siglas por extenso no "voz" ("vinte por cento").
    - Áudio: por padrão, batida própria gerada pelo script. Áudios em alta do Instagram NÃO podem ser
      adicionados pela API. Se houver faixas livres de direitos em `tools/audio/`, pode usar uma (campo "audio").
 4. Legenda em `posts/AAAA-MM-DD/reel/caption.txt`: gancho na 1ª linha, corpo curto com quebras de linha,

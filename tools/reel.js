@@ -8,9 +8,10 @@
 //     {"type":"cta","title":"...","body":"...","dur":3}
 //   ],
 //   "audio": "tools/audio/arquivo.mp3"   (opcional; sem isso gera uma batida própria e livre de direitos)
-//   "voice": "faber"                      (opcional; narração com voz neural Piper: faber, cadu ou jeff)
+//   "voice": "cadu"                       (opcional; narração com voz neural Piper: cadu, faber ou jeff)
+//   "voiceStyle": {"length":0.82}         (opcional; menor = fala mais rápida)
 // }
-// Com "voice", cada cena pode ter "voz": "texto falado". A cena dura no mínimo o tempo da fala + 0,7 s,
+// Com "voice", cada cena pode ter "voz": "texto falado". A cena mantém o "dur" planejado e a fala é ajustada a ele,
 // e a música de fundo fica mais baixa para a voz aparecer.
 // Texto fica na área segura (longe do topo e da parte de baixo, onde o Instagram põe botões e legenda).
 const { chromium } = require('playwright');
@@ -132,15 +133,33 @@ w=wave.open(sys.argv[1],'wb');w.setnchannels(1);w.setsampwidth(2);w.setframerate
   S.forEach(s => (s.dur = s.dur || 3));
   const voices = [];
   if (reel.voice) {
+    // Voz: ritmo rápido e firme. Mais variação de entonação (noise) soa menos robótico.
+    // A cena mantém a duração planejada; se a fala não couber, ela é acelerada (até 1,2x)
+    // e só em último caso a cena é estendida.
     const model = path.join(__dirname, 'voz', `pt_BR-${reel.voice}-medium.onnx`);
+    const V = Object.assign({ length: 0.82, noise: 0.75, noiseW: 0.9, gap: 0.08 }, reel.voiceStyle || {});
     S.forEach((s, i) => {
       if (!s.voz) return;
-      const w = path.join(dir, `voz-${i}.wav`);
-      execFileSync('python3', ['-m', 'piper', '-m', model, '--length-scale', String(reel.speed || 0.95), '-f', w], { input: s.voz });
-      const d = parseFloat(execFileSync('ffprobe', ['-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', w]).toString());
-      s.dur = Math.max(s.dur, Math.ceil((d + 0.7) * 10) / 10);
-      voices.push({ w, i });
+      const raw = path.join(dir, `voz-${i}-raw.wav`), w = path.join(dir, `voz-${i}.wav`);
+      execFileSync('python3', ['-m', 'piper', '-m', model, '--length-scale', String(V.length), '--noise-scale', String(V.noise),
+        '--noise-w-scale', String(V.noiseW), '--sentence-silence', String(V.gap), '-f', raw], { input: s.voz });
+      const dur = f => parseFloat(execFileSync('ffprobe', ['-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', f]).toString());
+      // corta silêncio do início/fim para a fala entrar seca, no tempo da cena
+      const trim = 'silenceremove=start_periods=1:start_threshold=-45dB,areverse,silenceremove=start_periods=1:start_threshold=-45dB,areverse';
+      const fit = Math.max(0.6, s.dur - 0.35);
+      execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', raw, '-af', trim, path.join(dir, `voz-${i}-t.wav`)]);
+      const d = dur(path.join(dir, `voz-${i}-t.wav`));
+      const tempo = Math.min(1.2, Math.max(1, d / fit));
+      // voz mais "de locutor": tira grave embolado, dá presença, comprime e põe um ambiente bem leve
+      const fx = `atempo=${tempo.toFixed(3)},highpass=f=90,equalizer=f=200:t=q:w=1:g=-2,equalizer=f=3200:t=q:w=1.2:g=3,` +
+        `acompressor=threshold=-20dB:ratio=3:attack=5:release=60:makeup=3,aecho=0.85:0.4:18|35:0.12|0.07`;
+      execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', path.join(dir, `voz-${i}-t.wav`), '-af', fx, '-ar', '44100', w]);
+      const d2 = dur(w);
+      if (d2 > fit) s.dur = Math.ceil((d2 + 0.35) * 10) / 10;
+      for (const f of [raw, path.join(dir, `voz-${i}-t.wav`)]) fs.unlinkSync(f);
+      voices.push({ w, i, d: d2, tempo });
     });
+    console.log('voz:', voices.map(v => `cena ${v.i + 1} ${v.d.toFixed(1)}s/${S[v.i].dur}s x${v.tempo.toFixed(2)}`).join(' | '));
   }
   const total = S.reduce((a, s) => a + s.dur, 0);
   const html = `<!doctype html><html><head><meta charset="utf-8"><style>${CSS}</style></head><body><div id="stage"><div class="grid"></div><div class="glow" style="left:-200px;top:300px"></div>
@@ -162,7 +181,7 @@ w=wave.open(sys.argv[1],'wb');w.setnchannels(1);w.setsampwidth(2);w.setframerate
     const args = ['-y', '-loglevel', 'error', '-i', audio];
     voices.forEach(v => args.push('-i', v.w));
     const f = [`[0:a]volume=0.28,atrim=0:${total}[m]`];
-    voices.forEach((v, k) => { const ms = Math.round((starts[v.i] + 0.2) * 1000); f.push(`[${k + 1}:a]aresample=44100,volume=1.6,adelay=${ms}|${ms}[v${k}]`); });
+    voices.forEach((v, k) => { const ms = Math.round((starts[v.i] + 0.12) * 1000); f.push(`[${k + 1}:a]aresample=44100,volume=1.6,adelay=${ms}|${ms}[v${k}]`); });
     f.push(`[m]${voices.map((_, k) => `[v${k}]`).join('')}amix=inputs=${voices.length + 1}:duration=first:normalize=0,alimiter=limit=0.95[out]`);
     execFileSync('ffmpeg', [...args, '-filter_complex', f.join(';'), '-map', '[out]', '-ar', '44100', mix]);
     audio = mix;
