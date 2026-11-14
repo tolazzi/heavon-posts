@@ -1,8 +1,10 @@
 """Publica um carrossel (ou imagem única) no Instagram @agencia.heavon pela Graph API.
 
-Uso: python3 publish.py <pasta_do_post> <url_base_publica_das_imagens>
-  - a pasta precisa ter caption.txt e slide-1.jpg ... slide-N.jpg
-  - as imagens já precisam estar acessíveis em <url_base>/slide-N.jpg
+Uso: python3 publish.py <pasta_do_post> <url_base_publica> [--dry-run]
+  - carrossel: a pasta tem caption.txt e slide-1.jpg ... slide-N.jpg
+  - reels: a pasta tem caption.txt, reel.mp4 e (opcional) cover.jpg
+  - os arquivos já precisam estar acessíveis em <url_base>/<arquivo>
+  - --dry-run: cria e valida os containers na Meta, mas NÃO publica
 O token é injetado pelo proxy da sessão (nenhuma chave neste arquivo).
 Sai com código != 0 e não publica nada se qualquer etapa falhar.
 """
@@ -23,8 +25,8 @@ def call(method, path, **params):
         raise RuntimeError(f"{method} {path}: {e.code} {e.read().decode()[:500]}")
 
 
-def wait_ready(cid):
-    for _ in range(30):
+def wait_ready(cid, tries=30):
+    for _ in range(tries):
         st = call("GET", cid, fields="status_code,status").get("status_code")
         if st == "FINISHED":
             return
@@ -34,8 +36,16 @@ def wait_ready(cid):
     raise RuntimeError(f"container {cid} não ficou pronto a tempo")
 
 
-def main(folder, base):
+def main(folder, base, dry=False):
     caption = open(os.path.join(folder, "caption.txt"), encoding="utf-8").read().strip()
+    base = base.rstrip("/")
+    if os.path.exists(os.path.join(folder, "reel.mp4")):
+        p = dict(media_type="REELS", video_url=f"{base}/reel.mp4", caption=caption, share_to_feed="true")
+        if os.path.exists(os.path.join(folder, "cover.jpg")):
+            p["cover_url"] = f"{base}/cover.jpg"
+        cid = call("POST", f"{IG}/media", **p)["id"]
+        wait_ready(cid, tries=60)  # vídeo pode levar alguns minutos
+        return finish(cid, dry)
     slides = sorted(glob.glob(os.path.join(folder, "slide-*.jpg")), key=lambda p: int(p.rsplit("-", 1)[1].split(".")[0]))
     if not slides:
         raise RuntimeError("nenhum slide encontrado")
@@ -48,6 +58,13 @@ def main(folder, base):
             wait_ready(c)
         cid = call("POST", f"{IG}/media", media_type="CAROUSEL", children=",".join(children), caption=caption)["id"]
     wait_ready(cid)
+    return finish(cid, dry)
+
+
+def finish(cid, dry):
+    if dry:
+        print(json.dumps({"dry_run": True, "container": cid, "status": "FINISHED"}))
+        return
     media_id = call("POST", f"{IG}/media_publish", creation_id=cid)["id"]
     link = call("GET", media_id, fields="permalink").get("permalink")
     print(json.dumps({"media_id": media_id, "permalink": link}))
@@ -55,7 +72,7 @@ def main(folder, base):
 
 if __name__ == "__main__":
     try:
-        main(sys.argv[1], sys.argv[2])
+        main(sys.argv[1], sys.argv[2], "--dry-run" in sys.argv)
     except Exception as e:
         print(json.dumps({"error": str(e)}))
         sys.exit(1)
