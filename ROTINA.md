@@ -33,6 +33,8 @@ Pastas do dia: `posts/AAAA-MM-DD/reel/`, `posts/AAAA-MM-DD/carrossel/` e `posts/
 - Erro 190 da Graph API = token expirado/inválido: avise que é preciso gerar um token novo.
 
 ## 05:00 — Reels: pesquisa de virais + criação
+0. Se `posts/AAAA-MM-DD/reel/` já tiver `reel.mp4` e `caption.txt` aprovados pelo usuário (veja o relatório do dia),
+   NÃO crie outro: só confirme que está no GitHub e encerre esta etapa.
 1. Pesquise os vídeos virais do nicho (marketing digital, tráfego pago, e-commerce, empreendedorismo, vendas):
    - WebSearch (modo extended): Reels/TikToks virais da semana sobre marketing e negócios, formatos de Reels
      em alta, trends e memes do momento, datas comemorativas de hoje.
@@ -54,7 +56,9 @@ Pastas do dia: `posts/AAAA-MM-DD/reel/`, `posts/AAAA-MM-DD/carrossel/` e `posts/
      A fala precisa CABER na cena: no máximo ~3 palavras por segundo de "dur" (cena de 3 s = até 9 palavras).
      O script acelera a fala até 1,2x para caber; acima disso a cena estica — se esticar, encurte o texto.
      O vídeo deve ficar entre 15 e 25 s. Escreva números e siglas por extenso no "voz" ("vinte por cento").
-   - Trilha: própria, gerada por `tools/trilha.py` (campo "music": "pulso" padrão — tensão/cinema; "grave" — hip-hop escuro). Ela abaixa sozinha quando a voz entra e marca cada troca de cena com whoosh + impacto. Áudios em alta do Instagram NÃO podem ser
+   - Trilha: própria, gerada por `tools/trilha.py` (campo "music"). Use só as trilhas sérias aprovadas: "pulso" (tensão/cinema) para alertas, erros, opiniões fortes
+     e urgência; "grave" (hip-hop escuro) para dicas, bastidores e conteúdo mais reflexivo. Alterne entre elas ao longo
+     da semana. NÃO use "drive", "phonk" nem "suave" (reprovadas pelo usuário por soarem infantis). Ela abaixa sozinha quando a voz entra e marca cada troca de cena com whoosh + impacto. Áudios em alta do Instagram NÃO podem ser
      adicionados pela API. Se houver faixas livres de direitos em `tools/audio/`, pode usar uma (campo "audio").
 4. Legenda em `posts/AAAA-MM-DD/reel/caption.txt`: gancho na 1ª linha, corpo curto com quebras de linha,
    CTA no fim, de 3 a 5 emojis, de 5 a 10 hashtags (grandes, médias e de nicho).
