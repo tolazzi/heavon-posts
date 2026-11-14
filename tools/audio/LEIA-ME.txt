@@ -1,0 +1,2 @@
+Coloque aqui faixas de música livres de direitos (mp3/wav) para usar nos Reels.
+Sem faixa, o tools/reel.js gera uma batida própria.
