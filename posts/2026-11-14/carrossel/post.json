@@ -1,0 +1,9 @@
+{"slides":[
+{"type":"hook","kicker":"Telemetria do seu negócio","title":"Na F1 ninguém decide **no achismo**. E você?","sub":"5 números que todo negócio deveria olhar toda semana."},
+{"type":"content","n":"01","title":"Custo por aquisição","body":"Quanto custa conquistar **um cliente**.\nSem esse número, você não sabe se o anúncio dá lucro ou prejuízo."},
+{"type":"content","n":"02","title":"Taxa de conversão","body":"De cada 100 visitas, quantas **compram ou chamam**?\nMuito tráfego com pouca conversão é dinheiro vazando."},
+{"type":"content","n":"03","title":"Ticket médio","body":"Quanto cada cliente gasta por compra.\nAumentar o ticket pode render mais do que **buscar cliente novo**."},
+{"type":"content","n":"04","title":"Taxa de recompra","body":"Quantos clientes **voltam a comprar**.\nQuem já comprou conhece a marca e costuma ser mais barato de reconquistar."},
+{"type":"content","n":"05","title":"Retorno sobre anúncio","body":"Quanto cada real investido volta em vendas.\nCompare com **a margem**, não só com o faturamento."},
+{"type":"cta","title":"Dado bom é o que vira **decisão**.","body":"Salve este post e marque quem precisa parar de decidir no achismo.","actions":["Salve","Marque alguém","Comente"]}
+]}
