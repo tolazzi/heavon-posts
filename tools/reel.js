@@ -7,7 +7,8 @@
 //     {"type":"versus","left":"Errado","right":"Certo","leftBody":"...","rightBody":"...","dur":4},
 //     {"type":"cta","title":"...","body":"...","dur":3}
 //   ],
-//   "audio": "tools/audio/arquivo.mp3"   (opcional; sem isso gera uma batida própria e livre de direitos)
+//   "audio": "tools/audio/arquivo.mp3"   (opcional; sem isso gera uma trilha própria e livre de direitos)
+//   "music": "drive"                      (estilo da trilha própria: drive, phonk ou suave)
 //   "voice": "cadu"                       (opcional; narração com voz neural Piper: cadu, faber ou jeff)
 //   "voiceStyle": {"length":0.82}         (opcional; menor = fala mais rápida)
 // }
@@ -98,31 +99,9 @@ window.render=function(t){
   });
 };`;
 
-function beat(total, out) {
-  // batida própria (sem direitos de terceiros): kick + hi-hat + acorde suave, 112 BPM
-  const py = `
-import numpy as np,wave,sys
-sr=44100;T=${total.toFixed(3)};n=int(sr*T);t=np.arange(n)/sr;bpm=112;b=60/bpm
-y=np.zeros(n)
-for k in range(int(T/b)+1):
-  s=int(k*b*sr);L=min(int(.35*sr),n-s)
-  if L<=0: continue
-  tt=np.arange(L)/sr
-  y[s:s+L]+=0.9*np.sin(2*np.pi*(55+90*np.exp(-tt*28))*tt)*np.exp(-tt*9)
-  h=int((k+.5)*b*sr);Lh=min(int(.05*sr),n-h)
-  if Lh>0: y[h:h+Lh]+=0.12*np.random.default_rng(k).standard_normal(Lh)*np.exp(-np.arange(Lh)/sr*90)
-chords=[[220,261.63,329.63],[174.61,220,261.63],[196,246.94,293.66],[164.81,207.65,246.94]]
-bar=4*b
-for i in range(int(T/bar)+1):
-  s=int(i*bar*sr);L=min(int(bar*sr),n-s)
-  if L<=0: continue
-  tt=np.arange(L)/sr;env=np.minimum(1,tt/.4)*np.minimum(1,(bar-tt)/.4)
-  for f in chords[i%4]: y[s:s+L]+=0.06*np.sin(2*np.pi*f*tt)*env
-fade=np.minimum(1,np.minimum(t/0.5,(T-t)/1.0))
-y=np.tanh(y*1.2)*fade*0.7
-w=wave.open(sys.argv[1],'wb');w.setnchannels(1);w.setsampwidth(2);w.setframerate(sr);w.writeframes((y*32767).astype(np.int16).tobytes());w.close()
-`;
-  execFileSync('python3', ['-c', py, out]);
+function beat(total, out, style, starts) {
+  // trilha própria, sem direitos de terceiros (ver tools/trilha.py)
+  execFileSync('python3', [path.join(__dirname, 'trilha.py'), out, total.toFixed(3), style, starts.join(',')]);
 }
 
 (async () => {
@@ -173,16 +152,18 @@ w=wave.open(sys.argv[1],'wb');w.setnchannels(1);w.setsampwidth(2);w.setframerate
 
   const wav = path.join(dir, 'audio.wav');
   let audio = reel.audio;
-  if (!audio) { beat(total, wav); audio = wav; }
+  const starts = []; { let acc = 0; S.forEach(s => { starts.push(acc); acc += s.dur; }); }
+  if (!audio) { beat(total, wav, reel.music || 'drive', starts); audio = wav; }
   if (voices.length) {
-    // mistura: música baixa + cada fala no início da sua cena (+0,2 s)
-    const starts = []; let acc = 0; S.forEach(s => { starts.push(acc); acc += s.dur; });
+    // mistura: cada fala no início da sua cena; a música "abaixa" sozinha quando a voz entra (ducking)
     const mix = path.join(dir, 'mix.wav');
     const args = ['-y', '-loglevel', 'error', '-i', audio];
     voices.forEach(v => args.push('-i', v.w));
-    const f = [`[0:a]volume=0.28,atrim=0:${total}[m]`];
+    const f = [`[0:a]volume=0.6,atrim=0:${total}[m]`];
     voices.forEach((v, k) => { const ms = Math.round((starts[v.i] + 0.12) * 1000); f.push(`[${k + 1}:a]aresample=44100,volume=1.6,adelay=${ms}|${ms}[v${k}]`); });
-    f.push(`[m]${voices.map((_, k) => `[v${k}]`).join('')}amix=inputs=${voices.length + 1}:duration=first:normalize=0,alimiter=limit=0.95[out]`);
+    f.push(`${voices.map((_, k) => `[v${k}]`).join('')}amix=inputs=${voices.length}:normalize=0,apad,atrim=0:${total},asplit[vk][vo]`);
+    f.push(`[m][vk]sidechaincompress=threshold=0.02:ratio=8:attack=15:release=300[md]`);
+    f.push(`[md][vo]amix=inputs=2:duration=first:normalize=0,alimiter=limit=0.95[out]`);
     execFileSync('ffmpeg', [...args, '-filter_complex', f.join(';'), '-map', '[out]', '-ar', '44100', mix]);
     audio = mix;
   }

@@ -54,7 +54,7 @@ Pastas do dia: `posts/AAAA-MM-DD/reel/`, `posts/AAAA-MM-DD/carrossel/` e `posts/
      A fala precisa CABER na cena: no máximo ~3 palavras por segundo de "dur" (cena de 3 s = até 9 palavras).
      O script acelera a fala até 1,2x para caber; acima disso a cena estica — se esticar, encurte o texto.
      O vídeo deve ficar entre 15 e 25 s. Escreva números e siglas por extenso no "voz" ("vinte por cento").
-   - Áudio: por padrão, batida própria gerada pelo script. Áudios em alta do Instagram NÃO podem ser
+   - Trilha: própria, gerada por `tools/trilha.py` (campo "music": "drive" padrão, "phonk" ou "suave"). Ela abaixa sozinha quando a voz entra e marca cada troca de cena com whoosh + impacto. Áudios em alta do Instagram NÃO podem ser
      adicionados pela API. Se houver faixas livres de direitos em `tools/audio/`, pode usar uma (campo "audio").
 4. Legenda em `posts/AAAA-MM-DD/reel/caption.txt`: gancho na 1ª linha, corpo curto com quebras de linha,
    CTA no fim, de 3 a 5 emojis, de 5 a 10 hashtags (grandes, médias e de nicho).
