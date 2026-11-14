@@ -8,7 +8,10 @@
 //     {"type":"cta","title":"...","body":"...","dur":3}
 //   ],
 //   "audio": "tools/audio/arquivo.mp3"   (opcional; sem isso gera uma batida própria e livre de direitos)
+//   "voice": "faber"                      (opcional; narração com voz neural Piper: faber, cadu ou jeff)
 // }
+// Com "voice", cada cena pode ter "voz": "texto falado". A cena dura no mínimo o tempo da fala + 0,7 s,
+// e a música de fundo fica mais baixa para a voz aparecer.
 // Texto fica na área segura (longe do topo e da parte de baixo, onde o Instagram põe botões e legenda).
 const { chromium } = require('playwright');
 const fs = require('fs');
@@ -126,8 +129,20 @@ w=wave.open(sys.argv[1],'wb');w.setnchannels(1);w.setsampwidth(2);w.setframerate
   const reel = JSON.parse(fs.readFileSync(file, 'utf8'));
   const dir = path.dirname(file);
   const S = reel.scenes;
-  const total = S.reduce((a, s) => a + (s.dur || 3), 0);
   S.forEach(s => (s.dur = s.dur || 3));
+  const voices = [];
+  if (reel.voice) {
+    const model = path.join(__dirname, 'voz', `pt_BR-${reel.voice}-medium.onnx`);
+    S.forEach((s, i) => {
+      if (!s.voz) return;
+      const w = path.join(dir, `voz-${i}.wav`);
+      execFileSync('python3', ['-m', 'piper', '-m', model, '--length-scale', String(reel.speed || 0.95), '-f', w], { input: s.voz });
+      const d = parseFloat(execFileSync('ffprobe', ['-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', w]).toString());
+      s.dur = Math.max(s.dur, Math.ceil((d + 0.7) * 10) / 10);
+      voices.push({ w, i });
+    });
+  }
+  const total = S.reduce((a, s) => a + s.dur, 0);
   const html = `<!doctype html><html><head><meta charset="utf-8"><style>${CSS}</style></head><body><div id="stage"><div class="grid"></div><div class="glow" style="left:-200px;top:300px"></div>
     <div class="brand">HEAV<i>O</i>N</div>${S.map(sceneHTML).join('')}<div class="handle">@agencia.heavon</div><div class="prog"><b></b></div></div>
     <script>window.SC=${JSON.stringify(S.map(s => ({ dur: s.dur })))};window.TOTAL=${total};${ANIM}</script></body></html>`;
@@ -140,6 +155,18 @@ w=wave.open(sys.argv[1],'wb');w.setnchannels(1);w.setsampwidth(2);w.setframerate
   const wav = path.join(dir, 'audio.wav');
   let audio = reel.audio;
   if (!audio) { beat(total, wav); audio = wav; }
+  if (voices.length) {
+    // mistura: música baixa + cada fala no início da sua cena (+0,2 s)
+    const starts = []; let acc = 0; S.forEach(s => { starts.push(acc); acc += s.dur; });
+    const mix = path.join(dir, 'mix.wav');
+    const args = ['-y', '-loglevel', 'error', '-i', audio];
+    voices.forEach(v => args.push('-i', v.w));
+    const f = [`[0:a]volume=0.28,atrim=0:${total}[m]`];
+    voices.forEach((v, k) => { const ms = Math.round((starts[v.i] + 0.2) * 1000); f.push(`[${k + 1}:a]aresample=44100,volume=1.6,adelay=${ms}|${ms}[v${k}]`); });
+    f.push(`[m]${voices.map((_, k) => `[v${k}]`).join('')}amix=inputs=${voices.length + 1}:duration=first:normalize=0,alimiter=limit=0.95[out]`);
+    execFileSync('ffmpeg', [...args, '-filter_complex', f.join(';'), '-map', '[out]', '-ar', '44100', mix]);
+    audio = mix;
+  }
   const outMp4 = path.join(dir, 'reel.mp4');
   const ff = spawn('ffmpeg', ['-y', '-loglevel', 'error', '-f', 'image2pipe', '-framerate', String(FPS), '-i', '-', '-i', audio,
     '-c:v', 'libx264', '-preset', 'medium', '-crf', '20', '-pix_fmt', 'yuv420p', '-profile:v', 'high', '-r', String(FPS),
@@ -155,6 +182,6 @@ w=wave.open(sys.argv[1],'wb');w.setnchannels(1);w.setsampwidth(2);w.setframerate
   ff.stdin.end();
   await new Promise((res, rej) => ff.on('close', c => (c === 0 ? res() : rej(new Error('ffmpeg ' + c)))));
   await browser.close();
-  if (fs.existsSync(wav)) fs.unlinkSync(wav);
+  for (const f of [wav, path.join(dir, 'mix.wav'), ...voices.map(v => v.w)]) if (fs.existsSync(f)) fs.unlinkSync(f);
   console.log(outMp4, `${total}s`, `${frames} frames`);
 })();
