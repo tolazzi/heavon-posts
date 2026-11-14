@@ -18,4 +18,6 @@ usuário em 13/11 (gerado na conversa; a pesquisa das 05:00 deve pular a criaç�
 
 **Legenda:** ver reel/caption.txt
 
-**Publicação:** pendente (09:00)
+**Publicação:** publicado em 14/11/2026 às 09:01 (rotina automática)
+**Link:** https://www.instagram.com/reel/DfuKI4qB_Wm/
+**Erros:** nenhum
