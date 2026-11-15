@@ -27,3 +27,23 @@ Se continuar assim às 09:00, a publicação vai falhar e nada será publicado.
 **Publicação:** NÃO publicado.
 **Erro (09:04):** API da Meta continua bloqueada — `API access blocked.` (code 200, subcode 5258005).
 Nenhum container criado; nada publicado pela metade. O Reels segue pronto em reel/.
+
+## Carrossel (18:00)
+
+**Tendência escolhida:** lançamento do ChatGPT Wallet — a OpenAI permite que o ChatGPT faça compras e pagamentos
+pelo usuário (G1, CNN Brasil, Exame, Meio & Mensagem, últimas 72h), somado ao teste da UOL em que IAs indicaram
+lojas falsas.
+**Por quê:** notícia grande e recente que afeta diretamente e-commerces (público e serviço da Heavon); permite
+um checklist prático. Tema diferente do Reels de hoje (newsjacking) e dos posts anteriores.
+Sem afirmações sobre como a IA escolhe lojas — os ajustes são boas práticas que valem para qualquer comprador.
+
+**Alternativas:**
+1. "No varejo, a IA pode conhecer o produto e desconhecer a marca" (ClienteSA) — branding na era da IA.
+2. "IA na Black Friday: aliada ou armadilha?" (Consumidor Moderno) — repetiria Black Friday (13/11).
+
+Descartados: futebol, celebridades, programação de TV, anime e cinema (fora do nicho).
+
+**Formato:** 7 slides — gancho "A IA já faz compras. Sua loja aparece?" (8 palavras), contexto, 4 ajustes, CTA.
+**Legenda:** ver carrossel/caption.txt (3 emojis, 8 hashtags)
+
+**Publicação:** pendente (18:00). API da Meta bloqueada desde 14/11 — se seguir assim, não será publicado.
