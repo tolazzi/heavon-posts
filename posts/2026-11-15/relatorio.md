@@ -46,4 +46,6 @@ Descartados: futebol, celebridades, programação de TV, anime e cinema (fora do
 **Formato:** 7 slides — gancho "A IA já faz compras. Sua loja aparece?" (8 palavras), contexto, 4 ajustes, CTA.
 **Legenda:** ver carrossel/caption.txt (3 emojis, 8 hashtags)
 
-**Publicação:** pendente (18:00). API da Meta bloqueada desde 14/11 — se seguir assim, não será publicado.
+**Publicação:** NÃO publicado.
+**Erro (18:10):** API da Meta continua bloqueada — `API access blocked.` (code 200, subcode 5258005).
+Nenhum container criado; nada publicado pela metade. O carrossel segue pronto em carrossel/.
