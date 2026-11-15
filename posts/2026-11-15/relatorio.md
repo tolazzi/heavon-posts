@@ -24,4 +24,6 @@ quebrava sozinho de linha (ajuste no tools/reel.js).
 **Atenção:** a API da Meta está bloqueada desde 14/11 às 18:06 (`API access blocked`, subcode 5258005).
 Se continuar assim às 09:00, a publicação vai falhar e nada será publicado.
 
-**Publicação:** pendente (09:00)
+**Publicação:** NÃO publicado.
+**Erro (09:04):** API da Meta continua bloqueada — `API access blocked.` (code 200, subcode 5258005).
+Nenhum container criado; nada publicado pela metade. O Reels segue pronto em reel/.
