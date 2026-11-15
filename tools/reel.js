@@ -32,6 +32,8 @@ function words(s) {
     txt.split(/(\s+|\n)/).forEach(w => {
       if (w === '\n') out.push('<br>');
       else if (/^\s+$/.test(w)) out.push(' ');
+      else if (w && /^[.,!?;:…]+$/.test(w) && out.length && out[out.length - 1].endsWith('</span>'))
+        out[out.length - 1] = out[out.length - 1].replace(/<\/span>$/, `${esc(w)}</span>`); // pontuação gruda na palavra anterior
       else if (w) out.push(`<span class="w${hl ? ' hl' : ''}">${esc(w)}</span>`);
     });
   });
