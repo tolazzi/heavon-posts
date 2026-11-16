@@ -1,3 +1,4 @@
 *.onnx
 *.bin
 whisper/
+heavon_ref.wav

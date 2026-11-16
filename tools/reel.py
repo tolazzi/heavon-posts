@@ -5,7 +5,8 @@ Antes (uma vez por máquina): bash tools/setup_reel.sh
 
 reel.json:
 {
-  "voice": "pm_alex",          # voz Kokoro pt-BR: pm_alex (padrão), pm_santa, pf_dora
+  "voice": "heavon",           # "heavon" = voz clonada do usuário (padrão desde 16/11); ou Kokoro: pm_alex, pm_santa, pf_dora
+  (cada cena pode ter "voz_pron": texto só para a pronúncia, ex. "chat gê pê tê"; a legenda usa a fala reconhecida)
   "speed": 1.12,               # velocidade da fala (1.0 = normal)
   "music": 676,                # id da faixa em tools/audio/faixas.txt (padrão: escolhe pelo "mood")
   "mood": "tensao",            # tensao | grave | energia (usado se "music" não for dado)
@@ -100,13 +101,32 @@ def main(cfg_path):
     d = os.path.dirname(cfg_path)
     from kokoro_onnx import Kokoro
     k = Kokoro(os.path.join(VOZ, "kokoro-v1.0.onnx"), os.path.join(VOZ, "voices-v1.0.bin"))
-    voice, speed = cfg.get("voice", "pm_alex"), cfg.get("speed", 1.12)
+    voice, speed = cfg.get("voice", "heavon"), cfg.get("speed", 1.12)
 
     # 1) narração por cena; a cena dura o tempo da fala + respiro
+    clips = []
+    if voice == "heavon":  # voz clonada do usuário (autorizada), gerada no ambiente da clonagem
+        ref = os.path.join(VOZ, "heavon_ref.wav")
+        if not os.path.exists(ref):
+            raise RuntimeError("referência da voz Heavon ausente (tools/voz/heavon_ref.wav)")
+        tmpd = os.path.join(d, "_clone")
+        tj = os.path.join(d, "_textos.json")
+        json.dump([s.get("voz_pron", s["voz"]) for s in cfg["scenes"]], open(tj, "w", encoding="utf-8"), ensure_ascii=False)
+        run("/home/user/venv-voz/bin/python", os.path.join(HERE, "voz_clone.py"), tj, ref, tmpd,
+            env=dict(os.environ, HF_HUB_DISABLE_XET="1"))
+        for i in range(len(cfg["scenes"])):
+            a, sr = sf.read(os.path.join(tmpd, f"{i}.wav"), dtype="float32")
+            clips.append((a, sr))
+        import shutil
+        shutil.rmtree(tmpd); os.remove(tj)
+    else:
+        for s in cfg["scenes"]:
+            a, sr = k.create(s.get("voz_pron", s["voz"]), voice=voice, speed=speed, lang="pt-br")
+            clips.append((np.asarray(a), sr))
     narr, scenes, t = [], [], 0.25
     for i, s in enumerate(cfg["scenes"]):
-        a, sr = k.create(s["voz"], voice=voice, speed=speed, lang="pt-br")
-        a = trim(to_sr(np.asarray(a), sr))
+        a, sr = clips[i]
+        a = trim(to_sr(a, sr))
         gap = 0.9 if s["type"] == "cta" else 0.28
         dur = len(a) / SR + gap
         if i == 0:
