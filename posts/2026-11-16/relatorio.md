@@ -22,4 +22,6 @@ Descartados: religião, reality show, esportes e um caso de racismo (sensível).
 
 **Atenção:** API da Meta bloqueada desde 14/11 (`API access blocked`, subcode 5258005). Às 05:02 seguia bloqueada.
 
-**Publicação:** pendente (09:00)
+**Publicação:** NÃO publicado.
+**Erro (09:05):** API da Meta continua bloqueada — `API access blocked.` (code 200, subcode 5258005).
+Nenhum container criado; nada publicado pela metade. O Reels segue pronto em reel/.
