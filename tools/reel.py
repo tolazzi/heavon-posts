@@ -13,9 +13,14 @@ reel.json:
     {"type":"hook","kicker":"Opinião impopular","title":"Texto com **destaque**","voz":"texto falado"},
     {"type":"point","n":"01","title":"...","voz":"..."},
     {"type":"versus","title":"...","left":"Antes","leftBody":"...","right":"Depois","rightBody":"...","voz":"..."},
+    {"type":"noticia","source":"G1","date":"14/11","headline":"Manchete da notícia (até ~16 palavras)","voz":"..."},
+    {"type":"dado","value":"66%","label":"do tráfego dos grandes e-commerces","source":"E-Commerce Brasil","voz":"..."},
+    {"type":"lista","title":"...","items":["item 1","item 2","item 3"],"voz":"..."},
     {"type":"cta","title":"...","actions":["Comente","Salve","Siga"],"voz":"..."}
   ]
 }
+Toda cena aceita "broll": <id de vídeo da Mixkit> (vídeo de banco gratuito, licença comercial) usado de fundo,
+e "source": texto de fonte exibido no rodapé da cena (ex.: "Fonte: G1, 14/11/2026").
 A duração de cada cena vem da fala (sem acelerar o áudio). Gera reel.mp4 e cover.jpg na mesma pasta.
 """
 import json, os, re, subprocess, sys, random
@@ -74,6 +79,20 @@ def music_segment(path, total):
     t = np.arange(n) / SR
     seg = seg * np.minimum(1, t / 0.25) * np.minimum(1, (total - t) / 1.2)
     return seg
+
+
+def broll_file(bid):
+    """baixa (uma vez) o vídeo de banco da Mixkit; os arquivos não são versionados"""
+    os.makedirs(os.path.join(AUD, "..", "broll"), exist_ok=True)
+    f = os.path.join(HERE, "broll", f"mixkit-{bid}.mp4")
+    if not os.path.exists(f):
+        for q in ("1080", "720"):
+            r = subprocess.run(["curl", "-sSfL", "-o", f, f"https://assets.mixkit.co/videos/{bid}/{bid}-{q}.mp4"])
+            if r.returncode == 0:
+                break
+        else:
+            raise RuntimeError(f"vídeo de banco {bid} indisponível")
+    return f
 
 
 def main(cfg_path):
@@ -145,13 +164,39 @@ def main(cfg_path):
         "[md][v2]amix=inputs=2:duration=first:normalize=0,loudnorm=I=-14:TP=-1.5:LRA=9[o]",
         "-map", "[o]", "-ar", str(SR), mix)
 
-    # 6) vídeo
+    # 6) fundo com imagens reais (vídeos de banco da Mixkit), tratados com a cor da marca
+    frames_dir = os.path.join(d, "_frames")
+    os.makedirs(frames_dir, exist_ok=True)
+    parts = []
+    for i, s in enumerate(scenes):
+        dur = s["end"] - s["start"]
+        bid = s.get("broll")
+        part = os.path.join(d, f"_bg{i}.mp4")
+        if bid:
+            src = broll_file(bid)
+            run("ffmpeg", "-y", "-loglevel", "error", "-stream_loop", "-1", "-ss", "0.5", "-i", src, "-t", f"{dur:.3f}",
+                "-vf", "scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,fps=30,"
+                "eq=saturation=0.7:brightness=-0.04:contrast=1.05,colorbalance=rs=0.08:bs=-0.06",
+                "-an", "-c:v", "libx264", "-preset", "veryfast", "-crf", "16", "-pix_fmt", "yuv420p", part)
+        else:
+            run("ffmpeg", "-y", "-loglevel", "error", "-f", "lavfi", "-i", f"color=c=0x050505:s=1080x1920:r=30:d={dur:.3f}",
+                "-c:v", "libx264", "-preset", "veryfast", "-pix_fmt", "yuv420p", part)
+        parts.append(part)
+    lst = os.path.join(d, "_bg.txt")
+    open(lst, "w").write("".join(f"file '{os.path.abspath(p_)}'\n" for p_ in parts))
+    bg = os.path.join(d, "_bg.mp4")
+    run("ffmpeg", "-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", lst, "-c", "copy", bg)
+    run("ffmpeg", "-y", "-loglevel", "error", "-i", bg, "-vf", "fps=30", "-q:v", "3", os.path.join(frames_dir, "%05d.jpg"))
+
+    # 7) vídeo
     tl = os.path.join(d, "_timeline.json")
-    json.dump(dict(total=total, scenes=scenes, words=words), open(tl, "w", encoding="utf-8"), ensure_ascii=False)
+    json.dump(dict(total=total, scenes=scenes, words=words, frames=os.path.abspath(frames_dir)), open(tl, "w", encoding="utf-8"), ensure_ascii=False)
     out = run("node", os.path.join(HERE, "reel_render.js"), tl, mix, os.path.join(d, "reel.mp4"), os.path.join(d, "cover.jpg"))
     print(out.stdout.decode().strip(), f"| voz {voice} x{speed} | trilha {mid} | {len(words)} palavras na legenda")
-    for f in (vt, vp, mp, mix, tl):
+    import shutil
+    for f in (vt, vp, mp, mix, tl, lst, bg, *parts):
         os.remove(f)
+    shutil.rmtree(frames_dir)
 
 
 if __name__ == "__main__":

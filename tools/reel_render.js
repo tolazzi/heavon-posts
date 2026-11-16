@@ -33,19 +33,32 @@ html,body{width:1080px;height:1920px;background:#050505;overflow:hidden}
 #stage{position:relative;width:1080px;height:1920px;overflow:hidden;background:#050505;color:#FAFAFA;font-family:Inter,sans-serif}
 #bg{position:absolute;inset:-120px}
 .blob{position:absolute;border-radius:50%}
-#b1{width:1000px;height:1000px;background:radial-gradient(circle,rgba(226,21,37,.9) 0%,rgba(226,21,37,.35) 35%,rgba(226,21,37,0) 70%);opacity:.55}
-#b2{width:900px;height:900px;background:radial-gradient(circle,rgba(240,90,40,.8) 0%,rgba(240,90,40,.3) 35%,rgba(240,90,40,0) 70%);opacity:.38}
-#b3{width:1200px;height:1200px;background:radial-gradient(circle,#5a0a10 0%,rgba(90,10,16,0) 70%);opacity:.7}
+#b1{width:1000px;height:1000px;background:radial-gradient(circle,rgba(226,21,37,.9) 0%,rgba(226,21,37,.35) 35%,rgba(226,21,37,0) 70%);opacity:.35;mix-blend-mode:screen}
+#b2{width:900px;height:900px;background:radial-gradient(circle,rgba(240,90,40,.8) 0%,rgba(240,90,40,.3) 35%,rgba(240,90,40,0) 70%);opacity:.22;mix-blend-mode:screen}
+#b3{display:none}
 #grid{position:absolute;inset:-200px;background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);background-size:120px 120px;
   -webkit-mask-image:radial-gradient(ellipse at 50% 45%,#000 0%,transparent 70%);mask-image:radial-gradient(ellipse at 50% 45%,#000 0%,transparent 70%)}
 #vig{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 45%,transparent 45%,rgba(0,0,0,.75) 100%)}
+#bgv{position:absolute;inset:0;overflow:hidden}
+#bgimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform-origin:50% 45%}
+#shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,5,5,.88) 0%,rgba(5,5,5,.55) 22%,rgba(5,5,5,.45) 45%,rgba(5,5,5,.62) 62%,rgba(5,5,5,.94) 82%,#050505 100%)}
+#src{position:absolute;left:80px;right:80px;bottom:470px;font-family:Inter;font-weight:600;font-size:26px;color:#c9c9d1;letter-spacing:.02em}
+.news{border-radius:28px;background:rgba(250,250,250,.97);color:#111;padding:40px 44px 44px;box-shadow:0 30px 80px rgba(0,0,0,.55)}
+.news .src{display:flex;align-items:center;gap:14px;font-family:Inter;font-weight:700;font-size:26px;color:#E21525;letter-spacing:.08em;text-transform:uppercase;margin-bottom:18px}
+.news .src span{color:#666;font-weight:600;letter-spacing:0;text-transform:none}
+.news .hd{font-family:Sora;font-weight:700;font-size:54px;line-height:1.12;letter-spacing:-.02em}
+.big{font-family:Sora;font-weight:800;font-size:250px;line-height:.9;letter-spacing:-.06em}
+.lbl{font-family:Sora;font-weight:700;font-size:58px;line-height:1.1;margin-top:18px}
+.items{display:flex;flex-direction:column;gap:22px;margin-top:36px}
+.item,.item.w{display:flex;align-items:center;gap:24px;font-family:Sora;font-weight:700;font-size:46px;line-height:1.12;background:rgba(10,10,12,.72);border:1.5px solid rgba(255,255,255,.12);border-radius:24px;padding:24px 30px}
+.item b{flex:none;width:58px;height:58px;border-radius:50%;background:linear-gradient(105deg,#E21525,#F05A28);display:flex;align-items:center;justify-content:center;font-size:32px}
 #grain{position:absolute;inset:-64px;opacity:.07;mix-blend-mode:overlay}
 #flash{position:absolute;inset:0;background:radial-gradient(circle at 50% 40%,rgba(240,90,40,.55),rgba(226,21,37,.15) 60%,transparent 80%);opacity:0}
 .top{position:absolute;top:230px;left:80px;right:80px;display:flex;justify-content:space-between;align-items:center}
 .brand{font-family:Sora;font-weight:800;font-size:30px;letter-spacing:.32em}
 .brand i{font-style:normal;color:#E21525}
 #kick{font-family:Sora;font-weight:700;font-size:24px;letter-spacing:.16em;text-transform:uppercase;padding:12px 22px;border-radius:999px;border:1.5px solid rgba(240,90,40,.6);color:#F7A07F;background:rgba(240,90,40,.08)}
-#layer{position:absolute;left:80px;right:80px;top:330px;height:640px;display:flex;align-items:center}
+#layer{position:absolute;left:80px;right:80px;top:320px;height:680px;display:flex;align-items:center}
 .scene{position:absolute;left:0;right:0;top:0;bottom:0;display:flex;flex-direction:column;justify-content:center;opacity:0}
 .h1{font-family:Sora;font-weight:800;font-size:112px;line-height:1.0;letter-spacing:-.04em}
 .h2{font-family:Sora;font-weight:800;font-size:84px;line-height:1.04;letter-spacing:-.03em}
@@ -73,6 +86,9 @@ html,body{width:1080px;height:1920px;background:#050505;overflow:hidden}
 function sceneHTML(s, i) {
   let h = '';
   if (s.type === 'hook') h = `<div class="h1">${words(s.title)}</div>`;
+  else if (s.type === 'noticia') h = `<div class="news w"><div class="src">● ${esc(s.source || '')}<span>${esc(s.date || '')}</span></div><div class="hd">${esc(s.headline)}</div></div>`;
+  else if (s.type === 'dado') h = `<div class="big hl w">${esc(s.value)}</div><div class="lbl">${words(s.label)}</div>`;
+  else if (s.type === 'lista') h = `<div class="h2" style="font-size:76px">${words(s.title)}</div><div class="items">${(s.items || []).map(t => `<div class="item w"><b>✓</b>${esc(t)}</div>`).join('')}</div>`;
   else if (s.type === 'point') h = `${s.n ? `<div class="num w">${esc(s.n)}</div>` : ''}<div class="h2">${words(s.title)}</div>`;
   else if (s.type === 'versus') h = `${s.title ? `<div class="h2" style="font-size:70px">${words(s.title)}</div>` : ''}<div class="vs">
       <div class="card bad w"><div class="tag">✕ ${esc(s.left || 'Antes')}</div>${esc(s.leftBody)}</div>
@@ -110,11 +126,12 @@ window.render=function(t){
   b3.style.transform='translate('+(-200+Math.sin(t*.25)*120)+'px,'+(1100+Math.cos(t*.3)*120)+'px)';
   document.getElementById('grid').style.transform='perspective(900px) rotateX(18deg) translateY('+((t*40)%120)+'px)';
   document.getElementById('grain').style.backgroundPosition=Math.floor(rnd(Math.floor(t*30))*64)+'px '+Math.floor(rnd(Math.floor(t*30)+7)*64)+'px';
-  let flash=0, kick='';
+  let flash=0, kick='', src='';
   S.forEach((s,i)=>{
     const el=document.getElementById('s'+i);
     if(t<s.start||t>=s.end){el.style.opacity=0;return;}
-    kick=s.kicker||'';
+    kick=s.kicker||''; src=s.src||'';
+    document.getElementById('bgimg').style.transform='scale('+(1.06+0.035*((t-s.start)/(s.end-s.start)))+')';
     const lt=t-s.start, dur=s.end-s.start, out=eo((lt-(dur-0.18))/0.18);
     flash=Math.max(flash,1-cl(lt/0.22));
     const punch=1+0.10*(1-eo(lt/0.35));
@@ -124,6 +141,7 @@ window.render=function(t){
       w.style.opacity=cl(p*1.6);w.style.transform='translateY('+(60*(1-b))+'px) scale('+(0.7+0.3*b)+')';});
   });
   document.getElementById('flash').style.opacity=0.55*flash;
+  document.getElementById('src').textContent=src;
   const kk=document.getElementById('kick'); kk.textContent=kick; kk.style.visibility=kick?'visible':'hidden';
   // legenda sincronizada
   const C=window.CH; let cur=null;
@@ -140,13 +158,13 @@ window.render=function(t){
 (async () => {
   const ch = chunks(TL.words).map(c => ({ ...c, words: c.words.map(w => ({ ...w, h: esc(w.w) })) }));
   const html = `<!doctype html><html><head><meta charset="utf-8"><style>${CSS}</style></head><body><div id="stage">
-    <div id="bg"><div id="b3" class="blob"></div><div id="b1" class="blob"></div><div id="b2" class="blob"></div><div id="grid"></div></div>
+    <div id="bgv"><img id="bgimg"></div><div id="shade"></div><div id="bg"><div id="b3" class="blob"></div><div id="b1" class="blob"></div><div id="b2" class="blob"></div><div id="grid"></div></div>
     <div id="vig"></div><canvas id="gc" width="256" height="256" style="display:none"></canvas><div id="grain"></div><div id="flash"></div>
     <div class="top"><div class="brand">HEAV<i>O</i>N</div><div id="kick"></div></div>
     <div id="layer">${TL.scenes.map(sceneHTML).join('')}</div>
-    <div id="cap"><div id="capin"></div></div>
+    <div id="cap"><div id="capin"></div></div><div id="src"></div>
     <div class="handle">@agencia.heavon</div><div class="prog"><b></b></div></div>
-    <script>window.TL=${JSON.stringify({ total: TL.total, scenes: TL.scenes.map(s => ({ start: s.start, end: s.end, kicker: s.kicker || '' })) })};
+    <script>window.TL=${JSON.stringify({ total: TL.total, scenes: TL.scenes.map(s => ({ start: s.start, end: s.end, kicker: s.kicker || '', src: s.type === 'noticia' || s.type === 'dado' ? '' : (s.source || '') })) })};
     window.CH=${JSON.stringify(ch)};
     (function(){const c=document.getElementById('gc'),x=c.getContext('2d'),d=x.createImageData(256,256);
       let s=1;for(let i=0;i<d.data.length;i+=4){s=(s*16807)%2147483647;const v=s%255;d.data[i]=d.data[i+1]=d.data[i+2]=v;d.data[i+3]=255;}
@@ -155,15 +173,19 @@ window.render=function(t){
 
   const browser = await chromium.launch();
   const page = await browser.newPage({ viewport: { width: 1080, height: 1920 }, deviceScaleFactor: 1 });
-  await page.setContent(html, { waitUntil: 'networkidle' });
+  const pageFile = TL.frames + '/_page.html';
+  fs.writeFileSync(pageFile, html);
+  await page.goto('file://' + pageFile, { waitUntil: 'networkidle' });
   await page.evaluate(() => document.fonts.ready);
   const ff = spawn('ffmpeg', ['-y', '-loglevel', 'error', '-f', 'image2pipe', '-framerate', String(FPS), '-i', '-', '-i', audio,
     '-c:v', 'libx264', '-preset', 'slow', '-crf', '17', '-pix_fmt', 'yuv420p', '-profile:v', 'high', '-r', String(FPS),
     '-c:a', 'aac', '-b:a', '192k', '-ar', '48000', '-shortest', '-movflags', '+faststart', outMp4], { stdio: ['pipe', 'inherit', 'inherit'] });
   const frames = Math.round(TL.total * FPS);
+  const nbg = fs.readdirSync(TL.frames).filter(f => f.endsWith('.jpg')).length;
   const coverF = Math.round(Math.min(TL.scenes[0].end - 0.3, 1.6) * FPS);
   for (let f = 0; f < frames; f++) {
-    await page.evaluate(t => window.render(t), f / FPS);
+    await page.evaluate(async ([t, src]) => { const im = document.getElementById('bgimg'); im.src = src; await im.decode(); window.render(t); },
+      [f / FPS, 'file://' + TL.frames + '/' + String(Math.min(f + 1, nbg)).padStart(5, '0') + '.jpg']);
     const buf = await page.screenshot({ type: 'jpeg', quality: 95 });
     if (!ff.stdin.write(buf)) await new Promise(r => ff.stdin.once('drain', r));
     if (f === coverF) fs.writeFileSync(coverOut, buf);

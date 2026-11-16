@@ -1,0 +1,61 @@
+{
+ "voice": "pm_alex",
+ "speed": 1.12,
+ "mood": "tensao",
+ "music": 677,
+ "scenes": [
+  {
+   "type": "hook",
+   "kicker": "Aconteceu esta semana",
+   "title": "O ChatGPT agora **faz compras por você**.",
+   "broll": 42136,
+   "voz": "O ChatGPT agora pode fazer compras por você. E isso muda o jogo de quem vende online."
+  },
+  {
+   "type": "noticia",
+   "source": "G1",
+   "date": "nov/2026",
+   "headline": "OpenAI lança carteira digital que permite ao ChatGPT fazer compras e pagamentos pelo usuário",
+   "broll": 4915,
+   "voz": "A OpenAI lançou o ChatGPT Wallet: a inteligência artificial paga a compra no lugar do usuário."
+  },
+  {
+   "type": "point",
+   "kicker": "O que muda",
+   "title": "Quem escolhe a loja **pode ser a IA**.",
+   "broll": 42133,
+   "voz": "Ou seja: quem escolhe a loja pode ser um agente de IA, não só o cliente."
+  },
+  {
+   "type": "noticia",
+   "source": "UOL",
+   "date": "nov/2026",
+   "headline": "ChatGPT e Gemini recomendam lojas falsas em testes de compras",
+   "broll": 8843,
+   "voz": "Mas num teste do UOL, IAs indicaram lojas falsas. Confiança virou critério."
+  },
+  {
+   "type": "lista",
+   "kicker": "O que fazer agora",
+   "title": "Para a sua loja **aparecer**",
+   "items": [
+    "Produto bem descrito",
+    "CNPJ, trocas e avaliações visíveis",
+    "Site rápido e checkout simples"
+   ],
+   "broll": 1781,
+   "voz": "Então: produto bem descrito, CNPJ e avaliações à vista, e checkout simples."
+  },
+  {
+   "type": "cta",
+   "title": "Sua loja está **pronta para a IA**?",
+   "actions": [
+    "Comente",
+    "Salve",
+    "Siga"
+   ],
+   "broll": 42137,
+   "voz": "Sua loja está pronta para isso? Comente aqui."
+  }
+ ]
+}

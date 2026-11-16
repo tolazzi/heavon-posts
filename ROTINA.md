@@ -33,8 +33,8 @@ Pastas do dia: `posts/AAAA-MM-DD/reel/`, `posts/AAAA-MM-DD/carrossel/` e `posts/
 - Erro 190 da Graph API = token expirado/inválido: avise que é preciso gerar um token novo.
 
 ## 05:00 — Reels: pesquisa de virais + criação
-0. Se `posts/AAAA-MM-DD/reel/` já tiver `reel.mp4` e `caption.txt` aprovados pelo usuário (veja o relatório do dia),
-   NÃO crie outro: só confirme que está no GitHub e encerre esta etapa.
+0. Se `posts/AAAA-MM-DD/reel/` já existir (criado na conversa, aprovado ou aguardando aprovação — veja o relatório
+   do dia), NÃO crie outro: só confirme que está no GitHub e encerre esta etapa.
 1. Pesquise os vídeos virais do nicho (marketing digital, tráfego pago, e-commerce, empreendedorismo, vendas):
    - WebSearch (modo extended): Reels/TikToks virais da semana sobre marketing e negócios, formatos de Reels
      em alta, trends e memes do momento, datas comemorativas de hoje.
@@ -43,10 +43,16 @@ Pastas do dia: `posts/AAAA-MM-DD/reel/`, `posts/AAAA-MM-DD/carrossel/` e `posts/
    (A API da Meta não permite ler vídeos de outros perfis sem aprovação do app; a pesquisa é pela web.)
 2. Escolha as 3 ideias de vídeo que mais combinam com o nicho e o público; registre o formato viral de cada uma
    (ex.: "erro x acerto", "3 coisas que...", "POV", "pare de fazer X", lista rápida, mito x verdade).
-3. Crie o Reels em `posts/AAAA-MM-DD/reel/reel.json` (formato no topo de `tools/reel.py`) — padrão v2, aprovado em 16/11:
+3. Crie o Reels em `posts/AAAA-MM-DD/reel/reel.json` (formato no topo de `tools/reel.py`) — padrão v3 (16/11):
+   - O usuário REPROVOU vídeos genéricos. Todo Reels precisa de: IMAGENS reais (campo "broll" em TODAS as cenas,
+     vídeos de banco da Mixkit que combinem com a fala — buscar ids em https://mixkit.co/free-stock-video/<tema>/),
+     INFORMAÇÃO concreta (um dado, uma notícia, um caso, um número, com a fonte na tela) e CONTEXTO (o que aconteceu,
+     por que importa para o negócio do público, o que fazer). Use cenas "noticia" (manchete + fonte + data) e "dado"
+     (número + fonte) sempre que houver base; nada de frase motivacional solta. Fonte sempre citada, nunca inventada.
+   - 22 a 32 segundos, 5 a 7 cenas.
    - Antes de gerar (uma vez por máquina): `bash tools/setup_reel.sh` (voz Kokoro, legenda Whisper, trilhas Mixkit).
    - Gere: `HF_HUB_DISABLE_XET=1 python3 tools/reel.py posts/AAAA-MM-DD/reel/reel.json` (~2 a 3 min).
-   - 15 a 25 segundos, 5 a 7 cenas. Cena 1 (`hook`) = gancho de até 8 palavras na tela, que prenda nos 2 primeiros s.
+   - Cena 1 (`hook`) = gancho de até 8 palavras na tela, que prenda nos 2 primeiros s.
      Cenas do meio (`point` com "n", ou `versus`) com valor real; última (`cta`) com chamada para ação.
    - O "title" de cada cena é a manchete curta na tela (até ~8 palavras). O conteúdo detalhado vai no "voz":
      a narração vira legenda sincronizada palavra por palavra automaticamente. A duração da cena = tempo da fala.
@@ -65,7 +71,9 @@ Pastas do dia: `posts/AAAA-MM-DD/reel/`, `posts/AAAA-MM-DD/carrossel/` e `posts/
    e por quê, as 2 alternativas, a legenda) e faça commit + push para `main`. NÃO publique nesta etapa.
 
 ## 09:00 — Reels: publicação
-6. `python3 tools/publish.py posts/AAAA-MM-DD/reel https://raw.githubusercontent.com/tolazzi/heavon-posts/main/posts/AAAA-MM-DD/reel`
+6. Se o relatório do dia disser "aguardando aprovação", só publique se o usuário aprovou na conversa; senão registre
+   "não publicado — sem aprovação" e avise. Caso contrário publique:
+   `python3 tools/publish.py posts/AAAA-MM-DD/reel https://raw.githubusercontent.com/tolazzi/heavon-posts/main/posts/AAAA-MM-DD/reel`
 7. Registre o link e qualquer erro no relatório, adicione uma linha em `historico.md`, commit + push.
 
 ## 14:00 — Carrossel: pesquisa + criação

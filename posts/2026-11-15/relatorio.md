@@ -51,3 +51,5 @@ Descartados: futebol, celebridades, programação de TV, anime e cinema (fora do
 Nenhum container criado; nada publicado pela metade. O carrossel segue pronto em carrossel/.
 
 **Atualização 16/11:** vídeo refeito no padrão v2 (voz Kokoro pm_alex, legenda sincronizada, trilha Mixkit) a pedido do usuário, que reprovou a qualidade do áudio e do vídeo anteriores. Aguarda aprovação antes de publicar.
+
+**DESCARTADO (16/11):** o usuário reprovou este Reels (genérico, sem imagens, informações e contexto) e pediu para não publicar.
