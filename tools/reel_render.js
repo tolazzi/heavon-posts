@@ -178,7 +178,7 @@ window.render=function(t){
   await page.goto('file://' + pageFile, { waitUntil: 'networkidle' });
   await page.evaluate(() => document.fonts.ready);
   const ff = spawn('ffmpeg', ['-y', '-loglevel', 'error', '-f', 'image2pipe', '-framerate', String(FPS), '-i', '-', '-i', audio,
-    '-c:v', 'libx264', '-preset', 'slow', '-crf', '17', '-pix_fmt', 'yuv420p', '-profile:v', 'high', '-r', String(FPS),
+    '-c:v', 'libx264', '-preset', 'slow', '-crf', '20', '-maxrate', '8M', '-bufsize', '16M', '-pix_fmt', 'yuv420p', '-profile:v', 'high', '-r', String(FPS),
     '-c:a', 'aac', '-b:a', '192k', '-ar', '48000', '-shortest', '-movflags', '+faststart', outMp4], { stdio: ['pipe', 'inherit', 'inherit'] });
   const frames = Math.round(TL.total * FPS);
   const nbg = fs.readdirSync(TL.frames).filter(f => f.endsWith('.jpg')).length;
