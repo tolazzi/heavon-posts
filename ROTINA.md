@@ -50,6 +50,9 @@ Pastas do dia: `posts/AAAA-MM-DD/reel/`, `posts/AAAA-MM-DD/carrossel/` e `posts/
      por que importa para o negócio do público, o que fazer). Use cenas "noticia" (manchete + fonte + data) e "dado"
      (número + fonte) sempre que houver base; nada de frase motivacional solta. Fonte sempre citada, nunca inventada.
    - 22 a 32 segundos, 5 a 7 cenas.
+   - Ritmo (pedido do usuário em 16/11): o fundo troca de imagem a cada ~2 s. Em cada cena, "broll" deve ser uma LISTA
+     de 2 a 3 ids diferentes e combinando com a fala; defina também "broll_pool" (3 ids gerais do tema) no reel.json.
+     O gerador já aplica movimento de câmera, flash e som em cada corte.
    - Antes de gerar (uma vez por máquina): `bash tools/setup_reel.sh` (voz Kokoro, legenda Whisper, trilhas Mixkit).
    - Gere: `HF_HUB_DISABLE_XET=1 python3 tools/reel.py posts/AAAA-MM-DD/reel/reel.json` (~2 a 3 min).
    - Cena 1 (`hook`) = gancho de até 8 palavras na tela, que prenda nos 2 primeiros s.

@@ -82,6 +82,16 @@ def music_segment(path, total):
     return seg
 
 
+def cut_times(scenes):
+    """instantes de corte de imagem dentro das cenas (mesma regra usada no fundo)"""
+    out = []
+    for s in scenes:
+        dur = s["end"] - s["start"]
+        n = max(1, round(dur / 1.9))
+        out += [round(s["start"] + j * dur / n, 3) for j in range(1, n)]
+    return out
+
+
 def broll_file(bid):
     """baixa (uma vez) o vídeo de banco da Mixkit; os arquivos não são versionados"""
     os.makedirs(os.path.join(AUD, "..", "broll"), exist_ok=True)
@@ -109,16 +119,24 @@ def main(cfg_path):
         ref = os.path.join(VOZ, "heavon_ref.wav")
         if not os.path.exists(ref):
             raise RuntimeError("referência da voz Heavon ausente (tools/voz/heavon_ref.wav)")
-        tmpd = os.path.join(d, "_clone")
-        tj = os.path.join(d, "_textos.json")
-        json.dump([s.get("voz_pron", s["voz"]) for s in cfg["scenes"]], open(tj, "w", encoding="utf-8"), ensure_ascii=False)
-        run("/home/user/venv-voz/bin/python", os.path.join(HERE, "voz_clone.py"), tj, ref, tmpd,
-            env=dict(os.environ, HF_HUB_DISABLE_XET="1"))
-        for i in range(len(cfg["scenes"])):
-            a, sr = sf.read(os.path.join(tmpd, f"{i}.wav"), dtype="float32")
+        import hashlib, shutil
+        cache = os.path.join(VOZ, "cache")
+        os.makedirs(cache, exist_ok=True)
+        texts = [s.get("voz_pron", s["voz"]) for s in cfg["scenes"]]
+        key = lambda t_: os.path.join(cache, hashlib.sha1(("heavon|" + t_).encode()).hexdigest() + ".wav")
+        todo = [t_ for t_ in dict.fromkeys(texts) if not os.path.exists(key(t_))]
+        if todo:  # só gera na voz clonada o que ainda não foi gerado antes
+            tmpd = os.path.join(d, "_clone")
+            tj = os.path.join(d, "_textos.json")
+            json.dump(todo, open(tj, "w", encoding="utf-8"), ensure_ascii=False)
+            run("/home/user/venv-voz/bin/python", os.path.join(HERE, "voz_clone.py"), tj, ref, tmpd,
+                env=dict(os.environ, HF_HUB_DISABLE_XET="1"))
+            for i, t_ in enumerate(todo):
+                shutil.move(os.path.join(tmpd, f"{i}.wav"), key(t_))
+            shutil.rmtree(tmpd); os.remove(tj)
+        for t_ in texts:
+            a, sr = sf.read(key(t_), dtype="float32")
             clips.append((a, sr))
-        import shutil
-        shutil.rmtree(tmpd); os.remove(tj)
     else:
         for s in cfg["scenes"]:
             a, sr = k.create(s.get("voz_pron", s["voz"]), voice=voice, speed=speed, lang="pt-br")
@@ -174,6 +192,13 @@ def main(cfg_path):
         for s in scenes[1:]:
             at = int(max(0, s["start"] - 0.25) * SR)
             mus[at:at + len(sx)] += sx[: max(0, len(mus) - at)]
+    sfx2 = os.path.join(AUD, "sfx-1490.mp3")
+    if os.path.exists(sfx2):  # swish leve em cada corte de imagem dentro da cena
+        sw = np.frombuffer(run("ffmpeg", "-loglevel", "error", "-i", sfx2, "-f", "f32le", "-ac", "1", "-ar", str(SR), "-").stdout, np.float32)
+        sw = sw[: int(0.6 * SR)] / (np.abs(sw).max() + 1e-9) * 0.12
+        for c in cut_times(scenes):
+            at = int(max(0, c - 0.15) * SR)
+            mus[at:at + len(sw)] += sw[: max(0, len(mus) - at)]
     mp = os.path.join(d, "_mus.wav")
     sf.write(mp, mus, SR)
 
@@ -187,21 +212,35 @@ def main(cfg_path):
     # 6) fundo com imagens reais (vídeos de banco da Mixkit), tratados com a cor da marca
     frames_dir = os.path.join(d, "_frames")
     os.makedirs(frames_dir, exist_ok=True)
-    parts = []
+    # cortes frequentes: o fundo troca de imagem a cada ~1,5-2,2 s dentro da cena
+    pool = [x for x in cfg.get("broll_pool", [])]
+    rng = random.Random(cfg_path)
+    parts, cuts, k_ = [], [], 0
     for i, s in enumerate(scenes):
         dur = s["end"] - s["start"]
-        bid = s.get("broll")
-        part = os.path.join(d, f"_bg{i}.mp4")
-        if bid:
-            src = broll_file(bid)
-            run("ffmpeg", "-y", "-loglevel", "error", "-stream_loop", "-1", "-ss", "0.5", "-i", src, "-t", f"{dur:.3f}",
-                "-vf", "scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,fps=30,"
-                "eq=saturation=0.7:brightness=-0.04:contrast=1.05,colorbalance=rs=0.08:bs=-0.06",
-                "-an", "-c:v", "libx264", "-preset", "veryfast", "-crf", "16", "-pix_fmt", "yuv420p", part)
-        else:
-            run("ffmpeg", "-y", "-loglevel", "error", "-f", "lavfi", "-i", f"color=c=0x050505:s=1080x1920:r=30:d={dur:.3f}",
-                "-c:v", "libx264", "-preset", "veryfast", "-pix_fmt", "yuv420p", part)
-        parts.append(part)
+        ids = s.get("broll") or []
+        ids = ids if isinstance(ids, list) else [ids]
+        ids = ids + [p_ for p_ in pool if p_ not in ids]
+        n = max(1, round(dur / 1.9))
+        seg = dur / n
+        for j in range(n):
+            part = os.path.join(d, f"_bg{k_}.mp4"); k_ += 1
+            st = s["start"] + j * seg
+            if j > 0:
+                cuts.append(round(st, 3))
+            if ids:
+                bid = ids[j % len(ids)]
+                src = broll_file(bid)
+                clen = float(run("ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", src).stdout or 5)
+                off = rng.uniform(0.3, max(0.3, clen - seg - 0.3))
+                run("ffmpeg", "-y", "-loglevel", "error", "-stream_loop", "-1", "-ss", f"{off:.2f}", "-i", src, "-t", f"{seg:.3f}",
+                    "-vf", "scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,fps=30,"
+                    "eq=saturation=0.7:brightness=-0.04:contrast=1.05,colorbalance=rs=0.08:bs=-0.06",
+                    "-an", "-c:v", "libx264", "-preset", "veryfast", "-crf", "16", "-pix_fmt", "yuv420p", part)
+            else:
+                run("ffmpeg", "-y", "-loglevel", "error", "-f", "lavfi", "-i", f"color=c=0x050505:s=1080x1920:r=30:d={seg:.3f}",
+                    "-c:v", "libx264", "-preset", "veryfast", "-pix_fmt", "yuv420p", part)
+            parts.append(part)
     lst = os.path.join(d, "_bg.txt")
     open(lst, "w").write("".join(f"file '{os.path.abspath(p_)}'\n" for p_ in parts))
     bg = os.path.join(d, "_bg.mp4")
@@ -210,7 +249,7 @@ def main(cfg_path):
 
     # 7) vídeo
     tl = os.path.join(d, "_timeline.json")
-    json.dump(dict(total=total, scenes=scenes, words=words, frames=os.path.abspath(frames_dir)), open(tl, "w", encoding="utf-8"), ensure_ascii=False)
+    json.dump(dict(total=total, scenes=scenes, words=words, cuts=cuts, frames=os.path.abspath(frames_dir)), open(tl, "w", encoding="utf-8"), ensure_ascii=False)
     out = run("node", os.path.join(HERE, "reel_render.js"), tl, mix, os.path.join(d, "reel.mp4"), os.path.join(d, "cover.jpg"))
     print(out.stdout.decode().strip(), f"| voz {voice} x{speed} | trilha {mid} | {len(words)} palavras na legenda")
     import shutil

@@ -131,7 +131,7 @@ window.render=function(t){
     const el=document.getElementById('s'+i);
     if(t<s.start||t>=s.end){el.style.opacity=0;return;}
     kick=s.kicker||''; src=s.src||'';
-    document.getElementById('bgimg').style.transform='scale('+(1.06+0.035*((t-s.start)/(s.end-s.start)))+')';
+
     const lt=t-s.start, dur=s.end-s.start, out=eo((lt-(dur-0.18))/0.18);
     flash=Math.max(flash,1-cl(lt/0.22));
     const punch=1+0.10*(1-eo(lt/0.35));
@@ -140,6 +140,14 @@ window.render=function(t){
     el.querySelectorAll('.w').forEach((w,k)=>{const p=(lt-0.05-k*0.055)/0.32;const b=back(p);
       w.style.opacity=cl(p*1.6);w.style.transform='translateY('+(60*(1-b))+'px) scale('+(0.7+0.3*b)+')';});
   });
+  // câmera: cada corte de imagem ganha um movimento diferente (aproxima, afasta, desliza)
+  const C2=T.cuts; let ci=0; for(let i=0;i<C2.length;i++){ if(t>=C2[i]) ci=i; }
+  const cs=C2[ci], ce=(C2[ci+1]!==undefined?C2[ci+1]:T.total), u=cl((t-cs)/(ce-cs));
+  const io=u<.5?2*u*u:1-Math.pow(-2*u+2,2)/2, cut=1-eo((t-cs)/0.25);
+  const mv=[[1.04,1.16,0,0],[1.16,1.04,0,0],[1.12,1.12,-50,50],[1.12,1.12,50,-50]][ci%4];
+  const sc=mv[0]+(mv[1]-mv[0])*io, tx=mv[2]+(mv[3]-mv[2])*io;
+  document.getElementById('bgimg').style.transform='translateX('+tx+'px) scale('+(sc+0.06*cut)+')';
+  if(!S.some(s=>Math.abs(s.start-cs)<0.01)) flash=Math.max(flash,0.45*(1-cl((t-cs)/0.16)));
   document.getElementById('flash').style.opacity=0.55*flash;
   document.getElementById('src').textContent=src;
   const kk=document.getElementById('kick'); kk.textContent=kick; kk.style.visibility=kick?'visible':'hidden';
@@ -164,7 +172,7 @@ window.render=function(t){
     <div id="layer">${TL.scenes.map(sceneHTML).join('')}</div>
     <div id="cap"><div id="capin"></div></div><div id="src"></div>
     <div class="handle">@agencia.heavon</div><div class="prog"><b></b></div></div>
-    <script>window.TL=${JSON.stringify({ total: TL.total, scenes: TL.scenes.map(s => ({ start: s.start, end: s.end, kicker: s.kicker || '', src: s.type === 'noticia' || s.type === 'dado' ? '' : (s.source || '') })) })};
+    <script>window.TL=${JSON.stringify({ total: TL.total, cuts: [...TL.scenes.map(s => s.start), ...(TL.cuts || [])].sort((a, b) => a - b), scenes: TL.scenes.map(s => ({ start: s.start, end: s.end, kicker: s.kicker || '', src: s.type === 'noticia' || s.type === 'dado' ? '' : (s.source || '') })) })};
     window.CH=${JSON.stringify(ch)};
     (function(){const c=document.getElementById('gc'),x=c.getContext('2d'),d=x.createImageData(256,256);
       let s=1;for(let i=0;i<d.data.length;i+=4){s=(s*16807)%2147483647;const v=s%255;d.data[i]=d.data[i+1]=d.data[i+2]=v;d.data[i+3]=255;}

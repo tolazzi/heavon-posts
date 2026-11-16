@@ -2,3 +2,4 @@
 *.bin
 whisper/
 heavon_ref.wav
+cache/
