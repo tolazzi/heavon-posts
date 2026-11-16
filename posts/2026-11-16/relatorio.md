@@ -25,3 +25,24 @@ Descartados: religião, reality show, esportes e um caso de racismo (sensível).
 **Publicação:** NÃO publicado.
 **Erro (09:05):** API da Meta continua bloqueada — `API access blocked.` (code 200, subcode 5258005).
 Nenhum container criado; nada publicado pela metade. O Reels segue pronto em reel/.
+
+## Carrossel (18:00)
+
+**Tendência escolhida:** "Mercado Livre e Shopee concentram 66% do tráfego dos grandes e-commerces"
+(E-Commerce Brasil, última semana) — marketplace x loja própria.
+**Por quê:** dado concreto e recente que afeta diretamente o público de e-commerce da Heavon; abre conversa
+(onde você vende?) e conecta com loja virtual, tráfego pago e branding. Tema diferente do Reels de hoje (copy)
+e dos carrosséis anteriores (Black Friday, métricas, ChatGPT Wallet). O dado é citado com a fonte.
+Evitei sugerir tirar clientes de dentro do marketplace (as plataformas proíbem); a dica é construir marca fora delas.
+
+**Alternativas:**
+1. "Boas fotos podem garantir vendas no e-commerce" (CNDL) — checklist de foto de produto.
+2. "Menos SKUs, mais estratégia" (E-Commerce Brasil) — mix enxuto de produtos.
+
+Descartados: Trends do dia dominado por Justiça/tribunais, júri, futebol, celebridades e um tremor de terra (sensível).
+
+**Formato:** 7 slides — gancho "Vender só no marketplace é alugar o cliente." (8 palavras), o dado, 4 pontos, CTA.
+Corrigida a quebra de linha no hífen de "E-Commerce" (slide 2).
+**Legenda:** ver carrossel/caption.txt (3 emojis, 8 hashtags)
+
+**Publicação:** pendente (18:00). API da Meta bloqueada desde 14/11 (às 14:05 seguia bloqueada).
