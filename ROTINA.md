@@ -43,23 +43,22 @@ Pastas do dia: `posts/AAAA-MM-DD/reel/`, `posts/AAAA-MM-DD/carrossel/` e `posts/
    (A API da Meta não permite ler vídeos de outros perfis sem aprovação do app; a pesquisa é pela web.)
 2. Escolha as 3 ideias de vídeo que mais combinam com o nicho e o público; registre o formato viral de cada uma
    (ex.: "erro x acerto", "3 coisas que...", "POV", "pare de fazer X", lista rápida, mito x verdade).
-3. Crie o Reels em `posts/AAAA-MM-DD/reel/reel.json` (formato no topo de `tools/reel.js`):
-   - 15 a 30 segundos; cena 1 = gancho de até 8 palavras que prenda nos 2 primeiros segundos.
-   - Cenas do meio com valor real; última cena com CTA (salvar, compartilhar, comentar, seguir).
-   - Tempo de leitura: ~3 s por cena curta, 4 a 5 s por cena com mais texto.
-   - Gere: `node tools/reel.js posts/AAAA-MM-DD/reel/reel.json` (leva alguns minutos).
-   - Confira o vídeo extraindo quadros (`ffmpeg -ss <t> -i reel.mp4 -frames:v 1 x.jpg`) e olhando cada cena:
-     texto cortado, sobreposição, erro de digitação.
-   - Narração (padrão): `"voice": "cadu"` no reel.json e um campo `"voz"` em cada cena. Antes de gerar, rode
-     `bash tools/voz/baixar.sh cadu` (instala o Piper e baixa a voz se faltar).
-     Tom: dinâmico e sério, de locutor de negócios. Frases curtas, afirmativas, sem enrolação nem "e aí, pessoal".
-     A fala precisa CABER na cena: no máximo ~3 palavras por segundo de "dur" (cena de 3 s = até 9 palavras).
-     O script acelera a fala até 1,2x para caber; acima disso a cena estica — se esticar, encurte o texto.
-     O vídeo deve ficar entre 15 e 25 s. Escreva números e siglas por extenso no "voz" ("vinte por cento").
-   - Trilha: própria, gerada por `tools/trilha.py` (campo "music"). Use só as trilhas sérias aprovadas: "pulso" (tensão/cinema) para alertas, erros, opiniões fortes
-     e urgência; "grave" (hip-hop escuro) para dicas, bastidores e conteúdo mais reflexivo. Alterne entre elas ao longo
-     da semana. NÃO use "drive", "phonk" nem "suave" (reprovadas pelo usuário por soarem infantis). Ela abaixa sozinha quando a voz entra e marca cada troca de cena com whoosh + impacto. Áudios em alta do Instagram NÃO podem ser
-     adicionados pela API. Se houver faixas livres de direitos em `tools/audio/`, pode usar uma (campo "audio").
+3. Crie o Reels em `posts/AAAA-MM-DD/reel/reel.json` (formato no topo de `tools/reel.py`) — padrão v2, aprovado em 16/11:
+   - Antes de gerar (uma vez por máquina): `bash tools/setup_reel.sh` (voz Kokoro, legenda Whisper, trilhas Mixkit).
+   - Gere: `HF_HUB_DISABLE_XET=1 python3 tools/reel.py posts/AAAA-MM-DD/reel/reel.json` (~2 a 3 min).
+   - 15 a 25 segundos, 5 a 7 cenas. Cena 1 (`hook`) = gancho de até 8 palavras na tela, que prenda nos 2 primeiros s.
+     Cenas do meio (`point` com "n", ou `versus`) com valor real; última (`cta`) com chamada para ação.
+   - O "title" de cada cena é a manchete curta na tela (até ~8 palavras). O conteúdo detalhado vai no "voz":
+     a narração vira legenda sincronizada palavra por palavra automaticamente. A duração da cena = tempo da fala.
+   - Narração: voz "pm_alex" (padrão), velocidade 1.12. Tom dinâmico e sério, de locutor de negócios; frases curtas
+     e afirmativas, sem "e aí, pessoal". Cada "voz" com 6 a 16 palavras. Números e siglas por extenso ("vinte por cento").
+   - Trilha: faixa real da Mixkit (licença gratuita, uso comercial, sem atribuição), campo "mood": "tensao" para
+     alertas/opiniões fortes, "grave" para dicas e conteúdo reflexivo, "energia" para listas rápidas — ou "music": <id>
+     de `tools/audio/faixas.txt`. Alterne ao longo da semana. A música abaixa sozinha quando a voz entra; whoosh nas
+     trocas de cena. NUNCA versione os mp3 (a licença proíbe redistribuir). Áudios em alta do Instagram não entram pela API.
+   - Confira o vídeo extraindo quadros (`ffmpeg -ss <t> -i reel.mp4 -frames:v 1 x.jpg`) de cada cena: texto cortado,
+     sobreposição, legenda errada, erro de digitação. Confira também a capa (cover.jpg).
+   - Os geradores antigos (`tools/reel.js`, `tools/trilha.py`, voz Piper) foram REPROVADOS pelo usuário: não use.
 4. Legenda em `posts/AAAA-MM-DD/reel/caption.txt`: gancho na 1ª linha, corpo curto com quebras de linha,
    CTA no fim, de 3 a 5 emojis, de 5 a 10 hashtags (grandes, médias e de nicho).
 5. Revise (regras gerais), escreva a seção "Reels" do relatório (ideia escolhida, formato viral de referência

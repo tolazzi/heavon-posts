@@ -1,8 +1,57 @@
-{"voice":"cadu","music":"grave","scenes":[
-{"type":"hook","kicker":"Pane da Microsoft","title":"Teve marca que **ganhou atenção** com a pane.","voz":"Teve marca que ganhou atenção com a pane da Microsoft.","dur":3},
-{"type":"point","title":"Isso tem nome: **newsjacking**.","body":"Usar o assunto do momento a favor da sua marca.","voz":"Isso é usar o assunto do momento a favor da marca.","dur":3.5},
-{"type":"point","n":"01","title":"Seja rápido","body":"O assunto esfria em **horas**, não em semanas.","voz":"Primeiro: seja rápido. O assunto esfria em horas.","dur":3},
-{"type":"point","n":"02","title":"Conecte com o que você vende","body":"Piada solta não vende. **A ponte com a oferta** vende.","voz":"Segundo: conecte com o que você vende. Piada solta não vende.","dur":3.5},
-{"type":"point","n":"03","title":"Nunca surfe tragédia","body":"Pane e meme, sim. **Dor alheia, nunca.**","voz":"Terceiro: nunca surfe tragédia. Dor alheia não é pauta.","dur":3.5},
-{"type":"cta","title":"Salve para o próximo **assunto do momento**.","body":"Siga a Heavon para mais estratégia sem enrolação.","actions":["Salve","Siga","Comente"],"voz":"Salva esse vídeo para o próximo assunto do momento.","dur":3.2}
-]}
+{
+ "voice": "pm_alex",
+ "scenes": [
+  {
+   "type": "hook",
+   "kicker": "Pane da Microsoft",
+   "title": "Teve marca que **ganhou atenção** com a pane.",
+   "voz": "Teve marca que ganhou atenção com a pane da Microsoft.",
+   "dur": 3
+  },
+  {
+   "type": "point",
+   "title": "Isso tem nome: **newsjacking**.",
+   "body": "Usar o assunto do momento a favor da sua marca.",
+   "voz": "Isso é usar o assunto do momento a favor da marca.",
+   "dur": 3.5
+  },
+  {
+   "type": "point",
+   "n": "01",
+   "title": "Seja rápido",
+   "body": "O assunto esfria em **horas**, não em semanas.",
+   "voz": "Primeiro: seja rápido. O assunto esfria em horas.",
+   "dur": 3
+  },
+  {
+   "type": "point",
+   "n": "02",
+   "title": "Conecte com o que você vende",
+   "body": "Piada solta não vende. **A ponte com a oferta** vende.",
+   "voz": "Segundo: conecte com o que você vende. Piada solta não vende.",
+   "dur": 3.5
+  },
+  {
+   "type": "point",
+   "n": "03",
+   "title": "Nunca surfe tragédia",
+   "body": "Pane e meme, sim. **Dor alheia, nunca.**",
+   "voz": "Terceiro: nunca surfe tragédia. Dor alheia não é pauta.",
+   "dur": 3.5
+  },
+  {
+   "type": "cta",
+   "title": "Salve para o próximo **assunto do momento**.",
+   "body": "Siga a Heavon para mais estratégia sem enrolação.",
+   "actions": [
+    "Salve",
+    "Siga",
+    "Comente"
+   ],
+   "voz": "Salva esse vídeo para o próximo assunto do momento.",
+   "dur": 3.2
+  }
+ ],
+ "mood": "grave",
+ "music": 318
+}

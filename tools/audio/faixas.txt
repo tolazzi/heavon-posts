@@ -1,0 +1,11 @@
+# id_mixkit|nome|clima   (Mixkit Stock Music Free License — uso comercial em redes sociais, sem atribuição;
+#                         os arquivos NÃO ficam no repositório: proibido redistribuir. Baixe com baixar.sh)
+676|Epical Drums 01|tensao
+677|Epical Drums 02|tensao
+680|Epical Drums 05|tensao
+140|Cyberpunk City|tensao
+623|Deep Urban|grave
+318|Thunder|grave
+305|Trap|grave
+738|Hip Hop 02|grave
+474|What About Action?|energia

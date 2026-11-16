@@ -1,0 +1,158 @@
+"""Gera o Reels da Heavon (1080x1920, MP4) com narração, legenda sincronizada e trilha.
+
+Uso: HF_HUB_DISABLE_XET=1 python3 tools/reel.py posts/AAAA-MM-DD/reel/reel.json
+Antes (uma vez por máquina): bash tools/setup_reel.sh
+
+reel.json:
+{
+  "voice": "pm_alex",          # voz Kokoro pt-BR: pm_alex (padrão), pm_santa, pf_dora
+  "speed": 1.12,               # velocidade da fala (1.0 = normal)
+  "music": 676,                # id da faixa em tools/audio/faixas.txt (padrão: escolhe pelo "mood")
+  "mood": "tensao",            # tensao | grave | energia (usado se "music" não for dado)
+  "scenes": [
+    {"type":"hook","kicker":"Opinião impopular","title":"Texto com **destaque**","voz":"texto falado"},
+    {"type":"point","n":"01","title":"...","voz":"..."},
+    {"type":"versus","title":"...","left":"Antes","leftBody":"...","right":"Depois","rightBody":"...","voz":"..."},
+    {"type":"cta","title":"...","actions":["Comente","Salve","Siga"],"voz":"..."}
+  ]
+}
+A duração de cada cena vem da fala (sem acelerar o áudio). Gera reel.mp4 e cover.jpg na mesma pasta.
+"""
+import json, os, re, subprocess, sys, random
+import numpy as np
+import soundfile as sf
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+VOZ = os.path.join(HERE, "voz")
+AUD = os.path.join(HERE, "audio")
+SR = 48000
+
+
+def run(*a, **k):
+    return subprocess.run(a, check=True, capture_output=True, **k)
+
+
+def to_sr(x, sr):  # reamostra para 48 kHz via ffmpeg
+    p = run("ffmpeg", "-loglevel", "error", "-f", "f32le", "-ar", str(sr), "-ac", "1", "-i", "-",
+            "-f", "f32le", "-ar", str(SR), "-ac", "1", "-", input=x.astype(np.float32).tobytes())
+    return np.frombuffer(p.stdout, np.float32).copy()
+
+
+def trim(x, thr=0.01):
+    idx = np.where(np.abs(x) > thr)[0]
+    if not len(idx):
+        return x
+    a, b = max(0, idx[0] - int(0.02 * SR)), min(len(x), idx[-1] + int(0.06 * SR))
+    return x[a:b]
+
+
+def tracks():
+    out = []
+    for line in open(os.path.join(AUD, "faixas.txt"), encoding="utf-8"):
+        if line.strip() and not line.startswith("#"):
+            i, nome, clima = line.strip().split("|")
+            out.append((int(i), nome, clima))
+    return out
+
+
+def music_segment(path, total):
+    """lê a faixa e começa num trecho já com energia (pula introduções calmas)"""
+    p = run("ffmpeg", "-loglevel", "error", "-i", path, "-f", "f32le", "-ac", "1", "-ar", str(SR), "-")
+    m = np.frombuffer(p.stdout, np.float32).copy()
+    sec = SR // 2
+    rms = np.array([np.sqrt(np.mean(m[i:i + sec] ** 2)) for i in range(0, len(m) - sec, sec)])
+    target = np.percentile(rms, 75) * 0.8
+    start = 0
+    for k in range(len(rms) - 4):
+        if rms[k:k + 4].min() >= target:
+            start = k * sec
+            break
+    seg = m[start:start + int(total * SR)]
+    if len(seg) < int(total * SR):
+        seg = np.pad(seg, (0, int(total * SR) - len(seg)))
+    n = len(seg)
+    t = np.arange(n) / SR
+    seg = seg * np.minimum(1, t / 0.25) * np.minimum(1, (total - t) / 1.2)
+    return seg
+
+
+def main(cfg_path):
+    cfg = json.load(open(cfg_path, encoding="utf-8"))
+    d = os.path.dirname(cfg_path)
+    from kokoro_onnx import Kokoro
+    k = Kokoro(os.path.join(VOZ, "kokoro-v1.0.onnx"), os.path.join(VOZ, "voices-v1.0.bin"))
+    voice, speed = cfg.get("voice", "pm_alex"), cfg.get("speed", 1.12)
+
+    # 1) narração por cena; a cena dura o tempo da fala + respiro
+    narr, scenes, t = [], [], 0.25
+    for i, s in enumerate(cfg["scenes"]):
+        a, sr = k.create(s["voz"], voice=voice, speed=speed, lang="pt-br")
+        a = trim(to_sr(np.asarray(a), sr))
+        gap = 0.9 if s["type"] == "cta" else 0.28
+        dur = len(a) / SR + gap
+        if i == 0:
+            dur += 0.25
+        scenes.append(dict(s, start=round(t - (0.25 if i == 0 else 0), 3), voice_at=t, end=round(t + len(a) / SR + gap, 3)))
+        narr.append((t, a))
+        t += len(a) / SR + gap
+    total = round(t, 3)
+    scenes[0]["start"] = 0.0
+    voice_track = np.zeros(int(total * SR) + SR)
+    for at, a in narr:
+        s0 = int(at * SR)
+        voice_track[s0:s0 + len(a)] += a
+    voice_track = voice_track[: int(total * SR)]
+
+    # 2) tempo de cada palavra (para a legenda) com reconhecimento de fala
+    from faster_whisper import WhisperModel
+    wm = WhisperModel("small", device="cpu", compute_type="int8", download_root=os.path.join(VOZ, "whisper"))
+    a16 = run("ffmpeg", "-loglevel", "error", "-f", "f32le", "-ar", str(SR), "-ac", "1", "-i", "-",
+              "-f", "f32le", "-ar", "16000", "-ac", "1", "-", input=voice_track.astype(np.float32).tobytes()).stdout
+    segs, _ = wm.transcribe(np.frombuffer(a16, np.float32), language="pt", word_timestamps=True,
+                            initial_prompt=" ".join(s["voz"] for s in cfg["scenes"]))
+    words = [dict(w=w.word.strip(), start=round(w.start, 3), end=round(w.end, 3)) for sg in segs for w in sg.words if w.word.strip()]
+
+    # 3) voz tratada (limpa, presente, volume de streaming)
+    vt = os.path.join(d, "_voz.wav")
+    sf.write(vt, voice_track, SR)
+    vp = os.path.join(d, "_vozp.wav")
+    run("ffmpeg", "-y", "-loglevel", "error", "-i", vt, "-af",
+        "highpass=f=80,equalizer=f=250:t=q:w=1:g=-2,equalizer=f=3500:t=q:w=1:g=2.5,"
+        "acompressor=threshold=-18dB:ratio=2.5:attack=8:release=120:makeup=2", "-ar", str(SR), vp)
+
+    # 4) trilha (Mixkit) + whoosh nas trocas de cena
+    tr = tracks()
+    mid = cfg.get("music")
+    if not mid:
+        opts = [t_ for t_ in tr if t_[2] == cfg.get("mood", "tensao")] or tr
+        mid = random.Random(cfg_path).choice(opts)[0]
+    mpath = os.path.join(AUD, f"mixkit-{mid}.mp3")
+    mus = music_segment(mpath, total)
+    sfx_path = os.path.join(AUD, "sfx-1492.mp3")
+    if os.path.exists(sfx_path):
+        sx = np.frombuffer(run("ffmpeg", "-loglevel", "error", "-i", sfx_path, "-f", "f32le", "-ac", "1", "-ar", str(SR), "-").stdout, np.float32)
+        sx = sx / (np.abs(sx).max() + 1e-9) * 0.35
+        for s in scenes[1:]:
+            at = int(max(0, s["start"] - 0.25) * SR)
+            mus[at:at + len(sx)] += sx[: max(0, len(mus) - at)]
+    mp = os.path.join(d, "_mus.wav")
+    sf.write(mp, mus, SR)
+
+    # 5) mixagem: música abaixa quando a voz entra; volume final -14 LUFS (padrão de redes sociais)
+    mix = os.path.join(d, "_mix.wav")
+    run("ffmpeg", "-y", "-loglevel", "error", "-i", vp, "-i", mp, "-filter_complex",
+        "[1:a]volume=0.55[m];[0:a]asplit[v1][v2];[m][v1]sidechaincompress=threshold=0.03:ratio=6:attack=20:release=350[md];"
+        "[md][v2]amix=inputs=2:duration=first:normalize=0,loudnorm=I=-14:TP=-1.5:LRA=9[o]",
+        "-map", "[o]", "-ar", str(SR), mix)
+
+    # 6) vídeo
+    tl = os.path.join(d, "_timeline.json")
+    json.dump(dict(total=total, scenes=scenes, words=words), open(tl, "w", encoding="utf-8"), ensure_ascii=False)
+    out = run("node", os.path.join(HERE, "reel_render.js"), tl, mix, os.path.join(d, "reel.mp4"), os.path.join(d, "cover.jpg"))
+    print(out.stdout.decode().strip(), f"| voz {voice} x{speed} | trilha {mid} | {len(words)} palavras na legenda")
+    for f in (vt, vp, mp, mix, tl):
+        os.remove(f)
+
+
+if __name__ == "__main__":
+    main(sys.argv[1])

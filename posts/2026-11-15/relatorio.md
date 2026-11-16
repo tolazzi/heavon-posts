@@ -49,3 +49,5 @@ Descartados: futebol, celebridades, programação de TV, anime e cinema (fora do
 **Publicação:** NÃO publicado.
 **Erro (18:10):** API da Meta continua bloqueada — `API access blocked.` (code 200, subcode 5258005).
 Nenhum container criado; nada publicado pela metade. O carrossel segue pronto em carrossel/.
+
+**Atualização 16/11:** vídeo refeito no padrão v2 (voz Kokoro pm_alex, legenda sincronizada, trilha Mixkit) a pedido do usuário, que reprovou a qualidade do áudio e do vídeo anteriores. Aguarda aprovação antes de publicar.

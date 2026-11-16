@@ -46,3 +46,5 @@ Corrigida a quebra de linha no hífen de "E-Commerce" (slide 2).
 **Legenda:** ver carrossel/caption.txt (3 emojis, 8 hashtags)
 
 **Publicação:** pendente (18:00). API da Meta bloqueada desde 14/11 (às 14:05 seguia bloqueada).
+
+**Atualização 16/11:** vídeo refeito no padrão v2 (voz Kokoro pm_alex, legenda sincronizada, trilha Mixkit) a pedido do usuário, que reprovou a qualidade do áudio e do vídeo anteriores. Aguarda aprovação antes de publicar.
