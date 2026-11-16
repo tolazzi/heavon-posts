@@ -45,6 +45,10 @@ Descartados: Trends do dia dominado por Justiça/tribunais, júri, futebol, cele
 Corrigida a quebra de linha no hífen de "E-Commerce" (slide 2).
 **Legenda:** ver carrossel/caption.txt (3 emojis, 8 hashtags)
 
-**Publicação:** pendente (18:00). API da Meta bloqueada desde 14/11 (às 14:05 seguia bloqueada).
+**Revisão de marca (17:10):** corrigidos 2 pontos de precisão — removido "do Brasil" do dado de 66% (a fonte não
+diz isso) e "sem pagar comissão" virou "sem a comissão do marketplace" (loja própria também tem custos).
+**Token:** novo token salvo às 17:05, válido até 15/01/2027 — API desbloqueada.
+
+**Publicação:** pendente (18:00).
 
 **Atualização 16/11:** vídeo refeito no padrão v2 (voz Kokoro pm_alex, legenda sincronizada, trilha Mixkit) a pedido do usuário, que reprovou a qualidade do áudio e do vídeo anteriores. Aguarda aprovação antes de publicar.
