@@ -1,0 +1,8 @@
+{"voice":"cadu","music":"pulso","scenes":[
+{"type":"hook","kicker":"Antes e depois","title":"Mesma página. **Só mudou o título.**","voz":"Mesma página de vendas. Só mudou o título.","dur":3},
+{"type":"versus","title":"O título","left":"Antes","right":"Depois","leftBody":"Soluções completas em marketing digital","rightBody":"Anúncios que trazem **clientes pelo WhatsApp**, não só curtidas","voz":"Antes: soluções completas em marketing. Depois: anúncios que trazem clientes pelo WhatsApp.","dur":5},
+{"type":"point","title":"Por que o depois funciona?","body":"Fala de **resultado**, não de serviço. E deixa claro para quem é.","voz":"O segundo fala de resultado, não de serviço.","dur":3.3},
+{"type":"point","n":"01","title":"Diga o que a pessoa ganha","body":"Ninguém compra \"soluções\". Compra **o que muda** no negócio dela.","voz":"Diga o que a pessoa ganha. Ninguém compra soluções.","dur":3.3},
+{"type":"point","n":"02","title":"Use a palavra do cliente","body":"Se ele fala **\"WhatsApp\"**, não escreva \"canais conversacionais\".","voz":"Use a palavra do cliente, não o jargão da agência.","dur":3.3},
+{"type":"cta","title":"E o título da **sua página**?","body":"Comente aqui e salve para revisar a sua página hoje.","actions":["Comente","Salve","Siga"],"voz":"E o título da sua página? Comenta aqui.","dur":3.2}
+]}
