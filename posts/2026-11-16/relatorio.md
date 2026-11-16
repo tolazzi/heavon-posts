@@ -49,7 +49,9 @@ Corrigida a quebra de linha no hífen de "E-Commerce" (slide 2).
 diz isso) e "sem pagar comissão" virou "sem a comissão do marketplace" (loja própria também tem custos).
 **Token:** novo token salvo às 17:05, válido até 15/01/2027 — API desbloqueada.
 
-**Publicação:** pendente (18:00).
+**Publicação:** publicado em 16/11/2026 às 18:11 (rotina automática)
+**Link:** https://www.instagram.com/p/Df0StuiADtN/
+**Erros:** nenhum
 
 **Atualização 16/11:** vídeo refeito no padrão v2 (voz Kokoro pm_alex, legenda sincronizada, trilha Mixkit) a pedido do usuário, que reprovou a qualidade do áudio e do vídeo anteriores. Aguarda aprovação antes de publicar.
 
