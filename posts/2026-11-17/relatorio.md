@@ -15,3 +15,5 @@ vira série (Parte 2 = próximo Reels).
 **Produção:** voz Heavon (clonada, autorizada), trilha Mixkit 680, renderizador tools/story_render.js.
 
 **Status:** aguardando aprovação do usuário. Só publicar às 09:00 se aprovado na conversa.
+
+**Publicação (09:04):** não publicado — sem aprovação do usuário. O Reels (Parte 1) segue pronto em reel/ aguardando o ok.
