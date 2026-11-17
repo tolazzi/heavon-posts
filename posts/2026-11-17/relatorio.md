@@ -17,3 +17,7 @@ vira série (Parte 2 = próximo Reels).
 **Status:** aguardando aprovação do usuário. Só publicar às 09:00 se aprovado na conversa.
 
 **Publicação (09:04):** não publicado — sem aprovação do usuário. O Reels (Parte 1) segue pronto em reel/ aguardando o ok.
+
+**Aprovado pelo usuário e publicado em 17/11/2026 às 11:49.**
+**Link:** https://www.instagram.com/reel/Df2LqGFSiqf/
+**Erros:** nenhum
