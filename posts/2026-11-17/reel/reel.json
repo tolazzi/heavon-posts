@@ -1,8 +1,9 @@
-{"voice":"heavon","mood":"tensao","music":676,"broll_pool":[42136,42133,15914],"scenes":[
-{"type":"hook","kicker":"Faltam 10 dias · Black Friday","title":"**69%** decidem pelo desconto no Pix.","broll":[15914,42136,5944],"voz":"Sessenta e nove por cento decidem a compra pelo desconto no Pix."},
-{"type":"dado","value":"69%","label":"acham decisivo o **desconto no Pix ou à vista**","source":"Gazeta da Semana · nov/2026","broll":[42133,42123,4907],"voz":"É o que aponta uma pesquisa desta Black Friday."},
-{"type":"noticia","source":"E-Commerce Brasil","date":"nov/2026","headline":"Black Friday 2026: consumidor chega mais preparado e usa IA para checar ofertas","broll":[43270,4801,144],"voz":"E o consumidor já usa inteligência artificial para checar se a oferta é real.","voz_pron":"E o consumidor já usa inteligência artificial para checar se a oferta é real."},
-{"type":"point","kicker":"O que isso significa","title":"Preço maquiado **não passa mais**.","broll":[8843,25575,4938],"voz":"Preço maquiado não passa mais."},
-{"type":"lista","kicker":"Até 27/11","title":"Faça isso **antes da data**","items":["Preço no Pix visível no anúncio","Histórico de preço honesto","Condição clara no WhatsApp"],"broll":[1781,51123,42137],"voz":"Até o dia vinte e sete: preço no Pix no anúncio, histórico honesto e condição clara no WhatsApp."},
-{"type":"cta","title":"Seu desconto no Pix **aparece**?","actions":["Comente","Salve","Siga"],"broll":[42130,42136,15914],"voz":"O seu desconto no Pix aparece? Comente aqui."}
+{"style":"story","voice":"heavon","mood":"tensao","music":680,"scenes":[
+{"kind":"phone","tag":"SÃO PAULO · DIA 1 · 07:12","counter":{"label":"VENDAS HOJE","value":"0"},"notifs":[{"h":"LOJA","t":"Nenhum pedido novo"},{"h":"ANÚNCIOS","t":"Campanha ativa · R$ 180 gastos ontem"}],"big":"0","bigLabel":"PEDIDOS","voz":"Imagina acordar, abrir o celular e ver: zero vendas. De novo."},
+{"kind":"dashboard","tag":"SÃO PAULO · DIA 1 · 09:30","spend":{"label":"GASTO EM ANÚNCIOS","from":0,"to":1240,"prefix":"R$ "},"sales":{"label":"VENDAS","value":"0"},"voz":"Os anúncios continuam rodando. E o dinheiro continua saindo."},
+{"kind":"chat","tag":"SÃO PAULO · DIA 2 · 22:15","title":"3 mensagens sem resposta","msgs":["Oi, qual o preço?","Tem no tamanho M?","Alguém aí? 😕"],"seen":"Recebida há 14 h","voz":"No WhatsApp, três clientes perguntaram o preço. Ninguém respondeu."},
+{"kind":"rule","tag":"SÃO PAULO · DIA 3 · 08:00","n":"1","stamp":"RESPONDA|EM 5 MIN","icon":"clock","voz":"Regra número um: cliente que espera compra do concorrente."},
+{"kind":"rule","tag":"SÃO PAULO · DIA 4 · 14:20","n":"2","stamp":"PREÇO|À VISTA","icon":"tag","iconText":"PIX −5%","voz":"Regra número dois: o preço aparece antes da pergunta."},
+{"kind":"rule","tag":"SÃO PAULO · DIA 5 · 19:45","n":"3","stamp":"MEÇA|TUDO","icon":"chart","voz":"Regra número três: anúncio sem medição é dinheiro no escuro."},
+{"kind":"cliff","tag":"SÃO PAULO · DIA 7 · 23:58","notif":{"h":"NOVA NOTIFICAÇÃO","t":"Pedido #1 · R$ 2.890,00 · Pix aprovado"},"part":"PARTE 2","voz":"No sétimo dia, uma notificação mudou tudo. Comente parte dois que eu conto."}
 ]}

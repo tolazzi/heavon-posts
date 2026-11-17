@@ -209,53 +209,56 @@ def main(cfg_path):
         "[md][v2]amix=inputs=2:duration=first:normalize=0,loudnorm=I=-14:TP=-1.5:LRA=9[o]",
         "-map", "[o]", "-ar", str(SR), mix)
 
-    # 6) fundo com imagens reais (vídeos de banco da Mixkit), tratados com a cor da marca
-    frames_dir = os.path.join(d, "_frames")
-    os.makedirs(frames_dir, exist_ok=True)
-    # cortes frequentes: o fundo troca de imagem a cada ~1,5-2,2 s dentro da cena
-    pool = [x for x in cfg.get("broll_pool", [])]
-    rng = random.Random(cfg_path)
-    parts, cuts, k_ = [], [], 0
-    for i, s in enumerate(scenes):
-        dur = s["end"] - s["start"]
-        ids = s.get("broll") or []
-        ids = ids if isinstance(ids, list) else [ids]
-        ids = ids + [p_ for p_ in pool if p_ not in ids]
-        n = max(1, round(dur / 1.9))
-        seg = dur / n
-        for j in range(n):
-            part = os.path.join(d, f"_bg{k_}.mp4"); k_ += 1
-            st = s["start"] + j * seg
-            if j > 0:
-                cuts.append(round(st, 3))
-            if ids:
-                bid = ids[j % len(ids)]
-                src = broll_file(bid)
-                clen = float(run("ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", src).stdout or 5)
-                off = rng.uniform(0.3, max(0.3, clen - seg - 0.3))
-                run("ffmpeg", "-y", "-loglevel", "error", "-stream_loop", "-1", "-ss", f"{off:.2f}", "-i", src, "-t", f"{seg:.3f}",
-                    "-vf", "scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,fps=30,"
-                    "eq=saturation=0.7:brightness=-0.04:contrast=1.05,colorbalance=rs=0.08:bs=-0.06",
-                    "-an", "-c:v", "libx264", "-preset", "veryfast", "-crf", "16", "-pix_fmt", "yuv420p", part)
-            else:
-                run("ffmpeg", "-y", "-loglevel", "error", "-f", "lavfi", "-i", f"color=c=0x050505:s=1080x1920:r=30:d={seg:.3f}",
-                    "-c:v", "libx264", "-preset", "veryfast", "-pix_fmt", "yuv420p", part)
-            parts.append(part)
-    lst = os.path.join(d, "_bg.txt")
-    open(lst, "w").write("".join(f"file '{os.path.abspath(p_)}'\n" for p_ in parts))
-    bg = os.path.join(d, "_bg.mp4")
-    run("ffmpeg", "-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", lst, "-c", "copy", bg)
-    run("ffmpeg", "-y", "-loglevel", "error", "-i", bg, "-vf", "fps=30", "-q:v", "3", os.path.join(frames_dir, "%05d.jpg"))
+    story = cfg.get("style") == "story"
+    frames_dir = os.path.join(d, "_frames"); lst = bg = None; parts = []; cuts = []
+    if not story:
+        # 6) fundo com imagens reais (vídeos de banco da Mixkit), tratados com a cor da marca
+        os.makedirs(frames_dir, exist_ok=True)
+        # cortes frequentes: o fundo troca de imagem a cada ~1,5-2,2 s dentro da cena
+        pool = [x for x in cfg.get("broll_pool", [])]
+        rng = random.Random(cfg_path)
+        parts, cuts, k_ = [], [], 0
+        for i, s in enumerate(scenes):
+            dur = s["end"] - s["start"]
+            ids = s.get("broll") or []
+            ids = ids if isinstance(ids, list) else [ids]
+            ids = ids + [p_ for p_ in pool if p_ not in ids]
+            n = max(1, round(dur / 1.9))
+            seg = dur / n
+            for j in range(n):
+                part = os.path.join(d, f"_bg{k_}.mp4"); k_ += 1
+                st = s["start"] + j * seg
+                if j > 0:
+                    cuts.append(round(st, 3))
+                if ids:
+                    bid = ids[j % len(ids)]
+                    src = broll_file(bid)
+                    clen = float(run("ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", src).stdout or 5)
+                    off = rng.uniform(0.3, max(0.3, clen - seg - 0.3))
+                    run("ffmpeg", "-y", "-loglevel", "error", "-stream_loop", "-1", "-ss", f"{off:.2f}", "-i", src, "-t", f"{seg:.3f}",
+                        "-vf", "scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,fps=30,"
+                        "eq=saturation=0.7:brightness=-0.04:contrast=1.05,colorbalance=rs=0.08:bs=-0.06",
+                        "-an", "-c:v", "libx264", "-preset", "veryfast", "-crf", "16", "-pix_fmt", "yuv420p", part)
+                else:
+                    run("ffmpeg", "-y", "-loglevel", "error", "-f", "lavfi", "-i", f"color=c=0x050505:s=1080x1920:r=30:d={seg:.3f}",
+                        "-c:v", "libx264", "-preset", "veryfast", "-pix_fmt", "yuv420p", part)
+                parts.append(part)
+        lst = os.path.join(d, "_bg.txt")
+        open(lst, "w").write("".join(f"file '{os.path.abspath(p_)}'\n" for p_ in parts))
+        bg = os.path.join(d, "_bg.mp4")
+        run("ffmpeg", "-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", lst, "-c", "copy", bg)
+        run("ffmpeg", "-y", "-loglevel", "error", "-i", bg, "-vf", "fps=30", "-q:v", "3", os.path.join(frames_dir, "%05d.jpg"))
 
     # 7) vídeo
     tl = os.path.join(d, "_timeline.json")
     json.dump(dict(total=total, scenes=scenes, words=words, cuts=cuts, frames=os.path.abspath(frames_dir)), open(tl, "w", encoding="utf-8"), ensure_ascii=False)
-    out = run("node", os.path.join(HERE, "reel_render.js"), tl, mix, os.path.join(d, "reel.mp4"), os.path.join(d, "cover.jpg"))
+    out = run("node", os.path.join(HERE, "story_render.js" if story else "reel_render.js"), tl, mix, os.path.join(d, "reel.mp4"), os.path.join(d, "cover.jpg"))
     print(out.stdout.decode().strip(), f"| voz {voice} x{speed} | trilha {mid} | {len(words)} palavras na legenda")
     import shutil
     for f in (vt, vp, mp, mix, tl, lst, bg, *parts):
-        os.remove(f)
-    shutil.rmtree(frames_dir)
+        if f and os.path.exists(f):
+            os.remove(f)
+    shutil.rmtree(frames_dir, ignore_errors=True)
 
 
 if __name__ == "__main__":

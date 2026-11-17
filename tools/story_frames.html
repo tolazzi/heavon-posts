@@ -1,0 +1,74 @@
+<!doctype html><html><head><meta charset="utf-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Sora:wght@600;700;800&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#111;display:flex;gap:30px;padding:30px;width:3400px}
+.f{position:relative;width:1080px;height:1920px;overflow:hidden;background:#07070a;color:#fafafa;font-family:Inter}
+/* ambiente ilustrado: quarto escuro com luz da tela */
+.room{position:absolute;inset:0;background:radial-gradient(ellipse 900px 700px at 50% 62%,rgba(226,21,37,.22),transparent 70%),linear-gradient(180deg,#0d0d14 0%,#09090d 55%,#050507 100%)}
+.wall{position:absolute;left:0;right:0;top:0;height:1180px;background:repeating-linear-gradient(90deg,rgba(255,255,255,.018) 0 2px,transparent 2px 160px)}
+.desk{position:absolute;left:-40px;right:-40px;top:1180px;height:760px;background:linear-gradient(180deg,#2a1714 0%,#160c0b 30%,#0a0606 100%);border-top:6px solid #3b1f1a}
+.window{position:absolute;left:90px;top:330px;width:330px;height:470px;border-radius:14px;background:linear-gradient(180deg,#1b2340,#0d1226);border:10px solid #1a1a22;box-shadow:inset 0 0 60px rgba(120,150,255,.15)}
+.window:after{content:'';position:absolute;left:50%;top:0;bottom:0;width:10px;background:#1a1a22}
+.city{position:absolute;left:0;right:0;bottom:0;height:150px;background:repeating-linear-gradient(90deg,#0a0d1c 0 38px,#0f1428 38px 70px);opacity:.9}
+.lamp{position:absolute;right:120px;top:420px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(240,90,40,.35),transparent 70%)}
+/* topo estilo referência */
+.tag{position:absolute;top:240px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:14px;padding:16px 28px;border-radius:999px;background:rgba(10,10,14,.85);border:1.5px solid rgba(255,255,255,.12);font-family:Sora;font-weight:700;font-size:30px;letter-spacing:.12em;white-space:nowrap}
+.tag i{width:14px;height:14px;border-radius:50%;background:#E21525;box-shadow:0 0 14px #E21525}
+/* contador */
+.counter{position:absolute;top:360px;right:90px;text-align:center;background:rgba(10,10,14,.9);border:1.5px solid rgba(255,255,255,.1);border-radius:22px;padding:18px 40px}
+.counter small{display:block;font-family:Sora;font-weight:700;font-size:24px;letter-spacing:.2em;color:#9a9aa6}
+.counter b{font-family:Sora;font-weight:800;font-size:110px;line-height:1;color:#FF3B3B}
+/* celular */
+.phone{position:absolute;left:50%;top:700px;transform:translateX(-50%) rotate(-4deg);width:400px;height:780px;border-radius:64px;background:#0b0b0f;border:12px solid #1d1d24;box-shadow:0 40px 120px rgba(0,0,0,.7),0 0 140px rgba(226,21,37,.25)}
+.screen{position:absolute;inset:14px;border-radius:48px;background:linear-gradient(180deg,#141420,#0b0b12);overflow:hidden;padding:70px 26px}
+.notif{background:rgba(255,255,255,.08);border-radius:22px;padding:18px 20px;margin-bottom:16px;font-size:24px;line-height:1.25}
+.notif .h{font-weight:800;font-size:20px;letter-spacing:.08em;color:#FF6B4A;margin-bottom:6px}
+.zero{font-family:Sora;font-weight:800;font-size:120px;text-align:center;margin-top:30px;color:#fff}
+.zl{text-align:center;color:#9a9aa6;font-weight:700;letter-spacing:.14em;font-size:22px}
+/* legenda (igual ao padrão atual) */
+.cap{position:absolute;left:60px;right:60px;top:1560px;text-align:center;font-family:Sora;font-weight:800;font-size:76px;text-shadow:0 6px 24px rgba(0,0,0,.9)}
+.cap span{display:inline-block;padding:2px 14px;border-radius:16px}
+.cap .on{background:linear-gradient(105deg,#E21525,#F05A28)}
+.brand{position:absolute;top:120px;left:80px;font-family:Sora;font-weight:800;font-size:30px;letter-spacing:.32em}.brand i{font-style:normal;color:#E21525}
+/* regra */
+.rule{position:absolute;top:420px;left:80px;right:80px;text-align:center}
+.rule small{font-family:Sora;font-weight:800;font-size:44px;letter-spacing:.24em;color:#F05A28}
+.rule h1{font-family:Sora;font-weight:800;font-size:230px;line-height:.9;letter-spacing:-.05em;background:linear-gradient(105deg,#FF2A3A,#F05A28);-webkit-background-clip:text;color:transparent}
+.stamp{position:absolute;left:50%;top:880px;transform:translateX(-50%) rotate(-8deg);border:12px solid #FF3B3B;color:#FF3B3B;border-radius:22px;padding:22px 40px;font-family:Sora;font-weight:800;font-size:78px;line-height:1.02;text-align:center;letter-spacing:.02em;background:rgba(255,59,59,.06);box-shadow:0 0 60px rgba(255,59,59,.25)}
+.clock{position:absolute;left:50%;top:1240px;transform:translateX(-50%);width:230px;height:230px;border-radius:50%;border:10px solid #fafafa;opacity:.9}
+.clock:before{content:'';position:absolute;left:50%;top:50%;width:8px;height:80px;background:#fafafa;transform:translate(-50%,-100%);border-radius:4px}
+.clock:after{content:'';position:absolute;left:50%;top:50%;width:70px;height:8px;background:#E21525;transform:translate(0,-50%);border-radius:4px}
+/* parte 2 */
+.blur{filter:blur(9px)}
+.part{position:absolute;top:520px;left:0;right:0;text-align:center;font-family:Sora;font-weight:800;font-size:150px;letter-spacing:-.03em}
+.part span{display:block;font-size:40px;letter-spacing:.3em;color:#F05A28;margin-bottom:10px}
+.vib{position:absolute;left:50%;top:790px;width:620px;height:620px;transform:translateX(-50%);border-radius:50%;border:4px solid rgba(255,59,59,.35);box-shadow:0 0 0 60px rgba(255,59,59,.06),0 0 0 120px rgba(255,59,59,.04)}
+</style></head><body>
+
+<div class="f"><div class="room"><div class="wall"></div><div class="window"><div class="city"></div></div><div class="lamp"></div><div class="desk"></div></div>
+ <div class="brand">HEAV<i>O</i>N</div>
+ <div class="tag"><i></i>SÃO PAULO · DIA 1 · 07:12</div>
+ <div class="counter"><small>VENDAS HOJE</small><b>0</b></div>
+ <div class="phone"><div class="screen"><div class="notif"><div class="h">LOJA</div>Nenhum pedido novo</div><div class="notif"><div class="h">ANÚNCIOS</div>Campanha ativa · R$ 180 gastos ontem</div><div class="zero">0</div><div class="zl">PEDIDOS</div></div></div>
+ <div class="cap"><span>zero</span> <span class="on">vendas.</span></div>
+</div>
+
+<div class="f"><div class="room"><div class="wall"></div><div class="desk"></div></div>
+ <div class="brand">HEAV<i>O</i>N</div>
+ <div class="tag"><i></i>SÃO PAULO · DIA 2 · 10:40</div>
+ <div class="rule"><small>REGRA Nº</small><h1>1</h1></div>
+ <div class="stamp">RESPONDA<br>EM 5 MIN</div>
+ <div class="clock"></div>
+ <div class="cap"><span>cliente</span> <span>que</span> <span class="on">espera</span></div>
+</div>
+
+<div class="f"><div class="room"><div class="wall"></div><div class="desk"></div></div>
+ <div class="brand">HEAV<i>O</i>N</div>
+ <div class="tag"><i></i>SÃO PAULO · DIA 7 · 23:58</div>
+ <div class="part"><span>CONTINUA NA</span>PARTE 2</div>
+ <div class="vib"></div>
+ <div class="phone" style="transform:translateX(-50%) rotate(3deg)"><div class="screen"><div class="notif" style="background:rgba(226,21,37,.25)"><div class="h">NOVA NOTIFICAÇÃO</div><div class="blur">Pedido #1 · R$ 2.890,00 · Pix aprovado</div></div></div></div>
+ <div class="cap"><span>Comente</span> <span class="on">"parte</span> <span class="on">dois"</span></div>
+</div>
+</body></html>
