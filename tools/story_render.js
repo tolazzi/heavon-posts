@@ -66,6 +66,13 @@ html,body{width:1080px;height:1920px;background:#07070a;overflow:hidden}
 .part span{display:block;font-size:40px;letter-spacing:.3em;color:#F05A28;margin-bottom:10px}
 .ring{position:absolute;left:50%;top:1090px;border-radius:50%;border:4px solid rgba(255,59,59,.5)}
 .blur{filter:blur(9px)}
+.card.good{border-color:rgba(61,220,132,.45)}
+.note{font-size:24px;color:#8a8a96;font-weight:600;letter-spacing:.06em;text-align:center}
+.endt{position:absolute;top:470px;left:70px;right:70px;text-align:center;font-family:Sora;font-weight:800;font-size:104px;line-height:1.04;letter-spacing:-.03em}
+.hl2{background:linear-gradient(105deg,#FF2A3A,#F05A28);-webkit-background-clip:text;background-clip:text;color:transparent}
+.ends{position:absolute;top:900px;left:90px;right:90px;text-align:center;font-size:40px;line-height:1.35;color:#c9c9d1;font-weight:600}
+.endb{position:absolute;top:1080px;left:50%;margin-left:-260px;width:520px;text-align:center;padding:34px 0;border-radius:999px;background:linear-gradient(105deg,#E21525,#F05A28);font-family:Sora;font-weight:800;font-size:46px;box-shadow:0 20px 70px rgba(226,21,37,.5)}
+.endlogo{position:absolute;top:1300px;left:0;right:0;text-align:center;font-family:Sora;font-weight:800;font-size:64px;letter-spacing:.36em}.endlogo i{font-style:normal;color:#E21525}
 #cap{position:absolute;left:60px;right:60px;top:1560px;height:200px;display:flex;align-items:center;justify-content:center;text-align:center;z-index:6}
 #capin{font-family:Sora;font-weight:800;font-size:76px;line-height:1.12;letter-spacing:-.02em;text-shadow:0 6px 24px rgba(0,0,0,.9)}
 #capin .c{display:inline-block;padding:2px 14px;margin:4px 2px;border-radius:16px}
@@ -83,8 +90,12 @@ function sceneHTML(s, i) {
     ${s.big !== undefined ? `<div class="big a-big">${esc(s.big)}</div><div class="bl">${esc(s.bigLabel || '')}</div>` : ''}</div></div>`;
   else if (k === 'dashboard') h = `<div class="cards"><div class="card up a-pop"><small>${esc(s.spend.label)}</small><b><span class="num" data-from="${s.spend.from}" data-to="${s.spend.to}" data-prefix="${esc(s.spend.prefix || '')}">0</span> ↑</b>
       <svg viewBox="0 0 800 150"><polyline class="spark" fill="none" stroke="#FF3B3B" stroke-width="8" stroke-linecap="round" points="0,140 120,120 240,125 360,90 480,80 600,45 800,10"/></svg></div>
-    <div class="card a-pop"><small>${esc(s.sales.label)}</small><b>${esc(s.sales.value)}</b>
-      <svg viewBox="0 0 800 150"><polyline fill="none" stroke="#6f6f7a" stroke-width="8" stroke-dasharray="18 14" points="0,140 800,140"/></svg></div></div>`;
+    ${s.sales.to !== undefined
+      ? `<div class="card good a-pop"><small>${esc(s.sales.label)}</small><b style="color:#3DDC84"><span class="num" data-from="${s.sales.from || 0}" data-to="${s.sales.to}" data-prefix="${esc(s.sales.prefix || '')}">0</span> ↑</b>
+         <svg viewBox="0 0 800 150"><polyline class="spark" fill="none" stroke="#3DDC84" stroke-width="8" stroke-linecap="round" points="0,145 150,135 300,110 450,95 600,55 800,8"/></svg></div>`
+      : `<div class="card a-pop"><small>${esc(s.sales.label)}</small><b>${esc(s.sales.value)}</b>
+         <svg viewBox="0 0 800 150"><polyline fill="none" stroke="#6f6f7a" stroke-width="8" stroke-dasharray="18 14" points="0,140 800,140"/></svg></div>`}
+    ${s.note ? `<div class="note">${esc(s.note)}</div>` : ''}</div>`;
   else if (k === 'chat') h = `${s.title ? `<div class="ctitle">${esc(s.title)}</div>` : ''}<div class="phone a-phone" style="top:520px"><div class="badge"><span class="unread">0</span></div><div class="screen">
       ${(s.msgs || []).map(m => `<div class="bubble">${esc(m)}</div><div class="seen">${esc(s.seen || '')}</div>`).join('')}</div></div>`;
   else if (k === 'rule') {
@@ -96,6 +107,9 @@ function sceneHTML(s, i) {
   } else if (k === 'cliff') h = `<div class="ring" style="width:620px;height:620px;margin-left:-310px;margin-top:-310px"></div><div class="ring" style="width:900px;height:900px;margin-left:-450px;margin-top:-450px"></div>
     <div class="phone a-vib" style="top:700px"><div class="screen"><div class="nt" style="background:rgba(226,21,37,.28)"><div class="h">${esc(s.notif.h)}</div><div class="blur">${esc(s.notif.t)}</div></div></div></div>
     <div class="part"><span>CONTINUA NA</span>${esc(s.part || 'PARTE 2')}</div>`;
+  else if (k === 'end') h = `<div class="endt a-end">${String(esc(s.title)).replace(/\*\*(.+?)\*\*/g, '<span class="hl2">$1</span>').replace(/\|/g, '<br>')}</div>
+    <div class="ends a-pop">${esc(s.sub || '')}</div><div class="endb a-pop">${esc(s.button || 'Fale com a Heavon')}</div>
+    <div class="endlogo a-pop">HEAV<i>O</i>N</div>${s.note ? `<div class="note" style="position:absolute;left:0;right:0;top:1440px;text-align:center">${esc(s.note)}</div>` : ''}`;
   return `<div class="sc" id="s${i}" data-kind="${k}">${h}</div>`;
 }
 
@@ -143,6 +157,8 @@ window.render=function(t){
     el.querySelectorAll('.bar4').forEach(b=>{const p=eo((lt-1)/0.6);b.setAttribute('height',210*p);b.setAttribute('y',250-210*p);});
     el.querySelectorAll('.a-vib').forEach(p=>{const v=lt>0.4?Math.sin(lt*70)*7*(0.6+0.4*Math.sin(lt*3)):0;p.style.transform='translateX('+v+'px) rotate('+(3+v*0.15)+'deg)';});
     el.querySelectorAll('.ring').forEach((r,k)=>{const ph=((lt*0.9+k*0.5)%1);r.style.transform='scale('+(0.6+ph*0.8)+')';r.style.opacity=(1-ph)*0.8;});
+    el.querySelectorAll('.a-end').forEach(e=>{const q=back((lt-0.1)/0.45);e.style.opacity=cl((lt-0.1)/0.15);e.style.transform='scale('+(0.75+0.25*q)+')';});
+    el.querySelectorAll('.endb').forEach(e=>{e.style.boxShadow='0 20px '+(70+30*Math.sin(lt*5))+'px rgba(226,21,37,.55)';});
     el.querySelectorAll('.part').forEach(p=>{const q=back((lt-(d-2.2))/0.4);p.style.opacity=cl((lt-(d-2.2))/0.2);p.style.transform='scale('+(0.7+0.3*q)+')';});
   });
   document.getElementById('cam').style.transform='scale('+camS+') rotate('+camR+'deg)';

@@ -1,9 +1,131 @@
-{"style":"story","voice":"heavon","mood":"tensao","music":680,"scenes":[
-{"kind":"phone","tag":"SÃO PAULO · DIA 1 · 07:12","counter":{"label":"VENDAS HOJE","value":"0"},"notifs":[{"h":"LOJA","t":"Nenhum pedido novo"},{"h":"ANÚNCIOS","t":"Campanha ativa · R$ 180 gastos ontem"}],"big":"0","bigLabel":"PEDIDOS","voz":"Imagina acordar, abrir o celular e ver: zero vendas. De novo."},
-{"kind":"dashboard","tag":"SÃO PAULO · DIA 1 · 09:30","spend":{"label":"GASTO EM ANÚNCIOS","from":0,"to":1240,"prefix":"R$ "},"sales":{"label":"VENDAS","value":"0"},"voz":"Os anúncios continuam rodando. E o dinheiro continua saindo."},
-{"kind":"chat","tag":"SÃO PAULO · DIA 2 · 22:15","title":"3 mensagens sem resposta","msgs":["Oi, qual o preço?","Tem no tamanho M?","Alguém aí? 😕"],"seen":"Recebida há 14 h","voz":"No WhatsApp, três clientes perguntaram o preço. Ninguém respondeu."},
-{"kind":"rule","tag":"SÃO PAULO · DIA 3 · 08:00","n":"1","stamp":"RESPONDA|EM 5 MIN","icon":"clock","voz":"Regra número um: cliente que espera compra do concorrente."},
-{"kind":"rule","tag":"SÃO PAULO · DIA 4 · 14:20","n":"2","stamp":"PREÇO|À VISTA","icon":"tag","iconText":"PIX −5%","voz":"Regra número dois: o preço aparece antes da pergunta."},
-{"kind":"rule","tag":"SÃO PAULO · DIA 5 · 19:45","n":"3","stamp":"MEÇA|TUDO","icon":"chart","voz":"Regra número três: anúncio sem medição é dinheiro no escuro."},
-{"kind":"cliff","tag":"SÃO PAULO · DIA 7 · 23:58","notif":{"h":"NOVA NOTIFICAÇÃO","t":"Pedido #1 · R$ 2.890,00 · Pix aprovado"},"part":"PARTE 2","voz":"No sétimo dia, uma notificação mudou tudo. Comente parte dois que eu conto."}
-]}
+{
+ "style": "story",
+ "voice": "heavon",
+ "mood": "tensao",
+ "music": 680,
+ "scenes": [
+  {
+   "kind": "phone",
+   "tag": "SÃO PAULO · DIA 1 · 07:12",
+   "counter": {
+    "label": "VENDAS HOJE",
+    "value": "0"
+   },
+   "notifs": [
+    {
+     "h": "LOJA",
+     "t": "Nenhum pedido novo"
+    },
+    {
+     "h": "ANÚNCIOS",
+     "t": "Campanha ativa · R$ 180 gastos ontem"
+    }
+   ],
+   "big": "0",
+   "bigLabel": "PEDIDOS",
+   "voz": "Imagina acordar, abrir o celular e ver: zero vendas. De novo."
+  },
+  {
+   "kind": "dashboard",
+   "tag": "SÃO PAULO · DIA 1 · 09:30",
+   "spend": {
+    "label": "GASTO EM ANÚNCIOS",
+    "from": 0,
+    "to": 1240,
+    "prefix": "R$ "
+   },
+   "sales": {
+    "label": "VENDAS",
+    "value": "0"
+   },
+   "voz": "Os anúncios continuam rodando. E o dinheiro continua saindo."
+  },
+  {
+   "kind": "chat",
+   "tag": "SÃO PAULO · DIA 2 · 22:15",
+   "title": "3 mensagens sem resposta",
+   "msgs": [
+    "Oi, qual o preço?",
+    "Tem no tamanho M?",
+    "Alguém aí? 😕"
+   ],
+   "seen": "Recebida há 14 h",
+   "voz": "No WhatsApp, três clientes perguntaram o preço. Ninguém respondeu."
+  },
+  {
+   "kind": "rule",
+   "tag": "SÃO PAULO · DIA 3 · 08:00",
+   "n": "1",
+   "stamp": "RESPONDA|EM 5 MIN",
+   "icon": "clock",
+   "voz": "Regra número um: cliente que espera compra do concorrente."
+  },
+  {
+   "kind": "rule",
+   "tag": "SÃO PAULO · DIA 4 · 14:20",
+   "n": "2",
+   "stamp": "PREÇO|À VISTA",
+   "icon": "tag",
+   "iconText": "PIX −5%",
+   "voz": "Regra número dois: o preço aparece antes da pergunta."
+  },
+  {
+   "kind": "rule",
+   "tag": "SÃO PAULO · DIA 5 · 19:45",
+   "n": "3",
+   "stamp": "MEÇA|TUDO",
+   "icon": "chart",
+   "voz": "Regra número três: anúncio sem medição é dinheiro no escuro."
+  },
+  {
+   "kind": "phone",
+   "tag": "SÃO PAULO · DIA 6 · 10:05",
+   "counter": {
+    "label": "VENDAS HOJE",
+    "value": "3"
+   },
+   "notifs": [
+    {
+     "h": "WHATSAPP",
+     "t": "Respondido em 2 min ✓"
+    },
+    {
+     "h": "PIX APROVADO",
+     "t": "Pedido #1 · R$ 189,90"
+    },
+    {
+     "h": "PIX APROVADO",
+     "t": "Pedido #2 · R$ 249,90"
+    }
+   ],
+   "voz": "No sexto dia, ela aplicou as três regras. Respondeu em minutos, mostrou o preço no Pix e passou a medir cada anúncio."
+  },
+  {
+   "kind": "dashboard",
+   "tag": "SÃO PAULO · DIA 7 · 21:40",
+   "spend": {
+    "label": "GASTO EM ANÚNCIOS",
+    "from": 1240,
+    "to": 1240,
+    "prefix": "R$ "
+   },
+   "sales": {
+    "label": "VENDAS NA SEMANA",
+    "from": 0,
+    "to": 3100,
+    "prefix": "R$ "
+   },
+   "note": "EXEMPLO ILUSTRATIVO",
+   "voz": "No sétimo dia: o mesmo investimento em anúncios. Só que agora, com vendas."
+  },
+  {
+   "kind": "end",
+   "tag": "",
+   "title": "Não faltava cliente.|**Faltava processo.**",
+   "sub": "Atendimento rápido, preço claro e anúncio medido.",
+   "button": "Fale com a Heavon",
+   "note": "História ilustrativa · resultados variam",
+   "voz": "Não faltava cliente. Faltava processo. Se a sua loja está nesse ponto, fala com a Heavon."
+  }
+ ]
+}
