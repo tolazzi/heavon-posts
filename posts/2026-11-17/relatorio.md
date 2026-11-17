@@ -21,3 +21,22 @@ vira série (Parte 2 = próximo Reels).
 **Aprovado pelo usuário e publicado em 17/11/2026 às 11:49.**
 **Link:** https://www.instagram.com/reel/Df2LqGFSiqf/
 **Erros:** nenhum
+
+## Carrossel (18:00)
+
+**Tendência escolhida:** Google Maps com IA — o Google ampliou o "Pergunte ao Maps" (Gemini responde perguntas sobre
+lugares), apresentado como a maior atualização do Maps em mais de uma década (MacMagazine, PCGuia, Estadão, últimas 72h).
+**Por quê:** afeta todo negócio local (público da Heavon) e permite um checklist prático de Perfil da Empresa no Google.
+Tema diferente do Reels de hoje (história sobre processo de vendas) e dos posts dos últimos 7 dias.
+Sem afirmar como a IA ranqueia ou escolhe empresas; os ajustes são boas práticas de presença local.
+
+**Alternativas:**
+1. "Shopee lidera entre canais de compras mais citados" (Meio & Mensagem) — parecido com o carrossel de 16/11 (marketplace).
+2. "Black Friday: 62% das empresas querem reforçar logística" (Mundo Logística) — Black Friday já tratada em 13/11.
+
+Descartados: esportes, política (Flávio Dino), games (The Game Awards, GTA 6), celebridades.
+
+**Formato:** 7 slides — gancho "O Maps agora responde sobre o seu negócio." (8 palavras), o que mudou (com fonte),
+4 ajustes, CTA. **Legenda:** ver carrossel/caption.txt (3 emojis, 7 hashtags).
+
+**Publicação:** pendente (18:00).
