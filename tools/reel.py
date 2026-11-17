@@ -145,7 +145,7 @@ def main(cfg_path):
     for i, s in enumerate(cfg["scenes"]):
         a, sr = clips[i]
         a = trim(to_sr(a, sr))
-        gap = 0.9 if s["type"] == "cta" else 0.28
+        gap = 0.9 if s.get("type", s.get("kind")) in ("cta", "cliff") else 0.28
         dur = len(a) / SR + gap
         if i == 0:
             dur += 0.25
