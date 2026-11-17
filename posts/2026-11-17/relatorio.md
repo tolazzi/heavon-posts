@@ -39,4 +39,6 @@ Descartados: esportes, política (Flávio Dino), games (The Game Awards, GTA 6),
 **Formato:** 7 slides — gancho "O Maps agora responde sobre o seu negócio." (8 palavras), o que mudou (com fonte),
 4 ajustes, CTA. **Legenda:** ver carrossel/caption.txt (3 emojis, 7 hashtags).
 
-**Publicação:** pendente (18:00).
+**Publicação:** publicado antes do horário, a pedido do usuário, em 17/11/2026 às 17:28.
+**Link:** https://www.instagram.com/p/Df2yhvQGyT1/
+**Erros:** nenhum

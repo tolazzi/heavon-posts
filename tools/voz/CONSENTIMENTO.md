@@ -11,3 +11,4 @@
 
 - 17/11/2026: o usuário autorizou, na conversa, o uso da voz "heavon" na narração do vídeo do trabalho acadêmico
   dele na UFPR, "A Jogada · Nubank". Uso restrito a esse vídeo. Os áudios gerados para ele não ficam neste repositório.
+  Pedido cancelado pelo usuário no mesmo dia: nenhum áudio foi gerado para esse trabalho.

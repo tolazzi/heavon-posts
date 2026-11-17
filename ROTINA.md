@@ -74,7 +74,8 @@ Pastas do dia: `posts/AAAA-MM-DD/reel/`, `posts/AAAA-MM-DD/carrossel/` e `posts/
    e por quê, as 2 alternativas, a legenda) e faça commit + push para `main`. NÃO publique nesta etapa.
 
 ## 09:00 — Reels: publicação
-6. Se o relatório do dia disser "aguardando aprovação", só publique se o usuário aprovou na conversa; senão registre
+6. Se o relatório do dia já tiver o link do Reels publicado, NÃO publique de novo.
+   Se o relatório do dia disser "aguardando aprovação", só publique se o usuário aprovou na conversa; senão registre
    "não publicado — sem aprovação" e avise. Caso contrário publique:
    `python3 tools/publish.py posts/AAAA-MM-DD/reel https://raw.githubusercontent.com/tolazzi/heavon-posts/main/posts/AAAA-MM-DD/reel`
 7. Registre o link e qualquer erro no relatório, adicione uma linha em `historico.md`, commit + push.
@@ -90,7 +91,8 @@ Pastas do dia: `posts/AAAA-MM-DD/reel/`, `posts/AAAA-MM-DD/carrossel/` e `posts/
     commit + push. NÃO publique nesta etapa.
 
 ## 18:00 — Carrossel: publicação
-12. `python3 tools/publish.py posts/AAAA-MM-DD/carrossel https://raw.githubusercontent.com/tolazzi/heavon-posts/main/posts/AAAA-MM-DD/carrossel`
+12. Se o relatório do dia já tiver o link do carrossel (publicado antes, a pedido do usuário), NÃO publique de novo.
+    Senão: `python3 tools/publish.py posts/AAAA-MM-DD/carrossel https://raw.githubusercontent.com/tolazzi/heavon-posts/main/posts/AAAA-MM-DD/carrossel`
 13. Registre o link e qualquer erro no relatório, adicione uma linha em `historico.md`, commit + push.
 
 Teste sem publicar: acrescente `--dry-run` ao comando do `publish.py`.
