@@ -1,0 +1,10 @@
+{"style":"story","voice":"heavon","mood":"tensao","music":677,"scenes":[
+{"kind":"phone","tag":"BELO HORIZONTE · DIA 1 · 08:40","counter":{"label":"SEGUIDORES","value":"10.482"},"notifs":[{"h":"INSTAGRAM","t":"Seu post teve 1.204 curtidas"},{"h":"LOJA","t":"Nenhum pedido novo"}],"big":"0","bigLabel":"VENDAS NO MÊS","voz":"Imagina ter dez mil seguidores, um post com mil curtidas, e zero vendas no mês."},
+{"kind":"dashboard","tag":"BELO HORIZONTE · DIA 1 · 09:15","spend":{"label":"CURTIDAS NO MÊS","from":0,"to":8340,"prefix":""},"sales":{"label":"PEDIDOS","value":"0"},"voz":"As curtidas sobem. Os pedidos, não."},
+{"kind":"chat","tag":"BELO HORIZONTE · DIA 2 · 21:10","title":"O que as pessoas perguntam","msgs":["O que vocês vendem?","Tem site?","Como eu compro?"],"seen":"Sem resposta no perfil","voz":"E nos comentários, sempre as mesmas perguntas: o que vocês vendem? Como eu compro?"},
+{"kind":"rule","tag":"BELO HORIZONTE · DIA 3 · 10:00","n":"1","stamp":"BIO QUE|VENDE","icon":"tag","iconText":"BIO","voz":"Regra número um: a bio diz o que você vende, e para quem."},
+{"kind":"rule","tag":"BELO HORIZONTE · DIA 4 · 15:30","n":"2","stamp":"TODO POST|TEM UM PASSO","icon":"tag","iconText":"LINK ➜","voz":"Regra número dois: todo post termina com um próximo passo. Link, WhatsApp ou orçamento."},
+{"kind":"rule","tag":"BELO HORIZONTE · DIA 5 · 19:00","n":"3","stamp":"MEÇA|CONVERSAS","icon":"chart","voz":"Regra número três: seguidor não paga boleto. Meça conversas e vendas, não curtidas."},
+{"kind":"phone","tag":"BELO HORIZONTE · DIA 30 · 18:20","counter":{"label":"PEDIDOS NO MÊS","value":"27"},"notifs":[{"h":"WHATSAPP","t":"Vim pelo Instagram, quero orçamento"},{"h":"PIX APROVADO","t":"Pedido #27 · R$ 320,00"}],"voz":"Trinta dias depois: menos curtidas por post. E vinte e sete pedidos no mês."},
+{"kind":"end","title":"Seguidor é vaidade.|**Cliente é negócio.**","sub":"Bio clara, próximo passo e a métrica certa.","button":"Fale com a Heavon","note":"História ilustrativa · resultados variam","voz":"Seguidor é vaidade. Cliente é negócio. Se o seu perfil está assim, fala com a Heavon."}
+]}
