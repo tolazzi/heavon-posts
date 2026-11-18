@@ -76,10 +76,10 @@ html,body{width:1080px;height:1920px;background:#07070a;overflow:hidden}
 .half{position:absolute;left:70px;right:70px;border-radius:34px;padding:34px 40px;opacity:0}
 .half.top{top:330px;height:560px;background:linear-gradient(160deg,rgba(61,220,132,.14),rgba(14,14,20,.92) 60%);border:2px solid rgba(61,220,132,.4)}
 .half.bot{top:920px;height:560px;background:linear-gradient(160deg,rgba(226,21,37,.2),rgba(14,14,20,.92) 60%);border:2px solid rgba(226,21,37,.55)}
-.hl3{font-family:Sora;font-weight:800;font-size:30px;letter-spacing:.22em}.top .hl3{color:#3DDC84}.bot .hl3{color:#FF5A4A}
-.hq{font-family:Sora;font-weight:800;font-size:58px;line-height:1.08;margin:14px 0 22px}
-.hi{display:flex;align-items:center;gap:18px;font-size:36px;font-weight:600;margin-bottom:14px;opacity:0}
-.hi b{flex:none;width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px}
+.hl3{font-family:Sora;font-weight:800;font-size:36px;letter-spacing:.22em}.top .hl3{color:#3DDC84}.bot .hl3{color:#FF5A4A}
+.hq{font-family:Sora;font-weight:800;font-size:74px;line-height:1.06;margin:18px 0 30px}
+.hi{display:flex;align-items:center;gap:20px;font-size:44px;font-weight:700;margin-bottom:20px;opacity:0}
+.hi b{flex:none;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px}
 .top .hi b{background:#3DDC84;color:#062}.bot .hi b{background:#E21525}
 #cap{position:absolute;left:60px;right:60px;top:1560px;height:200px;display:flex;align-items:center;justify-content:center;text-align:center;z-index:6}
 #capin{font-family:Sora;font-weight:800;font-size:76px;line-height:1.12;letter-spacing:-.02em;text-shadow:0 6px 24px rgba(0,0,0,.9)}
