@@ -15,10 +15,12 @@ Use `**trecho**` no texto para destacar em degradê.
 ## Agenda
 | Horário | Etapa |
 |---|---|
-| 05:00 | Pesquisa de vídeos virais do nicho + criação do **Reels** |
-| 09:00 | Publicação do **Reels** |
-| 14:00 | Pesquisa de tendências + criação do **carrossel** |
-| 18:00 | Publicação do **carrossel** |
+| 05:00 | Pesquisa de tendências + criação do **carrossel** |
+| 09:00 | Publicação do **carrossel** (manhã) |
+| 13:00 | Pesquisa de virais + criação do **Reels** (vídeo) |
+| 18:00 | Publicação do **Reels** (tarde) |
+
+Padrão definido pelo usuário em 18/11: de manhã sai o carrossel, à tarde sai o vídeo.
 
 Pastas do dia: `posts/AAAA-MM-DD/reel/`, `posts/AAAA-MM-DD/carrossel/` e `posts/AAAA-MM-DD/relatorio.md`
 (seções "Reels" e "Carrossel"). O Reels e o carrossel do mesmo dia devem ter temas diferentes.
@@ -48,7 +50,7 @@ Pastas do dia: `posts/AAAA-MM-DD/reel/`, `posts/AAAA-MM-DD/carrossel/` e `posts/
   ("EXEMPLO ILUSTRATIVO") e na legenda.
 - O formato com vídeos de banco (v3, tools/reel_render.js) foi REPROVADO em 17/11 ("horrível"): não usar.
 
-## 05:00 — Reels: pesquisa de virais + criação
+## 13:00 — Reels: pesquisa de virais + criação
 0. Se `posts/AAAA-MM-DD/reel/` já existir (criado na conversa, aprovado ou aguardando aprovação — veja o relatório
    do dia), NÃO crie outro: só confirme que está no GitHub e encerre esta etapa.
 1. Pesquise os vídeos virais do nicho (marketing digital, tráfego pago, e-commerce, empreendedorismo, vendas):
@@ -59,7 +61,7 @@ Pastas do dia: `posts/AAAA-MM-DD/reel/`, `posts/AAAA-MM-DD/carrossel/` e `posts/
    (A API da Meta não permite ler vídeos de outros perfis sem aprovação do app; a pesquisa é pela web.)
 2. Escolha as 3 ideias de vídeo que mais combinam com o nicho e o público; registre o formato viral de cada uma
    (ex.: "erro x acerto", "3 coisas que...", "POV", "pare de fazer X", lista rápida, mito x verdade).
-3. Crie o Reels em `posts/AAAA-MM-DD/reel/reel.json` (formato no topo de `tools/reel.py`) — padrão v3 (16/11):
+3. Crie o Reels em `posts/AAAA-MM-DD/reel/reel.json` (formato no topo de `tools/reel.py`) — use o FORMATO PADRÃO (história, seção acima). As regras de broll abaixo valem só se o usuário pedir o formato com vídeos de banco:
    - O usuário REPROVOU vídeos genéricos. Todo Reels precisa de: IMAGENS reais (campo "broll" em TODAS as cenas,
      vídeos de banco da Mixkit que combinem com a fala — buscar ids em https://mixkit.co/free-stock-video/<tema>/),
      INFORMAÇÃO concreta (um dado, uma notícia, um caso, um número, com a fonte na tela) e CONTEXTO (o que aconteceu,
@@ -89,16 +91,16 @@ Pastas do dia: `posts/AAAA-MM-DD/reel/`, `posts/AAAA-MM-DD/carrossel/` e `posts/
 5. Revise (regras gerais), escreva a seção "Reels" do relatório (ideia escolhida, formato viral de referência
    e por quê, as 2 alternativas, a legenda) e faça commit + push para `main`. NÃO publique nesta etapa.
 
-## 09:00 — Reels: publicação
+## 18:00 — Reels: publicação
 6. Se o relatório do dia já tiver o link do Reels publicado, NÃO publique de novo.
    Se o relatório do dia disser "aguardando aprovação", só publique se o usuário aprovou na conversa; senão registre
    "não publicado — sem aprovação" e avise. Caso contrário publique:
    `python3 tools/publish.py posts/AAAA-MM-DD/reel https://raw.githubusercontent.com/tolazzi/heavon-posts/main/posts/AAAA-MM-DD/reel`
 7. Registre o link e qualquer erro no relatório, adicione uma linha em `historico.md`, commit + push.
 
-## 14:00 — Carrossel: pesquisa + criação
+## 05:00 — Carrossel: pesquisa + criação
 8. Levante as tendências do dia: Google Trends BR, notícias das últimas 24h do nicho, memes e assuntos do
-   momento (WebSearch), datas comemorativas. Escolha as 3 que mais combinam (tema diferente do Reels de hoje).
+   momento (WebSearch), datas comemorativas. Escolha as 3 que mais combinam (tema diferente do Reels de ontem e do que estiver previsto para hoje).
 9. Crie o carrossel em `posts/AAAA-MM-DD/carrossel/post.json` (formato em `tools/render.js`):
    5 a 7 slides 1080x1350; slide 1 (`hook`) com gancho de até 8 palavras; slides do meio (`content`) com valor
    real; último (`cta`) com chamada para ação. Gere com `node tools/render.js ...` e OLHE cada imagem.
@@ -106,7 +108,7 @@ Pastas do dia: `posts/AAAA-MM-DD/reel/`, `posts/AAAA-MM-DD/carrossel/` e `posts/
 11. Revise, escreva a seção "Carrossel" do relatório (tendência e por quê, 2 alternativas, legenda),
     commit + push. NÃO publique nesta etapa.
 
-## 18:00 — Carrossel: publicação
+## 09:00 — Carrossel: publicação
 12. Se o relatório do dia já tiver o link do carrossel (publicado antes, a pedido do usuário), NÃO publique de novo.
     Senão: `python3 tools/publish.py posts/AAAA-MM-DD/carrossel https://raw.githubusercontent.com/tolazzi/heavon-posts/main/posts/AAAA-MM-DD/carrossel`
 13. Registre o link e qualquer erro no relatório, adicione uma linha em `historico.md`, commit + push.

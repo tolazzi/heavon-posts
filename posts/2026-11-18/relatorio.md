@@ -25,3 +25,19 @@ ilustrativos e sinalizados na tela e na legenda.
 **Publicação:** publicado em 18/11/2026 às 09:05 (rotina automática)
 **Link:** https://www.instagram.com/reel/Df4duBVBhy6/
 **Erros:** nenhum
+
+
+## Reels da tarde (18:00) — criado a pedido do usuário, a partir do radar de tendências
+
+**Tendência usada:** "2026 vai ser meu ano" (eu em janeiro × eu em novembro), meme brasileiro que voltou em
+novembro (Quenty, 09/11) — item 1 de pesquisa/virais-2026-11-18.md.
+**Adaptação:** "minha empresa em janeiro × em novembro" + os 43 dias que faltam para o fim do ano, no formato de
+história aprovado (split janeiro × novembro, contador de dias, Regras 1-2-3, resultado ilustrativo, final Heavon).
+**Por quê:** tendência nativa do Brasil, do momento, que vira balanço de ano para empresas e conversa com Black
+Friday e Natal sem repetir o carrossel de Black Friday de 13/11.
+**Alternativas:** apagão mundial de 17/11 (já esfriou); "roteiro exato palavra por palavra" (Tryvolume, 19× o
+alcance) — fica para o próximo.
+**Produção:** voz Heavon, trilha Mixkit 676, renderizador story (cena nova "split").
+
+**Abertura revisada a pedido do usuário:** "Lembra do começo do ano? Você prometeu que 2026 ia ser diferente."
+**Status:** aprovado pelo usuário em 18/11 ("à tarde pode postar o vídeo também"). Publicação hoje às 18:00, pasta reel-tarde/.
