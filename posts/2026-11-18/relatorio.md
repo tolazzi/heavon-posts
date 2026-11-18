@@ -22,4 +22,6 @@ Google Maps, processo de atendimento).
 ilustrativos e sinalizados na tela e na legenda.
 **Legenda:** ver reel/caption.txt
 
-**Publicação:** pendente (09:00).
+**Publicação:** publicado em 18/11/2026 às 09:05 (rotina automática)
+**Link:** https://www.instagram.com/reel/Df4duBVBhy6/
+**Erros:** nenhum
