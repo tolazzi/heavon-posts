@@ -32,6 +32,22 @@ Pastas do dia: `posts/AAAA-MM-DD/reel/`, `posts/AAAA-MM-DD/carrossel/` e `posts/
 - Se qualquer etapa falhar, NÃO publique nada pela metade: registre o erro no relatório e avise o usuário na conversa.
 - Erro 190 da Graph API = token expirado/inválido: avise que é preciso gerar um token novo.
 
+## Radar de tendências (pedido do usuário em 18/11)
+- Toda segunda-feira, uma tarefa agendada atualiza `pesquisa/virais-AAAA-MM-DD.md` com as 25 tendências que mais
+  viralizaram nos últimos 15 dias (Brasil + globais + formatos que performam em contas de negócio), com fonte e
+  "uso pela Heavon". Fontes base: Quenty (memes BR), New Engen, SocialPilot, Postdom, Epidemic Sound, Viral Remix,
+  Tryvolume (formatos de negócio), Pepper Agency, Google Notícias.
+- TODO Reels e carrossel deve partir do arquivo de tendências mais recente: escolha uma tendência dele (ou uma
+  notícia do dia) e registre no relatório qual foi. Adapte o FORMATO; nunca copie vídeo/áudio de terceiros.
+
+## Formato padrão do Reels (aprovado pelo usuário em 17/11)
+- História completa no renderizador `tools/story_render.js` ("style": "story"): situação com personagem/negócio,
+  local-dia-hora na tela, tensão, "Regra nº 1, 2, 3", virada e final com "Fale com a Heavon". Voz "heavon".
+- Cenas disponíveis: phone, dashboard, chat, rule, split (antes × depois / janeiro × novembro), end.
+- Pode passar de 30 s (até ~50 s), mas tem que ter final. Números de história são ilustrativos: sinalize na tela
+  ("EXEMPLO ILUSTRATIVO") e na legenda.
+- O formato com vídeos de banco (v3, tools/reel_render.js) foi REPROVADO em 17/11 ("horrível"): não usar.
+
 ## 05:00 — Reels: pesquisa de virais + criação
 0. Se `posts/AAAA-MM-DD/reel/` já existir (criado na conversa, aprovado ou aguardando aprovação — veja o relatório
    do dia), NÃO crie outro: só confirme que está no GitHub e encerre esta etapa.

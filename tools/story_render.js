@@ -73,6 +73,14 @@ html,body{width:1080px;height:1920px;background:#07070a;overflow:hidden}
 .ends{position:absolute;top:900px;left:90px;right:90px;text-align:center;font-size:40px;line-height:1.35;color:#c9c9d1;font-weight:600}
 .endb{position:absolute;top:1080px;left:50%;margin-left:-260px;width:520px;text-align:center;padding:34px 0;border-radius:999px;background:linear-gradient(105deg,#E21525,#F05A28);font-family:Sora;font-weight:800;font-size:46px;box-shadow:0 20px 70px rgba(226,21,37,.5)}
 .endlogo{position:absolute;top:1300px;left:0;right:0;text-align:center;font-family:Sora;font-weight:800;font-size:64px;letter-spacing:.36em}.endlogo i{font-style:normal;color:#E21525}
+.half{position:absolute;left:70px;right:70px;border-radius:34px;padding:34px 40px;opacity:0}
+.half.top{top:330px;height:560px;background:linear-gradient(160deg,rgba(61,220,132,.14),rgba(14,14,20,.92) 60%);border:2px solid rgba(61,220,132,.4)}
+.half.bot{top:920px;height:560px;background:linear-gradient(160deg,rgba(226,21,37,.2),rgba(14,14,20,.92) 60%);border:2px solid rgba(226,21,37,.55)}
+.hl3{font-family:Sora;font-weight:800;font-size:30px;letter-spacing:.22em}.top .hl3{color:#3DDC84}.bot .hl3{color:#FF5A4A}
+.hq{font-family:Sora;font-weight:800;font-size:58px;line-height:1.08;margin:14px 0 22px}
+.hi{display:flex;align-items:center;gap:18px;font-size:36px;font-weight:600;margin-bottom:14px;opacity:0}
+.hi b{flex:none;width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px}
+.top .hi b{background:#3DDC84;color:#062}.bot .hi b{background:#E21525}
 #cap{position:absolute;left:60px;right:60px;top:1560px;height:200px;display:flex;align-items:center;justify-content:center;text-align:center;z-index:6}
 #capin{font-family:Sora;font-weight:800;font-size:76px;line-height:1.12;letter-spacing:-.02em;text-shadow:0 6px 24px rgba(0,0,0,.9)}
 #capin .c{display:inline-block;padding:2px 14px;margin:4px 2px;border-radius:16px}
@@ -107,6 +115,11 @@ function sceneHTML(s, i) {
   } else if (k === 'cliff') h = `<div class="ring" style="width:620px;height:620px;margin-left:-310px;margin-top:-310px"></div><div class="ring" style="width:900px;height:900px;margin-left:-450px;margin-top:-450px"></div>
     <div class="phone a-vib" style="top:700px"><div class="screen"><div class="nt" style="background:rgba(226,21,37,.28)"><div class="h">${esc(s.notif.h)}</div><div class="blur">${esc(s.notif.t)}</div></div></div></div>
     <div class="part"><span>CONTINUA NA</span>${esc(s.part || 'PARTE 2')}</div>`;
+  else if (k === 'split') {
+    const half = (lbl, quote, items, cls) => `<div class="half ${cls}"><div class="hl3">${esc(lbl)}</div><div class="hq">${esc(quote)}</div>
+      ${(items || []).map(t => `<div class="hi"><b>${cls === 'top' ? '✓' : '✕'}</b>${esc(t)}</div>`).join('')}</div>`;
+    h = half(s.topLabel, s.topQuote, s.topItems, 'top') + half(s.botLabel, s.botQuote, s.botItems, 'bot');
+  }
   else if (k === 'end') h = `<div class="endt a-end">${String(esc(s.title)).replace(/\*\*(.+?)\*\*/g, '<span class="hl2">$1</span>').replace(/\|/g, '<br>')}</div>
     <div class="ends a-pop">${esc(s.sub || '')}</div><div class="endb a-pop">${esc(s.button || 'Fale com a Heavon')}</div>
     <div class="endlogo a-pop">HEAV<i>O</i>N</div>${s.note ? `<div class="note" style="position:absolute;left:0;right:0;top:1440px;text-align:center">${esc(s.note)}</div>` : ''}`;
@@ -157,6 +170,9 @@ window.render=function(t){
     el.querySelectorAll('.bar4').forEach(b=>{const p=eo((lt-1)/0.6);b.setAttribute('height',210*p);b.setAttribute('y',250-210*p);});
     el.querySelectorAll('.a-vib').forEach(p=>{const v=lt>0.4?Math.sin(lt*70)*7*(0.6+0.4*Math.sin(lt*3)):0;p.style.transform='translateX('+v+'px) rotate('+(3+v*0.15)+'deg)';});
     el.querySelectorAll('.ring').forEach((r,k)=>{const ph=((lt*0.9+k*0.5)%1);r.style.transform='scale('+(0.6+ph*0.8)+')';r.style.opacity=(1-ph)*0.8;});
+    el.querySelectorAll('.half').forEach((hf,k)=>{const st=k?d*0.42:0.05;const p=back((lt-st)/0.45);hf.style.opacity=cl((lt-st)/0.15);
+      hf.style.transform='translateX('+((1-p)*(k?400:-400))+'px)';
+      hf.querySelectorAll('.hi').forEach((it,j)=>{it.style.opacity=cl((lt-st-0.4-j*0.35)/0.15);});});
     el.querySelectorAll('.a-end').forEach(e=>{const q=back((lt-0.1)/0.45);e.style.opacity=cl((lt-0.1)/0.15);e.style.transform='scale('+(0.75+0.25*q)+')';});
     el.querySelectorAll('.endb').forEach(e=>{e.style.boxShadow='0 20px '+(70+30*Math.sin(lt*5))+'px rgba(226,21,37,.55)';});
     el.querySelectorAll('.part').forEach(p=>{const q=back((lt-(d-2.2))/0.4);p.style.opacity=cl((lt-(d-2.2))/0.2);p.style.transform='scale('+(0.7+0.3*q)+')';});
