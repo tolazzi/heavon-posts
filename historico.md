@@ -8,3 +8,4 @@
 | 2026-11-17 | Reels (história): A loja que parou de vender — 3 regras e final | Imagina acordar e ver: zero vendas. | https://www.instagram.com/reel/Df2LqGFSiqf/ |
 | 2026-11-17 | Carrossel: Google Maps com IA (Pergunte ao Maps) e negócio local | O Maps agora responde sobre o seu negócio. | https://www.instagram.com/p/Df2yhvQGyT1/ |
 | 2026-11-18 | Reels (história): 10 mil seguidores e zero vendas — métricas de vaidade | Imagina ter 10 mil seguidores e zero vendas. | https://www.instagram.com/reel/Df4duBVBhy6/ |
+| 2026-11-18 | Reels (história, trend): janeiro × novembro — 43 dias para o fim do ano | Lembra do começo do ano? Você prometeu que 2026 ia ser diferente. | https://www.instagram.com/reel/Df5bDAAhPGb/ |

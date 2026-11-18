@@ -40,4 +40,7 @@ alcance) — fica para o próximo.
 **Produção:** voz Heavon, trilha Mixkit 676, renderizador story (cena nova "split").
 
 **Abertura revisada a pedido do usuário:** "Lembra do começo do ano? Você prometeu que 2026 ia ser diferente."
-**Status:** aprovado pelo usuário em 18/11 ("à tarde pode postar o vídeo também"). Publicação hoje às 18:00, pasta reel-tarde/.
+**Status:** aprovado pelo usuário em 18/11 ("à tarde pode postar o vídeo também"). Pasta reel-tarde/.
+**Publicação:** publicado em 18/11/2026 às 18:01.
+**Link:** https://www.instagram.com/reel/Df5bDAAhPGb/
+**Erros:** nenhum
