@@ -19,3 +19,20 @@ Corrigida a quebra de "24 h" no slide 3 (virou "1 dia").
 **Publicação:** publicado em 19/11/2026 às 09:05 (rotina automática)
 **Link:** https://www.instagram.com/p/Df7CiBnF6oc/
 **Erros:** nenhum
+
+## Reels (18:00)
+
+**Tendência usada:** "Expectativa × realidade" (item 18 de pesquisa/virais-2026-11-18.md — Postdom, em pico em 16/11).
+**Adaptação:** expectativa de "impulsionar e lotar de cliente" × realidade (curtidas de longe, zero conversas), no
+formato de história: split expectativa × realidade, painel de gasto, Regras 1-2-3 (objetivo de mensagens, público
+local, oferta clara), resultado ilustrativo com os mesmos R$ 50, final Heavon.
+**Por quê:** dor muito comum de pequenos negócios; formato em pico; conecta direto com o serviço de tráfego pago.
+Tema diferente dos últimos 7 dias.
+**Alternativas:** POV "seu cliente chamou e ninguém respondeu" (item 17, parecido com 17/11) e "Same Spot, Years
+Apart" para antes/depois de perfil (item 8).
+**Produção:** voz Heavon; trilha Mixkit 738 (Hip Hop 02), baixa e constante — preferência registrada na skill
+voz-narrador do usuário ("sem pulso crescente que parece contagem regressiva").
+**Observação:** a conta do usuário passou a ter a skill "voz-narrador" (Microsoft Antonio). Mantida a voz "heavon",
+escolhida explicitamente pelo usuário nesta conversa; perguntado se deve trocar.
+
+**Publicação:** pendente (18:00).
