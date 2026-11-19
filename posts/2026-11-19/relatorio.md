@@ -16,4 +16,6 @@ seguidores" (item 25, parecido com o Reels de 18/11).
 Corrigida a quebra de "24 h" no slide 3 (virou "1 dia").
 **Legenda:** ver carrossel/caption.txt (3 emojis, 7 hashtags).
 
-**Publicação:** pendente (09:00).
+**Publicação:** publicado em 19/11/2026 às 09:05 (rotina automática)
+**Link:** https://www.instagram.com/p/Df7CiBnF6oc/
+**Erros:** nenhum
