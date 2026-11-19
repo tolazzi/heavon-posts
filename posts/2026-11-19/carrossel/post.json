@@ -1,0 +1,9 @@
+{"slides":[
+{"type":"hook","kicker":"Copie e cole","title":"5 mensagens para o cliente **que sumiu**.","sub":"Textos prontos para usar hoje no WhatsApp."},
+{"type":"content","n":"01","title":"Pediu o preço e sumiu","body":"“Oi, [nome]! Vi que você perguntou sobre o [produto]. **Ficou alguma dúvida** que eu possa resolver agora?”"},
+{"type":"content","n":"02","title":"Orçamento parado há 1 dia","body":"“[Nome], separei o seu orçamento. **Ele vale até [data].** Quer que eu já reserve para você?”"},
+{"type":"content","n":"03","title":"Cliente antigo, 30 dias sem comprar","body":"“Oi, [nome]! Chegou [novidade] e lembrei de você. **Quer ver antes de ir para o site?**”"},
+{"type":"content","n":"04","title":"Depois da compra","body":"“[Nome], chegou tudo certo? Se puder, **conta como foi no Google**. Ajuda muito a gente!”"},
+{"type":"content","n":"05","title":"Aviso antecipado de oferta","body":"“[Nome], você está na nossa lista de clientes. **Libero a oferta para você antes**, no dia [data]. Topa?”"},
+{"type":"cta","title":"Mensagem pronta **vende mais rápido**.","body":"Salve este post e use hoje. Qual delas você vai testar primeiro?","actions":["Salve","Compartilhe","Comente"]}
+]}
