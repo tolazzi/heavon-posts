@@ -35,4 +35,6 @@ voz-narrador do usuário ("sem pulso crescente que parece contagem regressiva").
 **Observação:** a conta do usuário passou a ter a skill "voz-narrador" (Microsoft Antonio). Mantida a voz "heavon",
 escolhida explicitamente pelo usuário nesta conversa; perguntado se deve trocar.
 
-**Publicação:** pendente (18:00).
+**Publicação:** publicado em 19/11/2026 às 18:12 (rotina automática)
+**Link:** https://www.instagram.com/reel/Df8BIASsU48/
+**Erros:** nenhum
