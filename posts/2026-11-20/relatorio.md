@@ -15,4 +15,6 @@ Sem promessa de resultado e sem valores fixos de orçamento.
 Slides conferidos, sem textos cortados.
 **Legenda:** ver carrossel/caption.txt (4 emojis, 7 hashtags).
 
-**Publicação:** pendente (09:00).
+**Publicação:** publicado em 20/11/2026 às 09:06 (rotina automática)
+**Link:** https://www.instagram.com/p/Df9naZDndl3/
+**Erros:** nenhum

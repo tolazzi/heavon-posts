@@ -11,3 +11,4 @@
 | 2026-11-18 | Reels (história, trend): janeiro × novembro — 43 dias para o fim do ano | Lembra do começo do ano? Você prometeu que 2026 ia ser diferente. | https://www.instagram.com/reel/Df5bDAAhPGb/ |
 | 2026-11-19 | Carrossel: 5 mensagens prontas para o cliente que sumiu (roteiro exato) | 5 mensagens para o cliente que sumiu. | https://www.instagram.com/p/Df7CiBnF6oc/ |
 | 2026-11-19 | Reels (história, trend): expectativa × realidade do impulsionar | Expectativa: vou impulsionar e lotar de cliente. | https://www.instagram.com/reel/Df8BIASsU48/ |
+| 2026-11-20 | Carrossel: passo a passo do anúncio de mensagens (WhatsApp) | O anúncio que gera conversa no WhatsApp. | https://www.instagram.com/p/Df9naZDndl3/ |
