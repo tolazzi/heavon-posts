@@ -31,4 +31,6 @@ Black Friday; conversa com social media e tráfego pago da Heavon.
 **Alternativas:** guia de presentes (item 15) e "Same Spot, Years Apart" (item 8).
 **Produção:** voz Heavon; trilha Mixkit 318 (Thunder), baixa e constante. Sem números de resultado (não há promessa).
 
-**Publicação:** pendente (18:00).
+**Publicação:** publicado em 20/11/2026 às 18:13 (rotina automática)
+**Link:** https://www.instagram.com/reel/Df-l-4GhHA_/
+**Erros:** nenhum
