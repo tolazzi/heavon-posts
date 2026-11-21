@@ -13,4 +13,6 @@ anteriores foram mensagens de WhatsApp, anúncio de mensagens, impulsionar, sozi
 **Formato:** 7 slides — gancho "Sua loja já tem guia de presentes?" (7 palavras), 5 passos, CTA. Slides conferidos.
 **Legenda:** ver carrossel/caption.txt (3 emojis, 7 hashtags).
 
-**Publicação:** pendente (09:00).
+**Publicação:** publicado em 21/11/2026 às 09:04 (rotina automática)
+**Link:** https://www.instagram.com/p/DgAMB0XDYNy/
+**Erros:** nenhum

@@ -13,3 +13,4 @@
 | 2026-11-19 | Reels (história, trend): expectativa × realidade do impulsionar | Expectativa: vou impulsionar e lotar de cliente. | https://www.instagram.com/reel/Df8BIASsU48/ |
 | 2026-11-20 | Carrossel: passo a passo do anúncio de mensagens (WhatsApp) | O anúncio que gera conversa no WhatsApp. | https://www.instagram.com/p/Df9naZDndl3/ |
 | 2026-11-20 | Reels (história, trend): você não precisa fazer tudo sozinho | Onze e quarenta da noite. E uma pessoa só fazendo tudo. | https://www.instagram.com/reel/Df-l-4GhHA_/ |
+| 2026-11-21 | Carrossel: guia de presentes de Natal em 5 passos | Sua loja já tem guia de presentes? | https://www.instagram.com/p/DgAMB0XDYNy/ |
