@@ -28,4 +28,6 @@ e conversa com sites de alta conversão e e-commerce da Heavon.
 **Alternativas:** "Same Spot, Years Apart" (item 8) e POV (item 17).
 **Produção:** voz Heavon; trilha Mixkit 623 (Deep Urban), baixa e constante. Sem números de resultado.
 
-**Publicação:** pendente (18:00).
+**Publicação:** publicado em 21/11/2026 às 18:12 (rotina automática)
+**Link:** https://www.instagram.com/reel/DgBKqHyiyt9/
+**Erros:** nenhum
