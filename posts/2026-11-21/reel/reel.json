@@ -1,0 +1,9 @@
+{"style":"story","voice":"heavon","mood":"grave","music":623,"scenes":[
+{"kind":"phone","tag":"BLACK FRIDAY · 27/11 · 00:01","counter":{"label":"DESCONTO","value":"90%"},"notifs":[{"h":"OFERTA","t":"Fone de R$ 899 por R$ 89 😱"},{"h":"LOJA NOVA","t":"Só hoje! Pague no Pix"}],"big":"?","bigLabel":"CONFIÁVEL?","voz":"Meia-noite da Black Friday. Uma loja que você nunca viu oferece noventa por cento de desconto. Você compraria?"},
+{"kind":"chat","tag":"BLACK FRIDAY · 00:04","title":"O que o cliente pensa","msgs":["Isso é golpe?","Tem CNPJ?","Alguém já comprou aí?"],"seen":"Pesquisando antes de comprar","voz":"O cliente desconfia. E antes de comprar, ele pesquisa."},
+{"kind":"split","tag":"BLACK FRIDAY · 00:10","topLabel":"O QUE A LOJA ACHA","topQuote":"“Desconto grande vende.”","topItems":["90% OFF no banner","Contagem regressiva","Só no Pix"],"botLabel":"O QUE O CLIENTE VÊ","botQuote":"“Bom demais para ser verdade.”","botItems":["Preço que subiu ontem","Nenhuma avaliação","Sem CNPJ no site"],"voz":"A loja acha que desconto grande vende. O cliente vê um preço que subiu ontem, nenhuma avaliação e nenhum CNPJ."},
+{"kind":"rule","tag":"FALTAM 6 DIAS","n":"1","stamp":"PREÇO|HONESTO","icon":"tag","iconText":"−15%","voz":"Regra número um: desconto real, em cima do preço que você já praticava."},
+{"kind":"rule","tag":"FALTAM 6 DIAS","n":"2","stamp":"PROVA|SOCIAL","icon":"chart","voz":"Regra número dois: avaliações reais à vista, de quem já comprou de você."},
+{"kind":"rule","tag":"FALTAM 6 DIAS","n":"3","stamp":"CNPJ E|TROCAS","icon":"tag","iconText":"CNPJ","voz":"Regra número três: CNPJ, política de trocas e contato no rodapé do site e na bio."},
+{"kind":"end","title":"Desconto chama.|**Confiança vende.**","sub":"Preço honesto, avaliações reais e CNPJ à vista.","button":"Fale com a Heavon","note":"História ilustrativa","voz":"Desconto chama. Confiança vende. Prepare a sua loja com a Heavon."}
+]}

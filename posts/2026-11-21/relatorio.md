@@ -16,3 +16,16 @@ anteriores foram mensagens de WhatsApp, anúncio de mensagens, impulsionar, sozi
 **Publicação:** publicado em 21/11/2026 às 09:04 (rotina automática)
 **Link:** https://www.instagram.com/p/DgAMB0XDYNy/
 **Erros:** nenhum
+
+## Reels (18:00)
+
+**Tendência usada:** meme "Why would I deceive you?" ("por que eu enganaria você?") — item 21 de
+pesquisa/virais-2026-11-18.md (Epidemic Sound, 13/11), adaptado para ofertas "boas demais" na Black Friday.
+**Adaptação:** cliente diante de um desconto de 90% de uma loja desconhecida, desconfiança, split "o que a loja acha ×
+o que o cliente vê", Regras 1-2-3 (preço honesto, prova social, CNPJ e trocas), final "Desconto chama. Confiança vende."
+**Por quê:** Black Friday a 6 dias; tema de confiança é diferente do carrossel de 13/11 (anúncios e site, 8 dias atrás)
+e conversa com sites de alta conversão e e-commerce da Heavon.
+**Alternativas:** "Same Spot, Years Apart" (item 8) e POV (item 17).
+**Produção:** voz Heavon; trilha Mixkit 623 (Deep Urban), baixa e constante. Sem números de resultado.
+
+**Publicação:** pendente (18:00).
