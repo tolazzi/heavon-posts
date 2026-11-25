@@ -1,0 +1,9 @@
+{"style":"board","voice":"heavon","mood":"grave","music":318,"scenes":[
+{"kind":"title","tag":"Sábado, 28/11 · 9h30","text":"**212** pedidos|na Black Friday","under":true,"note":"212 clientes novos?","voz":"Sábado depois da Black Friday. Duzentos e doze pedidos. Parece que a loja ganhou duzentos clientes novos."},
+{"kind":"chart","tag":"Janeiro","label":"Voltaram para comprar","from":212,"to":9,"fromLabel":"212","toLabel":"só 9","note":"exemplo ilustrativo","voz":"Janeiro chega. Só nove voltaram para comprar de novo. Os outros nem lembram o nome da loja."},
+{"kind":"compare","tag":"O que aconteceu","top":{"label":"O QUE A LOJA PENSOU","quote":"“Vendi, acabou.”","items":["Nota emitida","Pedido enviado"]},"bot":{"label":"O QUE O CLIENTE SENTIU","quote":"“Comprei de quem?”","items":["Nenhum obrigado","Nenhum motivo"]},"voz":"A loja pensou: vendi, acabou. O cliente pensou: comprei de quem mesmo?"},
+{"kind":"step","tag":"Até 24 horas depois","n":"1","text":"Um **obrigado**|de verdade","icon":"chat","voz":"Primeiro passo: um obrigado em até vinte e quatro horas, com o nome do cliente e o prazo de entrega."},
+{"kind":"step","tag":"Quando o pedido chega","n":"2","text":"Como foi|a **entrega**?","icon":"star","voz":"Segundo passo: quando o pedido chegar, pergunte como foi. E peça a avaliação."},
+{"kind":"step","tag":"Antes do Natal","n":"3","text":"Um **motivo**|para voltar","icon":"gift","voz":"Terceiro passo: antes do Natal, dê um motivo para voltar. Uma novidade, um kit, um prazo de entrega."},
+{"kind":"end","text":"Black Friday traz.|A **segunda compra**|fica.","sub":"Salve para usar no sábado.","note":"História ilustrativa","voz":"A Black Friday traz o cliente. A segunda compra é que fica com ele."}
+]}

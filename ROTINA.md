@@ -42,13 +42,27 @@ Pastas do dia: `posts/AAAA-MM-DD/reel/`, `posts/AAAA-MM-DD/carrossel/` e `posts/
 - TODO Reels e carrossel deve partir do arquivo de tendências mais recente: escolha uma tendência dele (ou uma
   notícia do dia) e registre no relatório qual foi. Adapte o FORMATO; nunca copie vídeo/áudio de terceiros.
 
-## Formato padrão do Reels (aprovado pelo usuário em 17/11)
+## Estilo visual do Reels: QUADRO-BRANCO (escolhido pelo usuário em 25/11)
+- Use `"style": "board"` no reel.json (renderizador `tools/board_render.js`): papel claro quadriculado, letra de mão
+  (Caveat), caneta desenhando em tempo real, setas, caixas, círculos e sublinhados em vermelho, câmera que anda pelo quadro.
+- Cenas: title, chart, compare, flow, step, end (campos no topo de `tools/board_render.js`). Textos curtos
+  (até ~18 caracteres por linha; "|" quebra linha; **x** fica vermelho). Voz "heavon".
+- A estrutura de história continua (situação → o que deu errado → passos → frase final), mas no visual de quadro.
+- O estilo "story" (fundo escuro, celular, carimbos) abaixo fica só como referência; não usar sem o usuário pedir.
+
+## Formato do Reels anterior (aprovado pelo usuário em 17/11, substituído em 25/11)
 - História completa no renderizador `tools/story_render.js` ("style": "story"): situação com personagem/negócio,
-  local-dia-hora na tela, tensão, "Regra nº 1, 2, 3", virada e final com "Fale com a Heavon". Voz "heavon".
+  local-dia-hora na tela, tensão, "Regra nº 1, 2, 3" (ou "Passo"), virada e final com uma frase que fica. Voz "heavon".
 - Cenas disponíveis: phone, dashboard, chat, rule, split (antes × depois / janeiro × novembro), end.
 - Pode passar de 30 s (até ~50 s), mas tem que ter final. Números de história são ilustrativos: sinalize na tela
   ("EXEMPLO ILUSTRATIVO") e na legenda.
 - O formato com vídeos de banco (v3, tools/reel_render.js) foi REPROVADO em 17/11 ("horrível"): não usar.
+- **Menos vendedor (pedido do usuário em 25/11):** o vídeo ensina, não vende.
+  - Nada de "Fale com a Heavon", "chame a Heavon" ou "contrate" na narração nem na tela. A marca aparece só na assinatura.
+  - Na cena "end", use "button": "" (sem botão) e feche com uma ideia que fica na cabeça + um convite leve
+    ("Salve para usar no sábado", "Mande para quem precisa"). Nada de urgência falsa nem promessa.
+  - Nas cenas de passos, prefira "label": "PASSO" a "REGRA Nº" quando for um passo a passo.
+  - A legenda segue a mesma linha: valor primeiro, sem pedir contato com a agência.
 
 ## 13:00 — Reels: pesquisa de virais + criação
 0. Se `posts/AAAA-MM-DD/reel/` já existir (criado na conversa, aprovado ou aguardando aprovação — veja o relatório
@@ -61,7 +75,7 @@ Pastas do dia: `posts/AAAA-MM-DD/reel/`, `posts/AAAA-MM-DD/carrossel/` e `posts/
    (A API da Meta não permite ler vídeos de outros perfis sem aprovação do app; a pesquisa é pela web.)
 2. Escolha as 3 ideias de vídeo que mais combinam com o nicho e o público; registre o formato viral de cada uma
    (ex.: "erro x acerto", "3 coisas que...", "POV", "pare de fazer X", lista rápida, mito x verdade).
-3. Crie o Reels em `posts/AAAA-MM-DD/reel/reel.json` (formato no topo de `tools/reel.py`) — use o FORMATO PADRÃO (história, seção acima). As regras de broll abaixo valem só se o usuário pedir o formato com vídeos de banco:
+3. Crie o Reels em `posts/AAAA-MM-DD/reel/reel.json` — use o estilo QUADRO-BRANCO ("style": "board", seção acima), com o tom "menos vendedor". As regras de broll abaixo valem só se o usuário pedir o formato com vídeos de banco:
    - O usuário REPROVOU vídeos genéricos. Todo Reels precisa de: IMAGENS reais (campo "broll" em TODAS as cenas,
      vídeos de banco da Mixkit que combinem com a fala — buscar ids em https://mixkit.co/free-stock-video/<tema>/),
      INFORMAÇÃO concreta (um dado, uma notícia, um caso, um número, com a fonte na tela) e CONTEXTO (o que aconteceu,

@@ -5,7 +5,8 @@
 //   phone     {tag, counter:{label,value}, notifs:[{h,t}], big, bigLabel}
 //   dashboard {tag, spend:{label,from,to,prefix}, sales:{label,value}}
 //   chat      {tag, title, msgs:["..."], seen}
-//   rule      {tag, n, stamp, icon:"clock"|"tag"|"chart", iconText}
+//   rule      {tag, n, stamp, icon:"clock"|"tag"|"chart", iconText, label (padrão "REGRA Nº")}
+//   end       {title, sub, button ("" = sem botão), note}
 //   cliff     {tag, notif:{h,t}, part}
 const { chromium } = require('playwright');
 const fs = require('fs');
@@ -96,8 +97,8 @@ function sceneHTML(s, i) {
     ${s.counter ? `<div class="counter a-pop"><small>${esc(s.counter.label)}</small><b>${esc(s.counter.value)}</b></div>` : ''}
     <div class="phone a-phone"><div class="screen">${(s.notifs || []).map(n => `<div class="nt"><div class="h">${esc(n.h)}</div>${esc(n.t)}</div>`).join('')}
     ${s.big !== undefined ? `<div class="big a-big">${esc(s.big)}</div><div class="bl">${esc(s.bigLabel || '')}</div>` : ''}</div></div>`;
-  else if (k === 'dashboard') h = `<div class="cards"><div class="card up a-pop"><small>${esc(s.spend.label)}</small><b><span class="num" data-from="${s.spend.from}" data-to="${s.spend.to}" data-prefix="${esc(s.spend.prefix || '')}">0</span> ↑</b>
-      <svg viewBox="0 0 800 150"><polyline class="spark" fill="none" stroke="#FF3B3B" stroke-width="8" stroke-linecap="round" points="0,140 120,120 240,125 360,90 480,80 600,45 800,10"/></svg></div>
+  else if (k === 'dashboard') h = `<div class="cards"><div class="card up a-pop"><small>${esc(s.spend.label)}</small><b><span class="num" data-from="${s.spend.from}" data-to="${s.spend.to}" data-prefix="${esc(s.spend.prefix || '')}">0</span> ${s.spend.to < s.spend.from ? '↓' : '↑'}</b>
+      <svg viewBox="0 0 800 150"><polyline class="spark" fill="none" stroke="#FF3B3B" stroke-width="8" stroke-linecap="round" points="${s.spend.to < s.spend.from ? '0,10 120,30 240,25 360,60 480,70 600,105 800,140' : '0,140 120,120 240,125 360,90 480,80 600,45 800,10'}"/></svg></div>
     ${s.sales.to !== undefined
       ? `<div class="card good a-pop"><small>${esc(s.sales.label)}</small><b style="color:#3DDC84"><span class="num" data-from="${s.sales.from || 0}" data-to="${s.sales.to}" data-prefix="${esc(s.sales.prefix || '')}">0</span> ↑</b>
          <svg viewBox="0 0 800 150"><polyline class="spark" fill="none" stroke="#3DDC84" stroke-width="8" stroke-linecap="round" points="0,145 150,135 300,110 450,95 600,55 800,8"/></svg></div>`
@@ -111,7 +112,7 @@ function sceneHTML(s, i) {
     if (s.icon === 'clock') icon = `<div class="icon clock"><div class="mm"></div><div class="hh"></div></div>`;
     else if (s.icon === 'tag') icon = `<div class="icon ptag">${esc(s.iconText || 'PIX −5%')}</div>`;
     else icon = `<svg class="icon chart" viewBox="0 0 520 260"><rect x="20" y="170" width="70" height="80" rx="10" fill="#2a2a34"/><rect x="130" y="130" width="70" height="120" rx="10" fill="#2a2a34"/><rect x="240" y="90" width="70" height="160" rx="10" fill="#2a2a34"/><rect class="bar4" x="350" y="40" width="70" height="210" rx="10" fill="#E21525"/></svg>`;
-    h = `<div class="rule"><small>REGRA Nº</small><h1 class="a-num">${esc(s.n)}</h1></div><div class="stamp">${esc(s.stamp).replace(/\|/g, '<br>')}</div>${icon}`;
+    h = `<div class="rule"><small>${esc(s.label || 'REGRA Nº')}</small><h1 class="a-num">${esc(s.n)}</h1></div><div class="stamp">${esc(s.stamp).replace(/\|/g, '<br>')}</div>${icon}`;
   } else if (k === 'cliff') h = `<div class="ring" style="width:620px;height:620px;margin-left:-310px;margin-top:-310px"></div><div class="ring" style="width:900px;height:900px;margin-left:-450px;margin-top:-450px"></div>
     <div class="phone a-vib" style="top:700px"><div class="screen"><div class="nt" style="background:rgba(226,21,37,.28)"><div class="h">${esc(s.notif.h)}</div><div class="blur">${esc(s.notif.t)}</div></div></div></div>
     <div class="part"><span>CONTINUA NA</span>${esc(s.part || 'PARTE 2')}</div>`;
@@ -121,7 +122,7 @@ function sceneHTML(s, i) {
     h = half(s.topLabel, s.topQuote, s.topItems, 'top') + half(s.botLabel, s.botQuote, s.botItems, 'bot');
   }
   else if (k === 'end') h = `<div class="endt a-end">${String(esc(s.title)).replace(/\*\*(.+?)\*\*/g, '<span class="hl2">$1</span>').replace(/\|/g, '<br>')}</div>
-    <div class="ends a-pop">${esc(s.sub || '')}</div><div class="endb a-pop">${esc(s.button || 'Fale com a Heavon')}</div>
+    <div class="ends a-pop">${esc(s.sub || '')}</div>${s.button === '' ? '' : `<div class="endb a-pop">${esc(s.button || 'Fale com a Heavon')}</div>`}
     <div class="endlogo a-pop">HEAV<i>O</i>N</div>${s.note ? `<div class="note" style="position:absolute;left:0;right:0;top:1440px;text-align:center">${esc(s.note)}</div>` : ''}`;
   return `<div class="sc" id="s${i}" data-kind="${k}">${h}</div>`;
 }

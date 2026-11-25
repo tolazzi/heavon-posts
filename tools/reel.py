@@ -209,7 +209,7 @@ def main(cfg_path):
         "[md][v2]amix=inputs=2:duration=first:normalize=0,loudnorm=I=-14:TP=-1.5:LRA=9[o]",
         "-map", "[o]", "-ar", str(SR), mix)
 
-    story = cfg.get("style") == "story"
+    story = cfg.get("style") in ("story", "board")
     frames_dir = os.path.join(d, "_frames"); lst = bg = None; parts = []; cuts = []
     if not story:
         # 6) fundo com imagens reais (vídeos de banco da Mixkit), tratados com a cor da marca
@@ -252,10 +252,10 @@ def main(cfg_path):
     # 7) vídeo
     tl = os.path.join(d, "_timeline.json")
     json.dump(dict(total=total, scenes=scenes, words=words, cuts=cuts, frames=os.path.abspath(frames_dir)), open(tl, "w", encoding="utf-8"), ensure_ascii=False)
-    out = run("node", os.path.join(HERE, "story_render.js" if story else "reel_render.js"), tl, mix, os.path.join(d, "reel.mp4"), os.path.join(d, "cover.jpg"))
+    out = run("node", os.path.join(HERE, ("board_render.js" if cfg.get("style") == "board" else "story_render.js") if story else "reel_render.js"), tl, mix, os.path.join(d, "reel.mp4"), os.path.join(d, "cover.jpg"))
     print(out.stdout.decode().strip(), f"| voz {voice} x{speed} | trilha {mid} | {len(words)} palavras na legenda")
     import shutil
-    for f in (vt, vp, mp, mix, tl, lst, bg, *parts):
+    for f in (() if os.environ.get("KEEP") else (vt, vp, mp, mix, tl, lst, bg, *parts)):
         if f and os.path.exists(f):
             os.remove(f)
     shutil.rmtree(frames_dir, ignore_errors=True)
