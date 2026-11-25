@@ -34,6 +34,11 @@ Pastas do dia: `posts/AAAA-MM-DD/reel/`, `posts/AAAA-MM-DD/carrossel/` e `posts/
 - Se qualquer etapa falhar, NÃO publique nada pela metade: registre o erro no relatório e avise o usuário na conversa.
 - Erro 190 da Graph API = token expirado/inválido: avise que é preciso gerar um token novo.
 
+## Temas a evitar
+- **Black Friday:** o usuário achou que já foi falado demais (25/11). A partir do carrossel de 26/11, não use Black
+  Friday, Cyber Monday nem desconto de fim de semana como tema. Varie: atendimento/WhatsApp, site e Instagram,
+  Google Maps, anúncios, dados/CRM, planejamento de 2027, bastidores.
+
 ## Radar de tendências (pedido do usuário em 18/11)
 - Toda segunda-feira, uma tarefa agendada atualiza `pesquisa/virais-AAAA-MM-DD.md` com as 25 tendências que mais
   viralizaram nos últimos 15 dias (Brasil + globais + formatos que performam em contas de negócio), com fonte e
