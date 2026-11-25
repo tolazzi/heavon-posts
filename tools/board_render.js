@@ -139,7 +139,7 @@ window.setup=function(){
       el._r=r;
       if(el.dataset.deco==='box'){ if(el.dataset.arrow&&prevBox) seq.push(P(svg,arrow(540,prevBox.y+prevBox.h+14,r.y-12),'#17171b',8));
         seq.push(P(svg,rect(r.x,r.y,r.w,r.h),el.classList.contains('r')?'#E21525':'#17171b',8)); prevBox=r; }
-      if(el.dataset.deco==='circle') seq.push(P(svg,ellipse(r.x+r.w/2,r.y+r.h/2,r.w/2+50,r.h/2+24),'#E21525',10));
+      if(el.dataset.deco==='circle') seq.push(P(svg,ellipse(r.x+r.w/2,r.y+r.h/2,r.w/2+50,r.h/2+8),'#E21525',10));
       if(el.dataset.deco==='under') seq.push(P(svg,'M'+(r.x-10)+','+(r.y+r.h+8)+' Q'+(r.x+r.w/2)+','+(r.y+r.h+26+j(6))+' '+(r.x+r.w+16)+','+(r.y+r.h+2),'#E21525',12));
       if(el.dataset.mark){const mx=el.dataset.markleft?r.x-90:r.x+r.w+40,my=r.y+r.h/2;seq.push(P(svg,el.dataset.mark==='check'?check(mx,my):cross(mx,my),el.dataset.mark==='check'?'#2f7d4f':'#E21525',10));}
     });

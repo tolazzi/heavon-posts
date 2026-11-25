@@ -33,12 +33,38 @@ segunda (23/11) também não rodou e foi feito em 25/11.
 (tools/board_render.js). Mantida só a voz "heavon". Sem "Fale com a Heavon"; final com frase + "Salve para usar no sábado".
 **Tendência usada:** "Dê nome ao seu conceito" (item 22 de pesquisa/virais-2026-11-25.md, Tryvolume) — "a segunda compra" —
 aplicado ao pós-Black Friday (item 1). Tema diferente do carrossel de hoje (margem e desconto).
+**Ideia (roteiro ajustado pelo usuário em 25/11):** "você usa o melhor momento do ano do jeito errado". Em novembro,
+desconto e 200 pedidos; em janeiro, silêncio. Virada: o melhor mês da Black Friday é janeiro, se houver estratégia.
+Fluxo desenhado: Black Friday → 200 clientes novos → pós-venda e follow-up → relacionamento → segunda compra.
+Final: "Novembro traz. Janeiro mostra a estratégia." Números ilustrativos, sinalizados. Sem "Passo 1, 2, 3".
+**Alternativas:** "Datas duplas: por que desconto já não basta" (Exame, 25/11) e o formato "Add to Cart" (item 12).
+
+**Formato:** 7 slides — gancho "10% de desconto pode exigir 50% mais vendas." (8 palavras), 5 pontos, CTA. Slides conferidos
+(corrigida quebra de linha em "R$ 20").
+**Legenda:** ver carrossel/caption.txt (5 emojis, 9 hashtags).
+
+**Publicação:** publicado em 25/11/2026 às 09:05 (rotina automática)
+**Link:** https://www.instagram.com/p/DgKfRa8joys/
+**Erros:** nenhum
+
+## Etapas perdidas de 22 a 24/11
+
+A sessão ficou sem processar as tarefas agendadas de 22/11 (dom) a 24/11 (ter): os avisos chegaram todos juntos só em
+25/11 às 05:02. Nenhum post foi criado ou publicado nesses dias e nada foi publicado com atraso. O radar semanal de
+segunda (23/11) também não rodou e foi feito em 25/11.
+
+## Reels (18:00)
+
+**Mudança de estilo pedida pelo usuário em 25/11:** "menos vendedor" e novo visual. Escolhido: quadro-branco
+(tools/board_render.js). Mantida só a voz "heavon". Sem "Fale com a Heavon"; final com frase + "Salve para usar no sábado".
+**Tendência usada:** "Dê nome ao seu conceito" (item 22 de pesquisa/virais-2026-11-25.md, Tryvolume) — "a segunda compra" —
+aplicado ao pós-Black Friday (item 1). Tema diferente do carrossel de hoje (margem e desconto).
 **Ideia:** loja vende 212 pedidos na Black Friday e em janeiro só 9 voltam; virada "ele não precisa de mais desconto, precisa ser
 lembrado" e fluxo desenhado: obrigado em 24 h → chegou tudo certo? → motivo para voltar → segunda compra.
 A pedido do usuário, sem a sequência "Passo 1, 2, 3". História e números ilustrativos, sinalizados.
 **Alternativas:** "It's time" — virada para o Natal (item 12) e "First to react loses" com métricas ruins (item 11).
-**Produção:** 38,5 s, 6 cenas, voz Heavon, trilha Mixkit 318 (Thunder), baixa e constante. Quadros conferidos.
-**Legenda:** ver reel/caption.txt (5 emojis, 8 hashtags).
+**Produção:** 31,2 s, 5 cenas, voz Heavon, trilha Mixkit 318 (Thunder), baixa e constante. Quadros conferidos.
+**Legenda:** ver reel/caption.txt (5 emojis, 8 hashtags; gancho "Você usa o melhor momento do ano para vender do jeito errado?").
 
 **Publicação:** aguardando aprovação do usuário (primeiro vídeo no estilo novo)
 **Link:** —
