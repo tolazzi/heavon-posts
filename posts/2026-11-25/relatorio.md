@@ -17,8 +17,8 @@ Sebrae RS e Azulzinha da Caixa também orientam calcular margem antes do descont
 (corrigida quebra de linha em "R$ 20").
 **Legenda:** ver carrossel/caption.txt (5 emojis, 9 hashtags).
 
-**Publicação:** aguardando 09:00 (rotina automática)
-**Link:** —
+**Publicação:** publicado em 25/11/2026 às 09:05 (rotina automática)
+**Link:** https://www.instagram.com/p/DgKfRa8joys/
 **Erros:** nenhum
 
 ## Etapas perdidas de 22 a 24/11
