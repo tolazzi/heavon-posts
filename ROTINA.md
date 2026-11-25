@@ -47,7 +47,8 @@ Pastas do dia: `posts/AAAA-MM-DD/reel/`, `posts/AAAA-MM-DD/carrossel/` e `posts/
   (Caveat), caneta desenhando em tempo real, setas, caixas, círculos e sublinhados em vermelho, câmera que anda pelo quadro.
 - Cenas: title, chart, compare, flow, step, end (campos no topo de `tools/board_render.js`). Textos curtos
   (até ~18 caracteres por linha; "|" quebra linha; **x** fica vermelho). Voz "heavon".
-- A estrutura de história continua (situação → o que deu errado → passos → frase final), mas no visual de quadro.
+- Estrutura: situação → o que deu errado → virada → caminho desenhado (flow) → frase final. NÃO use a sequência
+  "Passo 1, 2, 3" nem "Regra nº" (pedido do usuário em 25/11); prefira flow, compare, chart e title.
 - O estilo "story" (fundo escuro, celular, carimbos) abaixo fica só como referência; não usar sem o usuário pedir.
 
 ## Formato do Reels anterior (aprovado pelo usuário em 17/11, substituído em 25/11)

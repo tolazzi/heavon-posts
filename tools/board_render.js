@@ -38,7 +38,7 @@ html,body{width:1080px;height:1920px;overflow:hidden;background:#f5f2ea}
 .big{font-weight:700}
 .mid{font-size:92px;font-weight:700}
 .sm{font-size:60px;font-weight:600;color:#3a3a44}
-.box{position:absolute;left:50%;transform:translateX(-50%);font-size:84px;font-weight:700;padding:6px 46px;text-align:center;white-space:nowrap;line-height:1.1}
+.box{position:absolute;left:0;right:0;margin:0 auto;width:fit-content;font-size:84px;font-weight:700;padding:6px 46px;text-align:center;white-space:nowrap;line-height:1.1}
 .lab{position:absolute;left:110px;font-family:Sora;font-weight:800;font-size:34px;letter-spacing:.2em}
 .it{position:absolute;left:200px;font-size:72px;font-weight:600;white-space:nowrap}
 .num{position:absolute;text-align:center;font-size:330px;font-weight:700;color:#E21525;line-height:1}

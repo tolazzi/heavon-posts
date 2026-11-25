@@ -33,11 +33,12 @@ segunda (23/11) também não rodou e foi feito em 25/11.
 (tools/board_render.js). Mantida só a voz "heavon". Sem "Fale com a Heavon"; final com frase + "Salve para usar no sábado".
 **Tendência usada:** "Dê nome ao seu conceito" (item 22 de pesquisa/virais-2026-11-25.md, Tryvolume) — "a segunda compra" —
 aplicado ao pós-Black Friday (item 1). Tema diferente do carrossel de hoje (margem e desconto).
-**Ideia:** loja vende 212 pedidos na Black Friday e em janeiro só 9 voltam; 3 passos (obrigado em 24 h, perguntar como foi
-a entrega e pedir avaliação, motivo para voltar antes do Natal). História e números ilustrativos, sinalizados.
+**Ideia:** loja vende 212 pedidos na Black Friday e em janeiro só 9 voltam; virada "ele não precisa de mais desconto, precisa ser
+lembrado" e fluxo desenhado: obrigado em 24 h → chegou tudo certo? → motivo para voltar → segunda compra.
+A pedido do usuário, sem a sequência "Passo 1, 2, 3". História e números ilustrativos, sinalizados.
 **Alternativas:** "It's time" — virada para o Natal (item 12) e "First to react loses" com métricas ruins (item 11).
-**Produção:** 43,6 s, 7 cenas, voz Heavon, trilha Mixkit 318 (Thunder), baixa e constante. Quadros conferidos.
-**Legenda:** ver reel/caption.txt (4 emojis, 8 hashtags).
+**Produção:** 38,5 s, 6 cenas, voz Heavon, trilha Mixkit 318 (Thunder), baixa e constante. Quadros conferidos.
+**Legenda:** ver reel/caption.txt (5 emojis, 8 hashtags).
 
 **Publicação:** aguardando aprovação do usuário (primeiro vídeo no estilo novo)
 **Link:** —
