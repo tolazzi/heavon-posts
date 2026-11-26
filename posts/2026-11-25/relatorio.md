@@ -41,6 +41,7 @@ Final: "Novembro traz. Janeiro mostra a estratégia." Números ilustrativos, sin
 **Produção:** 31,2 s, 5 cenas, voz Heavon, trilha Mixkit 318 (Thunder), baixa e constante. Quadros conferidos.
 **Legenda:** ver reel/caption.txt (5 emojis, 8 hashtags; gancho "Você usa o melhor momento do ano para vender do jeito errado?").
 
-**Publicação:** aprovado pelo usuário na conversa em 25/11 ("gostei"); publicar às 18:00
+**Publicação:** NÃO publicado. Aprovado pelo usuário ("gostei" / "aprovado"), mas a tarefa das 18:00 só chegou à sessão
+em 26/11 às 05:01. Não foi publicado com atraso; aguardando o usuário dizer se sai em 26/11 às 18:00.
 **Link:** —
-**Erros:** nenhum
+**Erros:** tarefa das 18:00 de 25/11 atrasou (sessão parada)
