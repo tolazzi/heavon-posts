@@ -16,3 +16,4 @@
 | 2026-11-21 | Carrossel: guia de presentes de Natal em 5 passos | Sua loja já tem guia de presentes? | https://www.instagram.com/p/DgAMB0XDYNy/ |
 | 2026-11-21 | Reels (história, trend): desconto chama, confiança vende (Black Friday) | Meia-noite da Black Friday: 90% de desconto. Você compraria? | https://www.instagram.com/reel/DgBKqHyiyt9/ |
 | 2026-11-25 | Carrossel: a conta do desconto na Black Friday (10% pede 50% mais vendas) | 10% de desconto pode exigir 50% mais vendas. | https://www.instagram.com/p/DgKfRa8joys/ |
+| 2026-11-26 | Carrossel: bio do Instagram em 4 trocas de antes e depois + teste dos 3 segundos | Sua bio explica o que você faz? | https://www.instagram.com/p/DgNECkulzX9/ |

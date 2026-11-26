@@ -13,6 +13,6 @@ depois em destaque nos slideshows de negócios) aplicado à bio do Instagram, co
 segundos, CTA. Exemplos fictícios, sinalizados na legenda. Slides conferidos (corrigida quebra em "É clara.").
 **Legenda:** ver carrossel/caption.txt (6 emojis, 8 hashtags).
 
-**Publicação:** aguardando 09:00 (rotina automática)
-**Link:** —
+**Publicação:** publicado em 26/11/2026 às 09:04 (rotina automática)
+**Link:** https://www.instagram.com/p/DgNECkulzX9/
 **Erros:** nenhum
