@@ -32,6 +32,6 @@ Quadros conferidos. Corrigida legenda inventada pelo reconhecimento de fala no s
 tools/reel.py agora descarta palavras fora do roteiro ou em trechos sem voz.
 **Legenda:** ver reel/caption.txt (4 emojis, 8 hashtags).
 
-**Publicação:** aguardando aprovação do usuário (combinado em 26/11: Reels novo enviado para aprovar antes das 18:00)
+**Publicação:** não publicado — sem aprovação do usuário até a rotina das 18:00 (rodou às 18:10)
 **Link:** —
 **Erros:** nenhum
