@@ -16,3 +16,22 @@ segundos, CTA. Exemplos fictícios, sinalizados na legenda. Slides conferidos (c
 **Publicação:** publicado em 26/11/2026 às 09:04 (rotina automática)
 **Link:** https://www.instagram.com/p/DgNECkulzX9/
 **Erros:** nenhum
+
+## Reels (18:00)
+
+**Tendência usada:** POV / "uma pessoa, uma tomada" (item 15 do radar de 25/11) e "Dê nome ao seu conceito" (item 22),
+adaptados para a busca "perto de mim" no Google Maps. Sem Black Friday (pedido do usuário em 25/11).
+**Ideia:** cliente com fome busca "pizzaria perto de mim", vê 3 nomes no mapa e liga para o primeiro; a pizzaria da esquina
+tem a melhor massa, mas no mapa não tem foto, horário nem avaliação recente. Virada: "para quem procura, quem não aparece
+não existe". Final: "Ser bom é o começo. Ser encontrado é o que vende." História ilustrativa, sem números de resultado.
+**Por quê:** negócio local é público central da Heavon; tema novo nos últimos 7 dias (Maps foi em 17/11) e diferente do
+carrossel de hoje (bio do Instagram).
+**Alternativas:** "First to react loses" com métricas ruins (item 11) e "Morning brain stack" do dono (item 16).
+**Produção:** estilo quadro-branco, 30,2 s, 5 cenas, voz Heavon, trilha Mixkit 738 (Hip Hop 02), baixa e constante.
+Quadros conferidos. Corrigida legenda inventada pelo reconhecimento de fala no silêncio final ("Até a próxima");
+tools/reel.py agora descarta palavras fora do roteiro ou em trechos sem voz.
+**Legenda:** ver reel/caption.txt (4 emojis, 8 hashtags).
+
+**Publicação:** aguardando aprovação do usuário (combinado em 26/11: Reels novo enviado para aprovar antes das 18:00)
+**Link:** —
+**Erros:** nenhum

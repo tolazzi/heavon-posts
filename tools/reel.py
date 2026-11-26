@@ -168,6 +168,16 @@ def main(cfg_path):
     segs, _ = wm.transcribe(np.frombuffer(a16, np.float32), language="pt", word_timestamps=True,
                             initial_prompt=" ".join(s["voz"] for s in cfg["scenes"]))
     words = [dict(w=w.word.strip(), start=round(w.start, 3), end=round(w.end, 3)) for sg in segs for w in sg.words if w.word.strip()]
+    # descarta palavras "inventadas" pelo reconhecimento em trechos sem voz (ex.: "Até a próxima" no silêncio final)
+    def _has_voice(w):
+        a_ = voice_track[int(w["start"] * SR):int(max(w["end"], w["start"] + 0.08) * SR)]
+        return len(a_) and float(np.sqrt((a_ ** 2).mean())) > 0.01
+    words = [w for w in words if _has_voice(w)]
+    # e palavras que não estão no roteiro (o reconhecimento às vezes completa frases sozinho)
+    import unicodedata, re as _re
+    _n = lambda x: _re.sub(r"[^a-z0-9]", "", unicodedata.normalize("NFD", x.lower()).encode("ascii", "ignore").decode())
+    _script = {_n(x) for s_ in cfg["scenes"] for x in (s_.get("voz_pron") or s_["voz"]).split()} | {_n(x) for s_ in cfg["scenes"] for x in s_["voz"].split()}
+    words = [w for w in words if _n(w["w"]) in _script or any(ch.isdigit() for ch in w["w"])]
 
     # 3) voz tratada (limpa, presente, volume de streaming)
     vt = os.path.join(d, "_voz.wav")
