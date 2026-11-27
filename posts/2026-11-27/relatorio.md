@@ -14,6 +14,6 @@ novo nos últimos 7 dias (bio do Instagram, desconto, pós-venda, guia de presen
 **Formato:** 7 slides — gancho "Você sabe quem são seus 20 melhores clientes?" (8 palavras), 5 pontos, CTA. Slides conferidos.
 **Legenda:** ver carrossel/caption.txt (5 emojis, 8 hashtags).
 
-**Publicação:** aguardando 09:00 (rotina automática)
-**Link:** —
+**Publicação:** publicado em 27/11/2026 às 09:04 (rotina automática)
+**Link:** https://www.instagram.com/p/DgPo05sDE_z/
 **Erros:** nenhum
