@@ -1,0 +1,7 @@
+{"style":"board","voice":"heavon","mood":"grave","music":738,"scenes":[
+{"kind":"title","tag":"Quinta, 20h14","text":"“pizzaria|**perto de mim**”","size":140,"under":true,"note":"o que o cliente digita","voz":"Quinta, oito da noite. Alguém com fome digita: pizzaria perto de mim."},
+{"kind":"flow","tag":"O que ele vê","nodes":[{"t":"3 nomes no mapa"},{"t":"Nota e avaliações"},{"t":"Fotos e horário"},{"t":"Liga para o primeiro","red":true,"mark":"check"}],"voz":"Aparecem três nomes no mapa. Ele olha a nota, as fotos e o horário. E liga para o primeiro que parece aberto."},
+{"kind":"compare","tag":"A pizzaria da esquina","top":{"label":"O QUE ELA TEM","quote":"“A melhor massa do bairro.”","items":["Forno a lenha","Clientes fiéis"]},"bot":{"label":"O QUE O MAPA MOSTRA","quote":"“Horário não informado.”","items":["Nenhuma foto","Última avaliação: 2024"]},"voz":"A pizzaria da esquina tem a melhor massa do bairro. Mas no mapa: nenhuma foto, nenhum horário, e a última avaliação é de dois anos atrás."},
+{"kind":"title","tag":"A virada","text":"Para quem procura,|quem não aparece|**não existe**.","size":120,"circle":true,"voz":"Para quem está procurando agora, quem não aparece no mapa simplesmente não existe."},
+{"kind":"end","text":"Ser bom é o começo.|**Ser encontrado**|é o que vende.","sub":"Confira hoje o seu perfil no Google.","note":"História ilustrativa","voz":"Ser bom é o começo. Ser encontrado é o que faz vender."}
+]}

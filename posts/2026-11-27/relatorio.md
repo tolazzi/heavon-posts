@@ -17,3 +17,14 @@ novo nos últimos 7 dias (bio do Instagram, desconto, pós-venda, guia de presen
 **Publicação:** publicado em 27/11/2026 às 09:04 (rotina automática)
 **Link:** https://www.instagram.com/p/DgPo05sDE_z/
 **Erros:** nenhum
+
+## Reels (18:00)
+
+**Reaproveitado:** o Reels criado em 26/11 ("quem não aparece no mapa não existe", quadro-branco, 30 s, voz Heavon), que não foi
+publicado por falta de aprovação. Copiado para posts/2026-11-27/reel/ em vez de criar um terceiro vídeo sem resposta do
+usuário. Detalhes de tendência, alternativas e produção: ver relatório de 26/11. Sem Black Friday.
+**Legenda:** ver reel/caption.txt (4 emojis, 8 hashtags).
+
+**Publicação:** aguardando aprovação do usuário (perguntado em 26/11 e 27/11 se os Reels voltam a sair sem aprovação)
+**Link:** —
+**Erros:** nenhum
